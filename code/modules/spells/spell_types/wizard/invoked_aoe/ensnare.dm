@@ -5,11 +5,11 @@
 	xp_gain = TRUE
 	releasedrain = 20
 	chargedrain = 1
-	chargetime = 10
+	chargetime = 20
 	recharge_time = 25 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
-	movement_interrupt = FALSE	
+	movement_interrupt = TRUE	
 	charging_slowdown = 3
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane

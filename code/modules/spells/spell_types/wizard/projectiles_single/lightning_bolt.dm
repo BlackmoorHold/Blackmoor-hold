@@ -6,7 +6,7 @@
 	sound = 'sound/magic/lightning.ogg'
 	range = 8
 	projectile_type = /obj/projectile/magic/lightning
-	releasedrain = 30
+	releasedrain = 45
 	chargedrain = 1
 	chargetime = 15
 	recharge_time = 25 SECONDS
@@ -54,8 +54,6 @@
 			var/mob/living/L = target
 			if(L.STACON <= 14)
 				L.electrocute_act(2, src, 2, SHOCK_NOSTUN)
-				L.Paralyze(10)
 			else
 				L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
-				L.Paralyze(10)
 	qdel(src)

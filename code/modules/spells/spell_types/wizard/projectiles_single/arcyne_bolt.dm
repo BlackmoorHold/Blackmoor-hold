@@ -29,7 +29,7 @@
 	name = "Arcyne Bolt"
 	icon_state = "arcane_barrage"
 	damage = 40
-	woundclass = BCLASS_BLUNT
+	woundclass = BCLASS_CUT //changed because blunt is pretty much the best damage source and this shit could KO people in full armor for some reason
 	nodamage = FALSE
 	npc_damage_mult = 1.5 // Makes it more effective against NPCs.
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'

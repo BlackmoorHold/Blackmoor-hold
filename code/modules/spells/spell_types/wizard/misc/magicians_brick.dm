@@ -8,7 +8,7 @@
 	sound = list('sound/magic/whiteflame.ogg')
 
 	releasedrain = 30
-	recharge_time = 5 SECONDS // Quite spammable
+	recharge_time = 30 SECONDS // Quite spammable
 
 	warnie = "spellwarning"
 	antimagic_allowed = FALSE
@@ -45,7 +45,7 @@
 	force = 15 // Copy pasted from real brick + 1 for neat number
 	throwforce = 20 // +2 from real brick for neat scaling
 	throw_speed = 4
-	armor_penetration = 30 // From iron tossblade
+	armor_penetration = 0
 	wdefense = 0
 	wbalance = WBALANCE_NORMAL
 	max_integrity = 50 // Don't parry with it lol

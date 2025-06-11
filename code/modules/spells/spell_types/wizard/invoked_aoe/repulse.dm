@@ -3,10 +3,10 @@
 	desc = "Conjure forth a wave of energy, repelling anyone around you."
 	cost = 3
 	xp_gain = TRUE
-	releasedrain = 50
+	releasedrain = 100
 	chargedrain = 1
-	chargetime = 5
-	recharge_time = 30 SECONDS
+	chargetime = 20
+	recharge_time = 120 SECONDS
 	ignore_los = TRUE
 	warnie = "spellwarning"
 	no_early_release = TRUE
@@ -21,7 +21,7 @@
 	glow_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 	gesture_required = TRUE // Offensive spell. Don't blast guards while chained.
-	var/stun_amt = 5
+	var/stun_amt = 3
 	var/maxthrow = 3
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG

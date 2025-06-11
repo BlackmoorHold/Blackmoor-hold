@@ -11,7 +11,7 @@
 	recharge_time = 15 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
-	movement_interrupt = FALSE
+	movement_interrupt = TRUE
 	charging_slowdown = 2
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane

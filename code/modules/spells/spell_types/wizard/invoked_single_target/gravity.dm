@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/invoked/gravity // to do: get scroll icon
 	name = "Gravity"
-	desc = "Weighten space around someone, crushing them and knocking them to the floor. Stronger opponents will resist and be off-balanced."
+	desc = "Weighten space around someone, crushing them and knocking them off balance. Stronger opponents will resist and the effects be lesser." //to elaborate, they have a spell that just instantly knocks you to the ground and disarms you, no counter. I'm fixing it sorta.
 	cost = 3
 	overlay_state = "hierophant"
 	xp_gain = TRUE
@@ -51,10 +51,10 @@
 
 			if(L.STASTR <= 15)
 				L.adjustBruteLoss(60)
-				L.Knockdown(5)
+				L.OffBalance(15)
 				to_chat(L, "<span class='userdanger'>You're magically weighed down, losing your footing!</span>")
 			else
-				L.OffBalance(10)
+				L.OffBalance(5)
 				L.adjustBruteLoss(15)
 				to_chat(L, "<span class='userdanger'>You're magically weighed down, and your strength resist!</span>")
 			
