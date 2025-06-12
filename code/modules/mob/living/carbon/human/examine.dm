@@ -17,6 +17,9 @@
 	if(HAS_TRAIT(src, TRAIT_UNSEEMLY))
 		if(!HAS_TRAIT(user, TRAIT_UNSEEMLY))
 			user.add_stress(/datum/stressevent/unseemly)
+	if(HAS_TRAIT(src, TRAIT_FREEK))
+		if(!HAS_TRAIT(user, TRAIT_FREEK))
+			user.add_stress(/datum/stressevent/freek)
 
 /mob/living/carbon/human/examine(mob/user)
 	var/observer_privilege = isobserver(user)
@@ -190,6 +193,15 @@
 					. += span_redtext("[m1] repugnant!")
 				if (THEY_THEM, THEY_THEM_F, IT_ITS)
 					. += span_redtext("[m1] repulsive!")
+
+		if (HAS_TRAIT(src, TRAIT_FREEK))
+			switch (pronouns)
+				if (HE_HIM)
+					. += span_redtext("[m1] an abomination!")
+				if (SHE_HER)
+					. += span_redtext("[m1] a vile creecher!")
+				if (THEY_THEM, THEY_THEM_F, IT_ITS)
+					. += span_redtext("[m1] a freek!")
 
 	if(user != src && HAS_TRAIT(user, TRAIT_MATTHIOS_EYES))
 		var/atom/item = get_most_expensive()

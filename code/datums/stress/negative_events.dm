@@ -316,3 +316,8 @@
 	stressadd = 15
 	desc = span_boldred("By Psydon, the great comet's shard is no more! What will we do now!?")
 	timer = 15 MINUTES
+
+/datum/stressevent/freek
+	stressadd = 3
+	desc = span_red("What an abomination!")
+	timer = 3 MINUTES

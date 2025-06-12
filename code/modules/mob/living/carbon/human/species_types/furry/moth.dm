@@ -7,6 +7,7 @@
 	desc = "A curious, insectoid creature that almost seems out of place. Uniquely, despite their size, they're capable of flight!<br>\
 	(+1 Speed)"
 	species_traits = list(EYECOLOR,LIPS,STUBBLE,MUTCOLORS,HAIR)
+	inherent_traits = list(TRAIT_FREEK)
 	possible_ages = ALL_AGES_LIST
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
 	limbs_icon_m = 'icons/mob/species/moth_male.dmi'
