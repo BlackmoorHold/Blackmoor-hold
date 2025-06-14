@@ -548,6 +548,47 @@
 				src.last_used = world.time
 	return
 
+
+/mob/living/attacked_by(obj/item/I, mob/living/user)
+	var/hitlim = simple_limb_hit(user.zone_selected)
+	var/from_behind = FALSE
+	if(user && (src.dir == turn(get_dir(src,user), 180)))
+		from_behind = TRUE
+	testing("[src] attacked_by")
+	I.funny_attack_effects(src, user)
+	if(I.force)
+		var/newforce = get_complex_damage(I, user)
+		if(from_behind && user.mind && !HAS_TRAIT(src, TRAIT_BLINDFIGHTING) && !user.has_status_effect(/datum/status_effect/debuff/stealthcd))//Backstabs do increased damage; Sneak attacks have a higher crit chance. Combined, a stealthy backstab should be very damaging.
+			var/sneakmult = 2 + (user.mind.get_skill_level(/datum/skill/misc/sneaking))
+			newforce *= sneakmult
+			user.apply_status_effect(/datum/status_effect/debuff/stealthcd)
+			to_chat(src, span_userdanger("BACKSTAB!!! THE ATTACK DEALS GREATER DAMAGE!"))
+			to_chat(user, span_userdanger("BACKSTAB!!! MY ATTACK DOES GREATER DAMAGE!"))
+			user.mind?.adjust_experience(/datum/skill/misc/sneaking, user.STAINT * 5, TRUE)
+		apply_damage(newforce, I.damtype, def_zone = hitlim)
+		if(I.damtype == BRUTE)
+			next_attack_msg.Cut()
+			if(HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
+				simple_woundcritroll(user.used_intent.blade_class, newforce, user, hitlim)
+			var/haha = user.used_intent.blade_class
+			if(newforce > 5)
+				if(haha != BCLASS_BLUNT)
+					I.add_mob_blood(src)
+					var/turf/location = get_turf(src)
+					add_splatter_floor(location)
+					if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+						user.add_mob_blood(src)
+			if(newforce > 15)
+				if(haha == BCLASS_BLUNT)
+					I.add_mob_blood(src)
+					var/turf/location = get_turf(src)
+					add_splatter_floor(location)
+					if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+						user.add_mob_blood(src)
+	send_item_attack_message(I, user, hitlim)
+	if(I.force)
+		return TRUE
+
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	var/hitlim = simple_limb_hit(user.zone_selected)
 	testing("[src] attacked_by")

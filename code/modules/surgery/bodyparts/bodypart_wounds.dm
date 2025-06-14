@@ -184,9 +184,24 @@
 	var/total_dam = get_damage()
 	var/damage_dividend = (total_dam / max_damage)
 	var/resistance = HAS_TRAIT(owner, TRAIT_CRITICAL_RESISTANCE)
+	var/from_behind = FALSE
+	if(user && (owner.dir == turn(get_dir(owner,user), 180)))
+		from_behind = TRUE
 	if (user && dam)
 		if(user.goodluck(2))
 			dam += 10
+	if(owner.resting)
+		dam += 30
+	if(from_behind || user.alpha <= 15)//Dreamkeep change -- Attacks from stealth should be much more likely to crit
+		if(user.mind && !HAS_TRAIT(owner, TRAIT_BLINDFIGHTING) && !user.has_status_effect(/datum/status_effect/debuff/stealthcd))
+			var/sneakmult = 2 + (user.mind.get_skill_level(/datum/skill/misc/sneaking))
+			dam += 30
+			dam *= sneakmult
+			user.apply_status_effect(/datum/status_effect/debuff/stealthcd)
+			animate(user, alpha = 255, time = 1 SECONDS, easing = EASE_IN) // shitcode to prevent infinite attacks from invisibility
+			to_chat(src, span_userdanger("SNEAK ATTACK!!! CRITICAL HIT CHANCE INCREASED!"))
+			to_chat(user, span_userdanger("SNEAK ATTACK!!! CRITICAL HIT CHANCE INCREASED!"))
+			user.mind?.adjust_experience(/datum/skill/misc/sneaking, user.STAINT * 5, TRUE)
 	if ((bclass = BCLASS_PUNCH) && (user && dam))
 		if(user && HAS_TRAIT(user, TRAIT_CIVILIZEDBARBARIAN))
 			dam += 15
@@ -235,9 +250,24 @@
 	var/total_dam = get_damage()
 	var/damage_dividend = (total_dam / max_damage)
 	var/resistance = HAS_TRAIT(owner, TRAIT_CRITICAL_RESISTANCE)
+	var/from_behind = FALSE
+	if(user && (owner.dir == turn(get_dir(owner,user), 180)))
+		from_behind = TRUE
 	if(user && dam)
 		if(user.goodluck(2))
 			dam += 10
+	if(owner.resting)
+		dam += 30
+	if(from_behind || user.alpha <= 15)//Dreamkeep change -- Attacks from stealth should have greatly increased crit rate.
+		if(user.mind && !HAS_TRAIT(owner, TRAIT_BLINDFIGHTING) && !user.has_status_effect(/datum/status_effect/debuff/stealthcd))
+			var/sneakmult = 2 + (user.mind.get_skill_level(/datum/skill/misc/sneaking))
+			dam += 30
+			dam *= sneakmult
+			animate(user, alpha = 255, time = 1 SECONDS, easing = EASE_IN) // shitcode to prevent infinite attacks from invisibility
+			user.apply_status_effect(/datum/status_effect/debuff/stealthcd)
+			to_chat(src, span_userdanger("SNEAK ATTACK!!! CRITICAL HIT CHANCE INCREASED!"))
+			to_chat(user, span_userdanger("SNEAK ATTACK!!! CRITICAL HIT CHANCE INCREASED!"))
+			user.mind?.adjust_experience(/datum/skill/misc/sneaking, user.STAINT * 5, TRUE)
 	if((bclass in GLOB.cbt_classes) && (zone_precise == BODY_ZONE_PRECISE_GROIN))
 		var/cbt_multiplier = 1
 		if(user && HAS_TRAIT(user, TRAIT_NUTCRACKER))
@@ -298,6 +328,17 @@
 	if(user && dam)
 		if(user.goodluck(2))
 			dam += 10
+	if(owner.resting)
+		dam += 30
+	if(from_behind || user.alpha <= 15)//Dreamkeep change -- Attacks from stealth should have greatly increased crit rate.
+		if(user.mind && !HAS_TRAIT(owner, TRAIT_BLINDFIGHTING) && !user.has_status_effect(/datum/status_effect/debuff/stealthcd))
+			var/sneakmult = 2 + (user.mind.get_skill_level(/datum/skill/misc/sneaking))
+			dam += 30
+			dam *= sneakmult
+			animate(user, alpha = 255, time = 1 SECONDS, easing = EASE_IN) // shitcode to prevent infinite attacks from invisibility
+			user.apply_status_effect(/datum/status_effect/debuff/stealthcd)
+			to_chat(src, span_userdanger("SNEAK ATTACK!!! CRITICAL HIT CHANCE INCREASED!"))
+			to_chat(user, span_userdanger("SNEAK ATTACK!!! CRITICAL HIT CHANCE INCREASED!"))
 	if((bclass in GLOB.dislocation_bclasses) && (total_dam >= max_damage))
 		used = round(damage_dividend * 20 + (dam / 3) - 10 * resistance, 1)
 		if(prob(used))
