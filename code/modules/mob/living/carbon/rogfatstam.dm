@@ -69,15 +69,12 @@
 
 	if (rogfat >= (maxrogfat * 0.7)) // if you've spent 70% of your max fatigue, the base amount you lose is doubled
 		nutrition_amount *= 2
-	if (STACON <= 9) // 10% extra nutrition loss for every CON below 9
-		var/low_end_malus = (10 - STACON) * 0.1
+	if (STACON <= 9) // 5% extra nutrition loss for every CON below 9
+		var/low_end_malus = (5 - STACON) * 0.05
 		nutrition_amount *= (1 + low_end_malus)
 	if (STACON >= 11) // 5% less nutrition loss for every CON above 11
 		var/high_end_buff = (STACON - 10) * 0.05
 		nutrition_amount *= (1 - high_end_buff)
-	if (STASTR >= 11) // 7.5% increased nutrition loss for every STR above 11. the gainz don't come cheap
-		var/swole_malus = (10 - STASTR) * 0.075
-		nutrition_amount *= (1 + swole_malus)
 	if (athletics_skill)
 		var/athletics_bonus = athletics_skill * 0.05 //each rank of athletics gives us 5% less nutrition loss
 		nutrition_amount *= (1 - athletics_bonus)
