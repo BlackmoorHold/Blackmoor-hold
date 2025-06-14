@@ -748,6 +748,12 @@
 		if(heart?.inscryption && (heart.inscryption_key in maniac.key_nums))
 			. += span_danger("[t_He] know[p_s()] [heart.inscryption_key], I AM SURE OF IT!")
 
+	if(!obscure_name || client?.prefs.masked_examine)
+		if(headshot_link && ((wear_shirt || wear_armor) || !nsfw_headshot_link))
+			. += "<span class='info'><img src=[headshot_link] width=100 height=100/></span>"
+		if(nsfw_headshot_link && !wear_armor && !wear_shirt)
+			. += "<span class='info'><img src=[nsfw_headshot_link] width=100 height=150/></span>"
+
 	if(Adjacent(user))
 		if(observer_privilege)
 			var/static/list/check_zones = list(
@@ -777,7 +783,7 @@
 
 	if((!obscure_name || client?.prefs.masked_examine) && (flavortext || headshot_link || ooc_notes))
 		. += "<a href='?src=[REF(src)];task=view_headshot;'>Examine closer</a>"
-
+		//tiny picture when you are not examining closer, shouldnt take too much space.
 	var/list/lines = build_cool_description(get_mob_descriptors(obscure_name, user), src)
 	for(var/line in lines)
 		. += span_info(line)

@@ -116,6 +116,8 @@
 	var/is_legacy = FALSE
 	var/received_resident_key = FALSE
 
+	var/nsfw_headshot_link = null
+
 	possible_rmb_intents = list(/datum/rmb_intent/feint,\
 	/datum/rmb_intent/aimed,\
 	/datum/rmb_intent/strong,\
