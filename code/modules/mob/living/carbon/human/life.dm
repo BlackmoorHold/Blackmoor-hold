@@ -318,7 +318,7 @@
 	if(!stat)
 		if(prob(33) && getToxLoss() >= 75)
 			mob_timers["puke"] = world.time
-			vomit(1, blood = TRUE)
+			vomit(1, blood = TRUE, stun = FALSE)
 
 /mob/living/carbon/human/has_smoke_protection()
 	if(wear_mask)
