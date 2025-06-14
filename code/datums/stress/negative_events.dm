@@ -113,7 +113,7 @@
 	desc = span_boldred("Oh no! I've received divine punishment!")
 
 /datum/stressevent/virginchurch
-	timer = 999 MINUTES
+	timer = 20 MINUTES
 	stressadd = 10
 	desc = span_boldred("I have broken my oath of chastity to The Gods!")
 
@@ -255,17 +255,17 @@
 /datum/stressevent/noble_impoverished_food
 	stressadd = 2
 	desc = span_boldred("This is disgusting. How can anyone eat this?")
-	timer = 10 MINUTES
+	timer = 5 MINUTES
 
 /datum/stressevent/noble_desperate
-	stressadd = 6
+	stressadd = 3
 	desc = span_boldred("What level of desperation have I fallen to?")
-	timer = 60 MINUTES
+	timer = 15 MINUTES
 
 /datum/stressevent/noble_bland_food
 	stressadd = 1
 	desc = span_red("This fare is really beneath me. I deserve better than this...")
-	timer = 5 MINUTES
+	timer = 3 MINUTES
 
 /datum/stressevent/tortured/on_apply(mob/living/user)
 	. = ..()
@@ -275,7 +275,7 @@
 /datum/stressevent/noble_bad_manners
 	stressadd = 1
 	desc = span_red("I should've used a spoon...")
-	timer = 5 MINUTES
+	timer = 3 MINUTES
 
 /datum/stressevent/noble_ate_without_table
 	stressadd = 1
