@@ -83,3 +83,17 @@
 			playsound(user,pick('sound/items/drink_gen (1).ogg','sound/items/drink_gen (2).ogg','sound/items/drink_gen (3).ogg'), 100, TRUE)
 		return
 	..()
+
+/obj/structure/well/fountain/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/W = I
+		if(W.reagents.holder_full())
+			to_chat(user, span_warning("[W] is full."))
+			return
+		if(do_after(user, 30, target = src))
+			var/list/waterl = list(/datum/reagent/water = 100)
+			W.reagents.add_reagent_list(waterl)
+			to_chat(user, "<span class='notice'>I fill [W] from [src].</span>")
+			playsound(user, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 80, FALSE)
+			return
+	else ..()
