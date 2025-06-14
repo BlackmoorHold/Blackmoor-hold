@@ -6,6 +6,7 @@
 	description = "A toxic chemical."
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_description = "bitterness"
+	metabolization_rate = REAGENTS_METABOLISM * 0.5
 	taste_mult = 1.2
 	harmful = TRUE
 	var/toxpwr = 1.5

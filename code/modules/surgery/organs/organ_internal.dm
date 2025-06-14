@@ -150,7 +150,7 @@
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/organpoison = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/organpoison = 1)
 	foodtype = RAW | MEAT | GROSS
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	var/obj/item/organ/organ_inside
@@ -174,8 +174,8 @@
 	return
 
 /obj/item/reagent_containers/food/snacks/organ/heart
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/organpoison = 2)
-	grind_results = list(/datum/reagent/organpoison = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/toxin/stampoison = 2)
+	grind_results = list(/datum/reagent/toxin/stampoison = 6)
 
 /obj/item/reagent_containers/food/snacks/organ/heart/check_culling(mob/living/eater)
 	. = ..()

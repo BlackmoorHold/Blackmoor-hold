@@ -57,6 +57,21 @@
 	new /obj/item/rogueweapon/mace/cudgel(src)
 	new /obj/item/rope/chain(src)
 
+/datum/roguestock/import/redpotionweak
+	name = "Crate of Lesser Health Potions"
+	desc = "Red that MIGHT keep men alive, on a budget."
+	item_type = /obj/structure/closet/crate/chest/steward/redpotionweak
+	export_price = 50
+	importexport_amt = 1
+
+/obj/structure/closet/crate/chest/steward/redpotionweak/Initialize()
+	. = ..()
+	new /obj/item/reagent_containers/glass/bottle/rogue/minorhealthpot(src)
+	new /obj/item/reagent_containers/glass/bottle/rogue/minorhealthpot(src)
+	new /obj/item/reagent_containers/glass/bottle/rogue/minorhealthpot(src)
+	new /obj/item/reagent_containers/glass/bottle/rogue/minorhealthpot(src)
+	new /obj/item/reagent_containers/glass/bottle/rogue/minorhealthpot(src)
+
 /datum/roguestock/import/redpotion
 	name = "Crate of Health Potions"
 	desc = "Red that keeps men alive."

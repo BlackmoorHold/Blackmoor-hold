@@ -214,7 +214,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/iron
 	range = 15
 	hitsound = 'sound/combat/hits/hi_arrow2.ogg'
-	poisontype = /datum/reagent/stampoison
+	poisontype = /datum/reagent/toxin/stampoison
 	poisonamount = 2
 	slur = 10
 	eyeblur = 10

@@ -118,7 +118,7 @@
 	name = "berry pie"
 	desc = "A delicious, homemade pie made with wild berries. Still needs to be sliced."
 	slices_num = 4
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD, /datum/reagent/berrypoison = 12)
+	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD, /datum/reagent/toxin/berrypoison = 12)
 	tastes = list("crispy butterdough" = 1, "bitter berries" =1)
 	filling_color = "#4a62cf"
 
