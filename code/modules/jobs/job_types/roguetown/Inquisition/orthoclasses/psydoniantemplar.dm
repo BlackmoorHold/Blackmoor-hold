@@ -15,6 +15,37 @@
 	has_loadout = TRUE
 	wrists = /obj/item/clothing/neck/roguetown/psicross/silver
 	cloak = /obj/item/clothing/cloak/psydontabard
+	switch(H.patron?.type)
+		if(/datum/patron/divine/astrata)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
+			cloak = /obj/item/clothing/cloak/templar/astratan
+		if(/datum/patron/divine/abyssor)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/abyssor
+			cloak = /obj/item/clothing/cloak/abyssortabard
+		if(/datum/patron/divine/xylix)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/silver
+			cloak = /obj/item/clothing/cloak/templar/xylixian
+		if(/datum/patron/divine/dendor)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/dendor
+			cloak = /obj/item/clothing/cloak/tabard/crusader/dendor
+		if(/datum/patron/divine/necra)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/necra
+			cloak = /obj/item/clothing/cloak/templar/necran
+		if(/datum/patron/divine/pestra)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/pestra
+			cloak = /obj/item/clothing/cloak/templar/pestran
+		if(/datum/patron/divine/eora)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/eora
+			cloak = /obj/item/clothing/cloak/templar/eoran
+		if(/datum/patron/divine/noc)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/noc
+			cloak = /obj/item/clothing/cloak/tabard/crusader/noc
+		if(/datum/patron/divine/ravox)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/ravox
+			cloak = /obj/item/clothing/cloak/tabard/crusader/ravox
+		if(/datum/patron/divine/malum)
+			wrists = /obj/item/clothing/neck/roguetown/psicross/malum
+			cloak = /obj/item/clothing/cloak/templar/malumite
 	backr = /obj/item/rogueweapon/shield/tower/metal
 	gloves = /obj/item/clothing/gloves/roguetown/chain/psydon
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
