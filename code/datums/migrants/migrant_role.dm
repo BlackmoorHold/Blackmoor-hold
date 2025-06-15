@@ -25,9 +25,9 @@
 /datum/migrant_role/proc/after_spawn(mob/living/carbon/human/character)
 	return
 
-/datum/migrant_role/pilgrim
-	name = "Pilgrim"
-	advclass_cat_rolls = list(CTAG_PILGRIM = 20)
+// /datum/migrant_role/pilgrim
+// 	name = "Pilgrim"
+// 	advclass_cat_rolls = list(CTAG_PILGRIM = 20)
 
 /datum/migrant_role/adventurer
 	name = "Adventurer"
