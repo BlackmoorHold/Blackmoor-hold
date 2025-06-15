@@ -149,6 +149,56 @@
 	beltl = /obj/item/rogueweapon/sword/long/psysword
 	backpack_contents = list(/obj/item/storage/keyring/puritan = 1, /obj/item/lockpickring/mundane = 1, /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger, /obj/item/grapplinghook = 1, /obj/item/storage/belt/rogue/pouch/coins/rich = 1)
 
+///A rare breed of Inquisitor who combines raw physical might with investigative prowess. These beplumed officers are trained in the martial arts of the Otavan Disciples, allowing them to subdue suspects with ease while maintaining their role as investigators of heresy.
+
+/datum/advclass/puritan/monk
+	name = "Monk"
+	tutorial = "A rare breed of Inquisitor who combines raw physical might with investigative prowess. These beplumed officers are trained in the martial arts of the Otavan Disciples, allowing them to subdue suspects with ease while maintaining their role as investigators of heresy."
+	outfit = /datum/outfit/job/roguetown/puritan/monk
+	category_tags = list(CTAG_PURITAN)
+
+/datum/outfit/job/roguetown/puritan/monk/pre_equip(mob/living/carbon/human/H)
+	..()
+	if(H.mind)
+		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 5, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 5, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 5, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 6, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 6, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
+		H.change_stat("strength", 4)
+		H.change_stat("endurance", 4)
+		H.change_stat("constitution", 4)
+		H.change_stat("speed", 1)
+	H.verbs |= /mob/living/carbon/human/proc/faith_test
+	H.verbs |= /mob/living/carbon/human/proc/torture_victim
+	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_SILVER_BLESSED, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_INQUISITION, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_PURITAN, JOB_TRAIT)
+	ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_CRITICAL_RESISTANCE, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
+	var/datum/devotion/C = new /datum/devotion(H, H.patron)
+	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = FALSE, devotion_limit = CLERIC_REQ_1)
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
+	belt = /obj/item/storage/belt/rogue/leather/knifebelt/black/psydon
+	neck = /obj/item/clothing/neck/roguetown/leather
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots/otavan/inqboots
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
+	backr = /obj/item/storage/backpack/rogue/satchel
+	head = /obj/item/clothing/head/roguetown/inqhat
+	gloves = /obj/item/clothing/gloves/roguetown/otavan/inqgloves
+	beltl = /obj/item/rogueweapon/katar
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat
+	beltr = /obj/item/rogueweapon/knuckles/eora
+	backpack_contents = list(/obj/item/storage/keyring/puritan = 1, /obj/item/lockpickring/mundane = 1, /obj/item/grapplinghook = 1, /obj/item/storage/belt/rogue/pouch/coins/rich = 1)
+
 /obj/item/clothing/gloves/roguetown/chain/blk
 		color = CLOTHING_GREY
 
