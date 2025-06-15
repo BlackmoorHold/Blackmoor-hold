@@ -6,7 +6,7 @@
 	total_positions = 3
 	spawn_positions = 3
 	allowed_ages = ALL_AGES_LIST
-	allowed_races = RACES_TOLERATED_UP
+	allowed_races = RACES_SHUNNED_UP//Outsider nobility, perhaps.
 	allowed_patrons = NON_PSYDON_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_COUNCILLOR

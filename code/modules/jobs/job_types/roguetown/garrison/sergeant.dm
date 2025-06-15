@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_TOLERATED_UP
+	allowed_races = RACES_SHUNNED_UP//Identical to MAA.
 	allowed_patrons = NON_PSYDON_PATRONS
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	tutorial = "You are the most experienced of the Crown's Soldiery, leading the men-at-arms in maintaining order and attending to threats and crimes below the court's attention. \
@@ -14,7 +14,7 @@
 	display_order = JDO_SERGEANT
 	whitelist_req = TRUE
 	round_contrib_points = 3
-	
+
 
 	outfit = /datum/outfit/job/roguetown/sergeant
 	advclass_cat_rolls = list(CTAG_SERGEANT = 20)
@@ -55,7 +55,7 @@
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale	
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored
 	id = /obj/item/scomstone/garrison
 
@@ -77,7 +77,7 @@
 	H.mind.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/shields, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)	
+	H.mind.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
@@ -154,7 +154,7 @@
 		if(user.job == "Knight Captain")
 			if(!(target.job in list("Knight", "Squire")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
-				return		
+				return
 		if(target == user)
 			to_chat(user, span_alert("I cannot order myself!"))
 			return
@@ -216,7 +216,7 @@
 		if(user.job == "Knight Captain")
 			if(!(target.job in list("Knight", "Squire")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
-				return		
+				return
 		if(target == user)
 			to_chat(user, span_alert("I cannot order myself!"))
 			return
@@ -247,7 +247,7 @@
 		if(user.job == "Knight Captain")
 			if(!(target.job in list("Knight", "Squire")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
-				return		
+				return
 		if(target == user)
 			to_chat(user, span_alert("I cannot order myself!"))
 			return
@@ -305,7 +305,7 @@
 		if(user.job == "Knight Captain")
 			if(!(target.job in list("Knight", "Squire")))
 				to_chat(user, span_alert("I cannot order one not of my ranks!"))
-				return		
+				return
 		if(target == user)
 			to_chat(user, span_alert("I cannot order myself!"))
 			return
@@ -351,7 +351,7 @@
 			return
 		if(HAS_TRAIT(target, TRAIT_CRITICAL_WEAKNESS))
 			to_chat(user, span_alert("They are already vulnerable!"))
-			return	
+			return
 		user.say("[msg]")
 		target.apply_status_effect(/datum/status_effect/debuff/order/focustarget)
 		return TRUE
