@@ -1,5 +1,6 @@
 /datum/job/roguetown/knight
 	title = "Knight"
+	f_title = "Dame"
 	flag = KNIGHT
 	department_flag = NOBLEMEN
 	faction = "Station"
