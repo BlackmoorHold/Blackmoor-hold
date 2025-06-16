@@ -6,7 +6,6 @@
 	total_positions = 3
 	spawn_positions = 3
 	allowed_races = RACES_TOLERATED_UP
-	allowed_patrons = NON_PSYDON_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 	tutorial = "Having proven yourself both loyal and capable, you have been knighted to serve the realm as the royal family's sentry. \
@@ -18,7 +17,7 @@
 
 	give_bank_account = 22
 	noble_income = 10
-	min_pq = 8
+	min_pq = 0
 	max_pq = null
 	round_contrib_points = 2
 
@@ -50,11 +49,57 @@
 		H.real_name = "[honorary] [prev_real_name]"
 		H.name = "[honorary] [prev_name]"
 
+		// Share lord's faith if lord exists
+		var/mob/living/carbon/human/lord = SSticker.rulermob
+		if(istype(lord) && lord.patron)
+			if(H.mind)
+				H.set_patron(lord.patron)
+				to_chat(H, "<span class='notice'>As a knight of the realm, you share the faith of your liege, [SSticker.rulertype] [lord.real_name].</span>")
+				// Register signals for lord's death/revival and patron changes
+				RegisterSignal(lord, COMSIG_LIVING_DEATH, PROC_REF(check_lord_death))
+				RegisterSignal(lord, COMSIG_LIVING_REVIVE, PROC_REF(check_lord_revival))
+				RegisterSignal(lord, COMSIG_MOB_PATRON_CHANGED, PROC_REF(check_lord_patron_change))
+
 		for(var/X in peopleknowme)
 			for(var/datum/mind/MF in get_minds(X))
 				if(MF.known_people)
 					MF.known_people -= prev_real_name
 					H.mind.person_knows_me(MF)
+
+/datum/job/roguetown/knight/proc/check_lord_death(mob/living/carbon/human/H)
+	if(H == SSticker.rulermob)
+		for(var/mob/living/carbon/human/knight in GLOB.human_list)
+			if(knight.job == "Knight")
+				ADD_TRAIT(knight, TRAIT_LORDLESS, TRAIT_GENERIC)
+				to_chat(knight, "<span class='warning'>Your liege has fallen! You feel weakened until a new ruler is crowned.</span>")
+				knight.change_stat("strength", -1)
+				knight.change_stat("intelligence", -1)
+				knight.change_stat("constitution", -1)
+				knight.change_stat("endurance", -1)
+				knight.change_stat("speed", -1)
+				knight.change_stat("perception", -1)
+				knight.change_stat("fortune", -1)
+
+/datum/job/roguetown/knight/proc/check_lord_revival(mob/living/carbon/human/H)
+	if(H == SSticker.rulermob)
+		for(var/mob/living/carbon/human/knight in GLOB.human_list)
+			if(knight.job == "Knight")
+				REMOVE_TRAIT(knight, TRAIT_LORDLESS, TRAIT_GENERIC)
+				to_chat(knight, "<span class='notice'>Your liege has returned! Your strength is restored.</span>")
+				knight.change_stat("strength", 1)
+				knight.change_stat("intelligence", 1)
+				knight.change_stat("constitution", 1)
+				knight.change_stat("endurance", 1)
+				knight.change_stat("speed", 1)
+				knight.change_stat("perception", 1)
+				knight.change_stat("fortune", 1)
+
+/datum/job/roguetown/knight/proc/check_lord_patron_change(mob/living/carbon/human/H)
+	if(H == SSticker.rulermob)
+		for(var/mob/living/carbon/human/knight in GLOB.human_list)
+			if(knight.job == "Knight")
+				knight.set_patron(H.patron)
+				to_chat(knight, "<span class='notice'>Your liege has changed faith! As their knight, you now follow [H.patron.name].</span>")
 
 /datum/outfit/job/roguetown/knight
 	cloak = /obj/item/clothing/cloak/stabard/surcoat/guard

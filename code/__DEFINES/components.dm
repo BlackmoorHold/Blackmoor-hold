@@ -220,6 +220,7 @@
 
 // /mob signals
 #define COMSIG_MOB_DEATH "mob_death"							//from base of mob/death(): (gibbed)
+#define COMSIG_MOB_PATRON_CHANGED "mob_patron_changed"			//from base of mob/living/carbon/human/set_patron(): (datum/patron/new_patron)
 
 #define COMSIG_MOB_CLICKON "mob_clickon"						//from base of mob/clickon(): (atom/A, params)
 #define COMSIG_MOB_MIDDLECLICKON "mob_middleclickon"			//from base of mob/MiddleClickOn(): (atom/A)

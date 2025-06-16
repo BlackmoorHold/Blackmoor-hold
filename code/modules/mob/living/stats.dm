@@ -1,4 +1,3 @@
-	
 #define STAT_STRENGTH "strength"
 #define STAT_PERCEPTION "perception"
 #define STAT_INTELLIGENCE "intelligence"
@@ -41,6 +40,7 @@
 		patron.on_loss(src)
 	patron = new_patron
 	new_patron.on_gain(src)
+	SEND_SIGNAL(src, COMSIG_MOB_PATRON_CHANGED, new_patron)
 	return TRUE
 
 /datum/species
