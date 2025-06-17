@@ -32,7 +32,7 @@
 	hitscan = TRUE
 	movement_type = UNSTOPPABLE
 	light_color = LIGHT_COLOR_WHITE
-	damage = 15
+	damage = 25
 	damage_type = BURN
 	accuracy = 40 // Base accuracy is lower for burn projectiles because they bypass armor
 	nodamage = FALSE
@@ -54,8 +54,6 @@
 			var/mob/living/L = target
 			if(L.STACON <= 14)
 				L.electrocute_act(2, src, 2, SHOCK_NOSTUN)
-				L.Paralyze(10)
 			else
 				L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
-				L.Paralyze(10)
 	qdel(src)
