@@ -30,11 +30,15 @@ SUBSYSTEM_DEF(droning)
 	play_area_sound(area_entered, entering)
 
 /datum/controller/subsystem/droning/proc/play_area_sound(area/area_player, client/listener)
-	if(!area_player || !listener)
+	if(!area_player || !listener || !area_player.we_droning_here || !area_player.droning_sound)
 		return
-	
+	if(listener?.prefs.musicvol <= 0)
+		return	
+	var/used_sound
+
 	if(SSticker.current_state >= GAME_STATE_FINISHED) //stop drones in round end
 		return
+	
 
 	if(area_player.we_droning_here)
 
@@ -83,7 +87,10 @@ SUBSYSTEM_DEF(droning)
 		return
 
 	var/frenq = 1
-
+	
+	if(dreamer?.prefs.musicvol <= 0)
+		return
+	
 	if(HAS_TRAIT(dreamer.mob, TRAIT_DRUQK))
 		frenq = -1
 
@@ -162,7 +169,10 @@ SUBSYSTEM_DEF(droning)
 	//kill the previous looping
 	kill_loop(dreamer)
 
-	var/amb_sound_list = null
+	if(dreamer?.prefs.musicvol <= 0)
+		return
+
+	var/loopsounds = null
 	if(area_entered.we_looping_here)
 		if(GLOB.tod == "night")
 			if(area_entered.ambientnight)
@@ -194,7 +204,10 @@ SUBSYSTEM_DEF(droning)
 		return
 	kill_rain(dreamer)
 
-	var/amb_sound_list = null
+	if(dreamer?.prefs.musicvol <= 0)
+		return
+
+	var/rainsounds = null
 	if(area_entered.ambientrain)
 		amb_sound_list = area_entered.ambientrain
 
