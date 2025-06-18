@@ -32,20 +32,20 @@ SUBSYSTEM_DEF(droning)
 /datum/controller/subsystem/droning/proc/play_area_sound(area/area_player, client/listener)
 	if(!area_player || !listener || !area_player.we_droning_here || !area_player.droning_sound)
 		return
-	if(listener?.prefs.musicvol <= 0)
-		return	
-	var/used_sound
 
 	if(SSticker.current_state >= GAME_STATE_FINISHED) //stop drones in round end
 		return
 	
-
 	if(area_player.we_droning_here)
 
 		if(!area_player.droning_sound)
 			return
 		var/used_sound
 
+        if(listener?.prefs.musicvol <= 0)
+		return
+
+	    var/used_sounds
 		if(GLOB.tod == "dawn")
 			if(area_player.droning_sound_dawn)
 				used_sound = area_player.droning_sound_dawn
@@ -171,6 +171,9 @@ SUBSYSTEM_DEF(droning)
 
 	if(dreamer?.prefs.musicvol <= 0)
 		return
+
+	var/loopsounds = null
+	if(area_entered.we_looping_here)
 
 	var/loopsounds = null
 	if(area_entered.we_looping_here)
