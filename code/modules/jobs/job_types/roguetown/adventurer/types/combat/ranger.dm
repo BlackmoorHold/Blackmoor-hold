@@ -77,7 +77,10 @@
 			gloves = /obj/item/clothing/gloves/roguetown/fingerless
 			wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 			belt = /obj/item/storage/belt/rogue/leather/knifebelt/iron
-			armor = /obj/item/clothing/suit/roguetown/armor/leather
+			if(should_wear_femme_clothes(H))
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/bikini
+			else
+				armor = /obj/item/clothing/suit/roguetown/armor/leather
 			cloak = /obj/item/clothing/cloak/raincloak/mortus
 			backl = /obj/item/storage/backpack/rogue/satchel
 			beltl = /obj/item/rogueweapon/huntingknife/idagger/steel
@@ -184,7 +187,10 @@
 			var/armor_choice = input("Choose your armor.", "TAKE UP ARMS") as anything in armors
 			switch(armor_choice)
 				if("Light Armor")
-					armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
+					if(should_wear_femme_clothes(H))
+						armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/bikini
+					else
+						armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
 					pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
 					gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
 					ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)

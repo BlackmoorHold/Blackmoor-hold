@@ -135,7 +135,10 @@ Archer is basically a 'bounty-catcher' in function, less specialized at close-qu
 	ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)		//You don't get medium armor training, instead you get a bonus to light armor usage.
 
 	head = /obj/item/clothing/head/roguetown/roguehood/red		//To-do: Make a guard hood come in kingdom's colors.
-	armor = /obj/item/clothing/suit/roguetown/armor/leather		//So they get default-dodge expert usage.
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/bikini		//So they get default-dodge expert usage.
+	else
+		armor = /obj/item/clothing/suit/roguetown/armor/leather		//So they get default-dodge expert usage.
 	beltr = /obj/item/quiver/bolts
 	backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 	backr = /obj/item/storage/backpack/rogue/satchel/black

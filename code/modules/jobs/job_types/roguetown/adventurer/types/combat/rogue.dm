@@ -70,7 +70,10 @@
 		if("Thief")
 			to_chat(H, span_warning("You are a scoundrel and a thief. A master in getting into places you shouldn't be and taking things that aren't rightfully yours."))
 			pants = /obj/item/clothing/under/roguetown/trou/leather
-			armor = /obj/item/clothing/suit/roguetown/armor/leather
+			if(should_wear_femme_clothes(H))
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/bikini
+			else
+				armor = /obj/item/clothing/suit/roguetown/armor/leather
 			cloak = /obj/item/clothing/cloak/raincloak/mortus
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 			backl = /obj/item/storage/backpack/rogue/backpack
