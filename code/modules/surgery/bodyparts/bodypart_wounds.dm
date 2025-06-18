@@ -1,16 +1,16 @@
 /obj/item/bodypart
-	/// List of /datum/wound instances affecting this bodypart
+	/// List of /datum/wound instances affecting this bodypart.
 	var/list/datum/wound/wounds
-	/// List of items embedded in this bodypart
+	/// List of items embedded in this bodypart.
 	var/list/obj/item/embedded_objects = list()
-	/// Bandage, if this ever hard dels thats fucking silly lol
+	/// Bandage, if this ever hard dels thats focking silly snort.
 	var/obj/item/bandage
 
 /// Checks if we have any embedded objects whatsoever
 /obj/item/bodypart/proc/has_embedded_objects()
 	return length(embedded_objects)
 
-/// Checks if we have an embedded object of a specific type
+/// Checks if we have an embedded object of a specific type.
 /obj/item/bodypart/proc/has_embedded_object(path, specific = FALSE)
 	if(!path)
 		return
@@ -19,13 +19,13 @@
 			continue
 		return embedder
 
-/// Checks if an object is embedded in us
+/// Checks if an object is embedded in us.
 /obj/item/bodypart/proc/is_object_embedded(obj/item/embedder)
 	if(!embedder)
 		return FALSE
 	return (embedder in embedded_objects)
 
-/// Returns all wounds on this limb that can be sewn
+/// Returns all wounds on this limb that can be sewn.
 /obj/item/bodypart/proc/get_sewable_wounds()
 	var/list/woundies = list()
 	for(var/datum/wound/wound as anything in wounds)
@@ -34,7 +34,7 @@
 		woundies += wound
 	return woundies
 
-/// Returns the first wound of the specified type on this bodypart
+/// Returns the first wound of the specified type on this bodypart.
 /obj/item/bodypart/proc/has_wound(path, specific = FALSE)
 	if(!path)
 		return
@@ -43,7 +43,7 @@
 			continue
 		return wound
 
-/// Heals wounds on this bodypart by the specified amount
+/// Heals wounds on this bodypart by the specified amount.
 /obj/item/bodypart/proc/heal_wounds(heal_amount)
 	if(!length(wounds))
 		return FALSE
@@ -56,7 +56,7 @@
 		healed_any = TRUE
 	return healed_any
 
-/// Adds a wound to this bodypart, applying any necessary effects
+/// Adds a wound to this bodypart, applying any necessary effects.
 /obj/item/bodypart/proc/add_wound(datum/wound/wound, silent = FALSE, crit_message = FALSE)
 	if(!wound || !owner || (owner.status_flags & GODMODE))
 		return
@@ -75,7 +75,7 @@
 		return
 	return wound
 
-/// Removes a wound from this bodypart, removing any associated effects
+/// Removes a wound from this bodypart, removing any associated effects.
 /obj/item/bodypart/proc/remove_wound(datum/wound/wound)
 	if(ispath(wound))
 		wound = has_wound(wound)
@@ -85,7 +85,7 @@
 	if(.)
 		qdel(wound)
 
-/// Check to see if we can apply a bleeding wound on this bodypart
+/// Check to see if we can apply a bleeding wound on this bodypart.
 /obj/item/bodypart/proc/can_bloody_wound()
 	if(skeletonized)
 		return FALSE
@@ -95,7 +95,7 @@
 		return FALSE
 	return TRUE
 
-/// Returns the total bleed rate on this bodypart
+/// Returns the total bleed rate on this bodypart.
 /obj/item/bodypart/proc/get_bleed_rate()
 	var/bleed_rate = 0
 	if(bandage && !HAS_BLOOD_DNA(bandage))
@@ -115,7 +115,7 @@
 		return min(bleed_rate, 0.5)
 	return bleed_rate
 
-/// Called after a bodypart is attacked so that wounds and critical effects can be applied
+/// Called after a bodypart is attacked so that wounds and critical effects can be applied.
 /obj/item/bodypart/proc/bodypart_attacked_by(bclass = BCLASS_BLUNT, dam, mob/living/user, zone_precise = src.body_zone, silent = FALSE, crit_message = FALSE)
 	if(!bclass || !dam || !owner || (owner.status_flags & GODMODE))
 		return FALSE
@@ -124,8 +124,8 @@
 		var/mob/living/carbon/human/human_owner = owner
 		if(human_owner.checkcritarmor(zone_precise, bclass))
 			return FALSE
-		if(owner.mind && get_damage() < max_damage/2) //No crits except if it hits a damage threshold on players.
-			if(owner.mobility_flags & MOBILITY_STAND && !owner.buckled) //Unless they're buckled or lying down.
+		if(owner.mind && get_damage() < max_damage/2) // No crits except if it hits a damage threshold on players.
+			if(owner.mobility_flags & MOBILITY_STAND && !owner.buckled) // Unless they're buckled or lying down.
 				do_crit = FALSE
 	if(user)
 		if(user.goodluck(2))
@@ -134,7 +134,7 @@
 			do_crit = FALSE
 	testing("bodypart_attacked_by() dam [dam]")
 	var/added_wound
-	switch(bclass) //do stuff but only when we are a blade that adds wounds
+	switch(bclass) // Do stuff but only when we are a blade that adds wounds.
 		if(BCLASS_SMASH, BCLASS_BLUNT)
 			switch(dam)
 				if(20 to INFINITY)
@@ -175,7 +175,7 @@
 			return crit_attempt
 	return added_wound
 
-/// Behemoth of a proc used to apply a wound after a bodypart is damaged in an attack
+/// Behemoth of a proc used to apply a wound after a bodypart is damaged in an attack.
 /obj/item/bodypart/proc/try_crit(bclass = BCLASS_BLUNT, dam, mob/living/user, zone_precise = src.body_zone, silent = FALSE, crit_message = FALSE)
 	if(!bclass || !dam || (owner.status_flags & GODMODE))
 		return FALSE
@@ -390,7 +390,7 @@
 			return applied
 	return FALSE
 
-/// Embeds an object in this bodypart
+/// Embeds an object in this bodypart.
 /obj/item/bodypart/proc/add_embedded_object(obj/item/embedder, silent = FALSE, crit_message = FALSE)
 	if(!embedder || !can_embed(embedder))
 		return FALSE
@@ -416,7 +416,7 @@
 		update_disabled()
 	return TRUE
 
-/// Removes an embedded object from this bodypart
+/// Removes an embedded object from this bodypart.
 /obj/item/bodypart/proc/remove_embedded_object(obj/item/embedder)
 	if(!embedder)
 		return FALSE
@@ -490,7 +490,7 @@
 	owner?.update_damage_overlays()
 	return TRUE
 
-/// Applies a temporary paralysis effect to this bodypart
+/// Applies a temporary paralysis effect to this bodypart.
 /obj/item/bodypart/proc/temporary_crit_paralysis(duration = 60 SECONDS, brittle = TRUE)
 	if(HAS_TRAIT(src, TRAIT_BRITTLE))
 		return FALSE
@@ -502,7 +502,7 @@
 		update_disabled()
 	return TRUE
 
-/// Removes the temporary paralysis effect from this bodypart
+/// Removes the temporary paralysis effect from this bodypart.
 /obj/item/bodypart/proc/remove_crit_paralysis()
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, CRIT_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_BRITTLE, CRIT_TRAIT)
@@ -510,7 +510,7 @@
 		update_disabled()
 	return TRUE
 
-/// Returns surgery flags applicable to this bodypart
+/// Returns surgery flags applicable to this bodypart.
 /obj/item/bodypart/proc/get_surgery_flags()
 	var/returned_flags = NONE
 	if(can_bloody_wound())
@@ -546,5 +546,5 @@
 			continue
 		returned_flags |= SURGERY_DRILLED
 	if(skeletonized)
-		returned_flags |= SURGERY_INCISED | SURGERY_RETRACTED | SURGERY_DRILLED //ehh... we have access to whatever organ is there
+		returned_flags |= SURGERY_INCISED | SURGERY_RETRACTED | SURGERY_DRILLED // Ehh... we have access to whatever organ is there; Are you sure?; Shrug; "Great". . .
 	return returned_flags

@@ -10,11 +10,11 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 20
+	max_damage = 60
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 300
 	sellprice = 30
-	fingers = FALSE //can't swing weapons but can pick stuff up and punch
+	fingers = FALSE   // Can't swing weapons but can pick stuff up and punch.
 	anvilrepair = /datum/skill/craft/carpentry
 
 /obj/item/bodypart/l_arm/prosthetic/bronzeleft
@@ -27,11 +27,11 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 110
+	max_damage = 180
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 350
 	sellprice = 30
-	fingers = TRUE // it acts like a normal arm
+	fingers = TRUE // It acts like a normal arm.
 	anvilrepair = /datum/skill/craft/engineering
 	smeltresult = /obj/item/ingot/bronze
 
@@ -42,7 +42,7 @@
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting)
 		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
+	if(user.zone_selected != body_zone)	// So we can't replace a leg with an arm, or a human arm with a monkey arm.
 		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
 		return -1
 	if(user.temporarilyRemoveItemFromInventory(src))
@@ -60,11 +60,11 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 20
+	max_damage = 60
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 300
 	sellprice = 30
-	fingers = FALSE //can't swing weapons but can pick stuff up and punch
+	fingers = FALSE // Can't swing weapons but can pick stuff up and punch.
 	anvilrepair = /datum/skill/craft/carpentry
 
 /obj/item/bodypart/r_arm/prosthetic/bronzeright
@@ -77,11 +77,11 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 110
+	max_damage = 180
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 350
 	sellprice = 30
-	fingers = TRUE // it acts like a normal arm
+	fingers = TRUE // It acts like a normal arm.
 	anvilrepair = /datum/skill/craft/engineering
 	smeltresult = /obj/item/ingot/bronze
 
@@ -92,7 +92,7 @@
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting)
 		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
+	if(user.zone_selected != body_zone) //	So we can't replace a leg with an arm, or a human arm with a monkey arm.
 		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
 		return -1
 	if(user.temporarilyRemoveItemFromInventory(src))
@@ -112,7 +112,7 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 20
+	max_damage = 60
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 300
 	sellprice = 30
@@ -128,7 +128,7 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 110
+	max_damage = 180
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 350
 	sellprice = 30
@@ -142,7 +142,7 @@
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting)
 		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
+	if(user.zone_selected != body_zone) // So we can't replace a leg with an arm, or a human arm with a monkey arm.
 		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
 		return -1
 	if(user.temporarilyRemoveItemFromInventory(src))
@@ -162,7 +162,7 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 20
+	max_damage = 60
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 300
 	sellprice = 30
@@ -178,7 +178,7 @@
 	status = BODYPART_ROBOTIC
 	brute_reduction = 0
 	burn_reduction = 0
-	max_damage = 110
+	max_damage = 180
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 350
 	sellprice = 30
@@ -192,7 +192,7 @@
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting)
 		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
+	if(user.zone_selected != body_zone) // So we can't replace a leg with an arm, or a human arm with a monkey arm.
 		to_chat(user, "<span class='warning'>[src] isn't the right type for [parse_zone(user.zone_selected)].</span>")
 		return -1
 	if(user.temporarilyRemoveItemFromInventory(src))
