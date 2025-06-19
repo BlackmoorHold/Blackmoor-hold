@@ -116,13 +116,8 @@
 
 /datum/intent/shoot/bow/on_charge_start()
 	. = ..()
-	var/chambered_status = "(not a bow)"
-	if(istype(masteritem, /obj/item/gun/ballistic/revolver/grenadelauncher/bow))
-		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bowitem = masteritem
-		chambered_status = "[bowitem.chambered]"
 	if(mastermob && ishuman(mastermob))
 		var/mob/living/carbon/human/H = mastermob
-		to_chat(H, "[time2text(world.time)]: on_charge_start() called for [H] with [masteritem] (chambered: [chambered_status])")
 		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bow = masteritem
 		if(istype(bow) && !bow.chambered)
 			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Fixed slot names
@@ -156,13 +151,8 @@
 
 /datum/intent/arc/bow/on_charge_start()
 	. = ..()
-	var/chambered_status = "(not a bow)"
-	if(istype(masteritem, /obj/item/gun/ballistic/revolver/grenadelauncher/bow))
-		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bowitem = masteritem
-		chambered_status = "[bowitem.chambered]"
 	if(mastermob && ishuman(mastermob))
 		var/mob/living/carbon/human/H = mastermob
-		to_chat(H, "[time2text(world.time)]: on_charge_start() called for [H] with [masteritem] (chambered: [chambered_status])")
 		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bow = masteritem
 		if(istype(bow) && !bow.chambered)
 			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Fixed slot names
