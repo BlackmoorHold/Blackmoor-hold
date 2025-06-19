@@ -67,3 +67,32 @@
 		user.put_in_hands(r, TRUE, FALSE, TRUE)
 		//user.visible_message("Your claws extend.", "You feel your claws extending.", "You hear a sound of claws extending.")
 		extended = TRUE
+
+/obj/effect/proc_holder/spell/self/werewolf_transform
+	name = "Transform"
+	desc = "Transform between your human and werewolf forms. You cannot turn human at night. Wounds, damage, and lost limbs transfer between forms."
+	overlay_state = "transform"
+	antimagic_allowed = TRUE
+	recharge_time = 120 // 2 minutes cooldown
+	ignore_cockblock = TRUE
+
+/obj/effect/proc_holder/spell/self/werewolf_transform/cast(mob/user = usr)
+	..()
+	if(!ishuman(user)) return
+	var/mob/living/carbon/human/H = user
+	var/datum/antagonist/werewolf/antag = H.mind?.has_antag_datum(/datum/antagonist/werewolf)
+	if(!antag) return
+
+	// If already transformed, try to untransform (to human)
+	if(antag.transformed)
+		if(GLOB.tod == "night")
+			to_chat(H, span_warning("You cannot return to human form under the moon's curse!"))
+			return
+		H.werewolf_untransform(FALSE, FALSE, manual=TRUE)
+		antag.transformed = FALSE
+		return
+	// If not transformed, transform to werewolf
+	else
+		H.werewolf_transform(manual=TRUE)
+		antag.transformed = TRUE
+		return

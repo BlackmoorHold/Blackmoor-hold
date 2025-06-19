@@ -38,30 +38,10 @@
 			to_chat(H, span_warning("I can feel my muscles aching, it feels HORRIBLE..."))
 
 
-	// Werewolf reverts to human form during the day
-	else if(transformed)
-		H.real_name = wolfname
-		H.name = wolfname
-
-		if(GLOB.tod != "night")
-			if(!untransforming)
-				untransforming = world.time // Start untransformation phase
-
-			if (world.time >= untransforming + 30 SECONDS) // Untransform
-				H.emote("rage", forced = TRUE)
-				H.werewolf_untransform()
-				transformed = FALSE
-				untransforming = FALSE // Reset untransforming phase
-
-			else if (world.time >= untransforming) // Alert player
-				H.flash_fullscreen("redflash1")
-				to_chat(H, span_warning("Daylight shines around me... the curse begins to fade."))
-
-
 /mob/living/carbon/human/species/werewolf/death(gibbed, nocutscene = FALSE)
 	werewolf_untransform(TRUE, gibbed)
 
-/mob/living/carbon/human/proc/werewolf_transform()
+/mob/living/carbon/human/proc/werewolf_transform(manual = FALSE)
 	if(!mind)
 		log_runtime("NO MIND ON [src.name] WHEN TRANSFORMING")
 	Paralyze(1, ignore_canstun = TRUE)
@@ -124,6 +104,7 @@
 
 	W.AddSpell(new /obj/effect/proc_holder/spell/self/howl)
 	W.AddSpell(new /obj/effect/proc_holder/spell/self/claws)
+	W.AddSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
 
 	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_GENERIC)
 
@@ -150,7 +131,7 @@
 	invisibility = oldinv
 
 
-/mob/living/carbon/human/proc/werewolf_untransform(dead,gibbed)
+/mob/living/carbon/human/proc/werewolf_untransform(dead, gibbed, manual = FALSE)
 	if(!stored_mob)
 		return
 	if(!mind)
@@ -180,6 +161,8 @@
 
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/howl)
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/claws)
+	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
+	W.AddSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
 
 	W.regenerate_icons()
 
@@ -189,4 +172,21 @@
 	W.Knockdown(30)
 	W.Stun(30)
 
+	// Remove all status effects before deleting to prevent post-qdel errors
+	if(status_effects)
+		for(var/S in status_effects)
+			qdel(S)
 	qdel(src)
+
+/datum/antagonist/werewolf/on_gain()
+	owner.special_role = name
+	if(increase_votepwr)
+		forge_werewolf_objectives()
+
+	wolfname = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
+
+	// Add transformation spell if possible
+	if(owner.current)
+		owner.current.AddSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
+
+	return ..()
