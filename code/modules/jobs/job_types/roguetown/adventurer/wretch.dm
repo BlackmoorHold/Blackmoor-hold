@@ -37,8 +37,20 @@
 		if(GLOB.adventurer_hugbox_duration)
 			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, adv_hugboxing_start)), 1)
 
-// Proc for wretch to select a bounty
+// Proc for wretch to select a bounty and supernatural affliction
 /proc/wretch_select_bounty(mob/living/carbon/human/H)
+	// First select supernatural affliction
+	var/affliction = input(H, "What supernatural curse afflicts you?", "Supernatural Affliction") as null|anything in list("None", "Vampire", "Werewolf")
+	
+	switch(affliction)
+		if("Vampire")
+			H.mind.add_antag_datum(/datum/antagonist/vampire/lesser)
+			to_chat(H, span_danger("The thirst for blood burns within you, but you are merely one of many cursed with vampirism."))
+		if("Werewolf")
+			H.mind.add_antag_datum(/datum/antagonist/werewolf/lesser)
+			to_chat(H, span_danger("The beast within yearns to be free. Your lycanthropic curse has made you a danger to all."))
+	
+	// Then proceed with normal bounty selection
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Blackmoor", "The Grenzelhoftian Holy See", "The Otavan Holy See")
 	if(bounty_poster == "The Justiciary of Blackmoor")
 		GLOB.outlawed_players += H.real_name
@@ -59,3 +71,4 @@
 		my_crime = "crimes against the Crown"
 	add_bounty(H.real_name, bounty_total, FALSE, my_crime, bounty_poster)
 	to_chat(H, span_danger("You are an Antagonistic role. You are expected, by choosing to be a wretch, to sow chaos and division amongst the town while driving a story. Failure to use proper gravitas for this may get you punished for Low Role Play standards."))
+
