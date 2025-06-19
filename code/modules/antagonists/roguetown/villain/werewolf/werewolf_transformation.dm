@@ -61,7 +61,7 @@
 /mob/living/carbon/human/species/werewolf/death(gibbed, nocutscene = FALSE)
 	werewolf_untransform(TRUE, gibbed)
 
-/mob/living/carbon/human/proc/werewolf_transform(manual=FALSE)
+/mob/living/carbon/human/proc/werewolf_transform()
 	if(!mind)
 		log_runtime("NO MIND ON [src.name] WHEN TRANSFORMING")
 	Paralyze(1, ignore_canstun = TRUE)
@@ -75,14 +75,6 @@
 	if(client)
 		SSdroning.play_area_sound(get_area(src), client)
 //	stop_cmusic()
-
-	// --- Transfer state ---
-	var/list/missing_limbs = src.get_missing_limbs()
-	var/list/limb_wounds = list()
-	for(var/obj/item/bodypart/BP in src.bodyparts)
-		limb_wounds[BP.body_zone] = list()
-		for(var/datum/wound/W in BP.wounds)
-			limb_wounds[BP.body_zone] += W.type
 
 	src.fully_heal(FALSE)
 
@@ -132,7 +124,6 @@
 
 	W.AddSpell(new /obj/effect/proc_holder/spell/self/howl)
 	W.AddSpell(new /obj/effect/proc_holder/spell/self/claws)
-	W.AddSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
 
 	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_GENERIC)
 
@@ -158,24 +149,8 @@
 
 	invisibility = oldinv
 
-	// --- Restore missing limbs and wounds ---
-	for(var/zone in missing_limbs)
-		var/obj/item/bodypart/L = W.get_bodypart(zone)
-		if(L)
-			L.drop_limb(1)
-	for(var/zone in limb_wounds)
-		var/obj/item/bodypart/L = W.get_bodypart(zone)
-		if(L)
-			for(var/wtype in limb_wounds[zone])
-				var/datum/wound/WN = new wtype()
-				WN.apply_to_bodypart(L, silent=TRUE)
 
-	if(manual)
-		playsound(W.loc, 'sound/vo/mobs/wwolf/howl (2).ogg', 80, FALSE, 3)
-		to_chat(W, span_boldnotice("You will the beast within to the surface!"))
-
-
-/mob/living/carbon/human/proc/werewolf_untransform(dead,gibbed,manual=FALSE)
+/mob/living/carbon/human/proc/werewolf_untransform(dead,gibbed)
 	if(!stored_mob)
 		return
 	if(!mind)
@@ -205,27 +180,8 @@
 
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/howl)
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/claws)
-	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
 
 	W.regenerate_icons()
-
-	// --- Transfer missing limbs and wounds back ---
-	var/list/missing_limbs = src.get_missing_limbs()
-	var/list/limb_wounds = list()
-	for(var/obj/item/bodypart/BP in src.bodyparts)
-		limb_wounds[BP.body_zone] = list()
-		for(var/datum/wound/WN in BP.wounds)
-			limb_wounds[BP.body_zone] += WN.type
-	for(var/zone in missing_limbs)
-		var/obj/item/bodypart/L = W.get_bodypart(zone)
-		if(L)
-			L.drop_limb(1)
-	for(var/zone in limb_wounds)
-		var/obj/item/bodypart/L = W.get_bodypart(zone)
-		if(L)
-			for(var/wtype in limb_wounds[zone])
-				var/datum/wound/WN = new wtype()
-				WN.apply_to_bodypart(L, silent=TRUE)
 
 	to_chat(W, span_userdanger("I return to my facade."))
 	playsound(W.loc, pick('sound/combat/gib (1).ogg','sound/combat/gib (2).ogg'), 200, FALSE, 3)
@@ -233,21 +189,4 @@
 	W.Knockdown(30)
 	W.Stun(30)
 
-	if(manual)
-		playsound(W.loc, 'sound/vo/mobs/wwolf/howl (1).ogg', 80, FALSE, 3)
-		to_chat(W, span_boldnotice("You force the beast within to slumber!"))
-
 	qdel(src)
-
-/datum/antagonist/werewolf/on_gain()
-	owner.special_role = name
-	if(increase_votepwr)
-		forge_werewolf_objectives()
-
-	wolfname = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
-
-	// Add transformation spell if possible
-	if(owner.current)
-		owner.current.AddSpell(new /obj/effect/proc_holder/spell/self/werewolf_transform)
-
-	return ..()
