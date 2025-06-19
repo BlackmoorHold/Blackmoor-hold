@@ -98,6 +98,28 @@
 	W.gender = gender
 	W.regenerate_icons()
 	W.stored_mob = src
+
+	// Transfer damage and wounds from each bodypart
+	for(var/obj/item/bodypart/human_bp in src.bodyparts)
+		var/obj/item/bodypart/wolf_bp = W.get_bodypart(human_bp.body_zone)
+		if(!wolf_bp)
+			continue
+
+		// Transfer damage
+		wolf_bp.brute_dam = human_bp.brute_dam
+		wolf_bp.burn_dam = human_bp.burn_dam
+		wolf_bp.stamina_dam = human_bp.stamina_dam
+
+		// Transfer wounds
+		for(var/datum/wound/wound as anything in human_bp.wounds)
+			// Remove wound from human bodypart
+			wound.remove_from_bodypart()
+			// Add wound to werewolf bodypart
+			wound.apply_to_bodypart(wolf_bp, silent = TRUE, crit_message = FALSE)
+
+		// Update damage state
+		wolf_bp.update_bodypart_damage_state()
+
 	W.limb_destroyer = TRUE
 	W.ambushable = FALSE
 	W.cmode_music = 'sound/music/combat_druid.ogg'
@@ -188,6 +210,28 @@
 
 	var/mob/living/carbon/human/W = stored_mob
 	stored_mob = null
+
+	// Transfer damage and wounds from each bodypart
+	for(var/obj/item/bodypart/wolf_bp in src.bodyparts)
+		var/obj/item/bodypart/human_bp = W.get_bodypart(wolf_bp.body_zone)
+		if(!human_bp)
+			continue
+
+		// Transfer damage
+		human_bp.brute_dam = wolf_bp.brute_dam
+		human_bp.burn_dam = wolf_bp.burn_dam
+		human_bp.stamina_dam = wolf_bp.stamina_dam
+
+		// Transfer wounds
+		for(var/datum/wound/wound as anything in wolf_bp.wounds)
+			// Remove wound from werewolf bodypart
+			wound.remove_from_bodypart()
+			// Add wound to human bodypart
+			wound.apply_to_bodypart(human_bp, silent = TRUE, crit_message = FALSE)
+
+		// Update damage state
+		human_bp.update_bodypart_damage_state()
+
 	REMOVE_TRAIT(W, TRAIT_NOSLEEP, TRAIT_GENERIC)
 	if(dead)
 		W.death(gibbed)
