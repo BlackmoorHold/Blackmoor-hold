@@ -6,12 +6,32 @@
 	charging_slowdown = 3
 
 /datum/intent/shoot/bow/can_charge()
-	if(mastermob)
-		if(mastermob.get_num_arms(FALSE) < 2)
-			return FALSE
-		if(mastermob.get_inactive_held_item())
-			return FALSE
-	return TRUE
+	if(mastermob && ishuman(mastermob))
+		var/mob/living/carbon/human/H = mastermob
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bow = masteritem
+		if(istype(bow) && !bow.chambered)
+			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Fixed slot names
+			var/obj/item/quiver/quiver = null
+			for(var/slot in possible_slots)
+				var/obj/item/I = H.vars[slot]
+				if(istype(I, /obj/item/quiver))
+					var/obj/item/quiver/Q = I
+					if(Q.arrows && Q.arrows.len)
+						quiver = Q
+						break
+
+			if(quiver)
+				for(var/obj/item/ammo_casing/caseless/rogue/arrow in quiver.arrows)
+					if(istype(arrow, /obj/item/ammo_casing/caseless/rogue/arrow))
+						quiver.arrows -= arrow
+						bow.attackby(arrow, H, null)
+						quiver.update_icon()
+						to_chat(H, span_notice("I quickly grab an arrow from [quiver] and nock it onto [bow]."))
+						break
+			if(!bow.chambered)
+				to_chat(H, span_warning("You have no arrows to nock!"))
+				return FALSE
+	return ..()
 
 /datum/intent/shoot/bow/prewarning()
 	if(mastermob)
@@ -43,12 +63,32 @@
 	charging_slowdown = 3
 
 /datum/intent/arc/bow/can_charge()
-	if(mastermob)
-		if(mastermob.get_num_arms(FALSE) < 2)
-			return FALSE
-		if(mastermob.get_inactive_held_item())
-			return FALSE
-	return TRUE
+	if(mastermob && ishuman(mastermob))
+		var/mob/living/carbon/human/H = mastermob
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bow = masteritem
+		if(istype(bow) && !bow.chambered)
+			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Fixed slot names
+			var/obj/item/quiver/quiver = null
+			for(var/slot in possible_slots)
+				var/obj/item/I = H.vars[slot]
+				if(istype(I, /obj/item/quiver))
+					var/obj/item/quiver/Q = I
+					if(Q.arrows && Q.arrows.len)
+						quiver = Q
+						break
+
+			if(quiver)
+				for(var/obj/item/ammo_casing/caseless/rogue/arrow in quiver.arrows)
+					if(istype(arrow, /obj/item/ammo_casing/caseless/rogue/arrow))
+						quiver.arrows -= arrow
+						bow.attackby(arrow, H, null)
+						quiver.update_icon()
+						to_chat(H, span_notice("I quickly grab an arrow from [quiver] and nock it onto [bow]."))
+						break
+			if(!bow.chambered)
+				to_chat(H, span_warning("You have no arrows to nock!"))
+				return FALSE
+	return ..()
 
 /datum/intent/arc/bow/prewarning()
 	if(mastermob)
@@ -73,6 +113,86 @@
 
 /datum/intent/arc/bow/heavy
 	strength_check = TRUE
+
+/datum/intent/shoot/bow/on_charge_start()
+	. = ..()
+	var/chambered_status = "(not a bow)"
+	if(istype(masteritem, /obj/item/gun/ballistic/revolver/grenadelauncher/bow))
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bowitem = masteritem
+		chambered_status = "[bowitem.chambered]"
+	if(mastermob && ishuman(mastermob))
+		var/mob/living/carbon/human/H = mastermob
+		to_chat(H, "[time2text(world.time)]: on_charge_start() called for [H] with [masteritem] (chambered: [chambered_status])")
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bow = masteritem
+		if(istype(bow) && !bow.chambered)
+			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Fixed slot names
+			var/obj/item/quiver/quiver = null
+			for(var/slot in possible_slots)
+				var/obj/item/I = H.vars[slot]
+				if(istype(I, /obj/item/quiver))
+					var/obj/item/quiver/Q = I
+					if(Q.arrows && Q.arrows.len)
+						quiver = Q
+						break
+
+			if(quiver)
+				for(var/obj/item/ammo_casing/caseless/rogue/arrow in quiver.arrows)
+					if(istype(arrow, /obj/item/ammo_casing/caseless/rogue/arrow))
+						quiver.arrows -= arrow
+						bow.attackby(arrow, H, null)
+						quiver.update_icon()
+						to_chat(H, span_notice("I quickly grab an arrow from [quiver] and nock it onto [bow]."))
+						break
+			if(!bow.chambered)
+				quiver = H.get_item_by_slot(ITEM_SLOT_BACK)
+				if(istype(quiver, /obj/item/quiver) && quiver.arrows.len)
+					for(var/obj/item/ammo_casing/caseless/rogue/arrow in quiver.arrows)
+						if(istype(arrow, /obj/item/ammo_casing/caseless/rogue/arrow))
+							quiver.arrows -= arrow
+							bow.attackby(arrow, H, null)
+							quiver.update_icon()
+							to_chat(H, span_notice("I quickly grab an arrow from [quiver] and nock it onto [bow]."))
+							break
+
+/datum/intent/arc/bow/on_charge_start()
+	. = ..()
+	var/chambered_status = "(not a bow)"
+	if(istype(masteritem, /obj/item/gun/ballistic/revolver/grenadelauncher/bow))
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bowitem = masteritem
+		chambered_status = "[bowitem.chambered]"
+	if(mastermob && ishuman(mastermob))
+		var/mob/living/carbon/human/H = mastermob
+		to_chat(H, "[time2text(world.time)]: on_charge_start() called for [H] with [masteritem] (chambered: [chambered_status])")
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/bow = masteritem
+		if(istype(bow) && !bow.chambered)
+			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Fixed slot names
+			var/obj/item/quiver/quiver = null
+			for(var/slot in possible_slots)
+				var/obj/item/I = H.vars[slot]
+				if(istype(I, /obj/item/quiver))
+					var/obj/item/quiver/Q = I
+					if(Q.arrows && Q.arrows.len)
+						quiver = Q
+						break
+
+			if(quiver)
+				for(var/obj/item/ammo_casing/caseless/rogue/arrow in quiver.arrows)
+					if(istype(arrow, /obj/item/ammo_casing/caseless/rogue/arrow))
+						quiver.arrows -= arrow
+						bow.attackby(arrow, H, null)
+						quiver.update_icon()
+						to_chat(H, span_notice("I quickly grab an arrow from [quiver] and nock it onto [bow]."))
+						break
+			if(!bow.chambered)
+				quiver = H.get_item_by_slot(ITEM_SLOT_BACK)
+				if(istype(quiver, /obj/item/quiver) && quiver.arrows.len)
+					for(var/obj/item/ammo_casing/caseless/rogue/arrow in quiver.arrows)
+						if(istype(arrow, /obj/item/ammo_casing/caseless/rogue/arrow))
+							quiver.arrows -= arrow
+							bow.attackby(arrow, H, null)
+							quiver.update_icon()
+							to_chat(H, span_notice("I quickly grab an arrow from [quiver] and nock it onto [bow]."))
+							break
 
 //bow objs ฅ^•ﻌ•^ฅ
 
@@ -422,3 +542,12 @@
 					"eastabove" = 0,
 					"westabove" = 0,
 					)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_casing/caseless/rogue/arrow) && !chambered)
+		chambered = I
+		I.forceMove(src)
+		update_icon()
+		to_chat(user, span_notice("You nock [I] onto [src]."))
+		return TRUE
+	return ..()

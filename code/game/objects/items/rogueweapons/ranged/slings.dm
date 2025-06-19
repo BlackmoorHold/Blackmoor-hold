@@ -54,6 +54,82 @@
 	else
 		return chargetime //failsafe default value should the above conditions not be met
 
+/datum/intent/swing/sling/on_charge_start()
+	. = ..()
+	// Auto-load from quiver when starting to swing
+	if(mastermob && ishuman(mastermob))
+		var/mob/living/carbon/human/H = mastermob
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/sling/sling = masteritem
+		if(istype(sling) && !sling.chambered)
+			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Check multiple slots
+			var/obj/item/quiver/quiver = null
+			for(var/slot in possible_slots)
+				var/obj/item/I = H.vars[slot]
+				if(istype(I, /obj/item/quiver/sling))
+					var/obj/item/quiver/sling/Q = I
+					if(Q.arrows && Q.arrows.len)
+						quiver = Q
+						break
+
+			if(quiver)
+				for(var/obj/item/ammo_casing/caseless/rogue/sling_bullet in quiver.arrows)
+					if(istype(sling_bullet, /obj/item/ammo_casing/caseless/rogue/sling_bullet))
+						quiver.arrows -= sling_bullet
+						sling.attackby(sling_bullet, H, null)
+						quiver.update_icon()
+						to_chat(H, span_notice("I quickly grab a sling bullet from [quiver] and load it into [sling]."))
+						break
+			
+			// Fallback to back slot if no quiver found in other slots
+			if(!sling.chambered)
+				quiver = H.get_item_by_slot(ITEM_SLOT_BACK)
+				if(istype(quiver, /obj/item/quiver/sling) && quiver.arrows.len)
+					for(var/obj/item/ammo_casing/caseless/rogue/sling_bullet in quiver.arrows)
+						if(istype(sling_bullet, /obj/item/ammo_casing/caseless/rogue/sling_bullet))
+							quiver.arrows -= sling_bullet
+							sling.attackby(sling_bullet, H, null)
+							quiver.update_icon()
+							to_chat(H, span_notice("I quickly grab a sling bullet from [quiver] and load it into [sling]."))
+							break
+
+/datum/intent/arc/sling/on_charge_start()
+	. = ..()
+	// Auto-load from quiver when starting to swing
+	if(mastermob && ishuman(mastermob))
+		var/mob/living/carbon/human/H = mastermob
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/sling/sling = masteritem
+		if(istype(sling) && !sling.chambered)
+			var/list/possible_slots = list("belt", "back", "wear_armor", "backr", "backl", "beltl", "beltr") // Check multiple slots
+			var/obj/item/quiver/quiver = null
+			for(var/slot in possible_slots)
+				var/obj/item/I = H.vars[slot]
+				if(istype(I, /obj/item/quiver/sling))
+					var/obj/item/quiver/sling/Q = I
+					if(Q.arrows && Q.arrows.len)
+						quiver = Q
+						break
+
+			if(quiver)
+				for(var/obj/item/ammo_casing/caseless/rogue/sling_bullet in quiver.arrows)
+					if(istype(sling_bullet, /obj/item/ammo_casing/caseless/rogue/sling_bullet))
+						quiver.arrows -= sling_bullet
+						sling.attackby(sling_bullet, H, null)
+						quiver.update_icon()
+						to_chat(H, span_notice("I quickly grab a sling bullet from [quiver] and load it into [sling]."))
+						break
+			
+			// Fallback to back slot if no quiver found in other slots
+			if(!sling.chambered)
+				quiver = H.get_item_by_slot(ITEM_SLOT_BACK)
+				if(istype(quiver, /obj/item/quiver/sling) && quiver.arrows.len)
+					for(var/obj/item/ammo_casing/caseless/rogue/sling_bullet in quiver.arrows)
+						if(istype(sling_bullet, /obj/item/ammo_casing/caseless/rogue/sling_bullet))
+							quiver.arrows -= sling_bullet
+							sling.attackby(sling_bullet, H, null)
+							quiver.update_icon()
+							to_chat(H, span_notice("I quickly grab a sling bullet from [quiver] and load it into [sling]."))
+							break
+
 //objs
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling
