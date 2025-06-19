@@ -40,15 +40,40 @@
 // Proc for wretch to select a bounty and supernatural affliction
 /proc/wretch_select_bounty(mob/living/carbon/human/H)
 	// First select supernatural affliction
-	var/affliction = input(H, "What supernatural curse afflicts you?", "Supernatural Affliction") as null|anything in list("None", "Vampire", "Werewolf")
+	var/affliction = input(H, "What supernatural curse afflicts you? (\"None\" grants +1 to all stats, \"Vampire\" and \"Werewolf\" give -1 to all stats)", "Supernatural Affliction") as null|anything in list("None (+1 to all stats)", "Vampire (-1 to all stats)", "Werewolf (-1 to all stats)")
 	
 	switch(affliction)
-		if("Vampire")
+		if("Vampire (-1 to all stats)")
 			H.mind.add_antag_datum(/datum/antagonist/vampire/lesser)
 			to_chat(H, span_danger("The thirst for blood burns within you, but you are merely one of many cursed with vampirism."))
-		if("Werewolf")
+			// Apply -1 to all stats
+			H.change_stat("strength", -1)
+			H.change_stat("perception", -1)
+			H.change_stat("intelligence", -1)
+			H.change_stat("constitution", -1)
+			H.change_stat("endurance", -1)
+			H.change_stat("speed", -1)
+			H.change_stat("fortune", -1)
+		if("Werewolf (-1 to all stats)")
 			H.mind.add_antag_datum(/datum/antagonist/werewolf/lesser)
 			to_chat(H, span_danger("The beast within yearns to be free. Your lycanthropic curse has made you a danger to all."))
+			// Apply -1 to all stats
+			H.change_stat("strength", -1)
+			H.change_stat("perception", -1)
+			H.change_stat("intelligence", -1)
+			H.change_stat("constitution", -1)
+			H.change_stat("endurance", -1)
+			H.change_stat("speed", -1)
+			H.change_stat("fortune", -1)
+		if("None (+1 to all stats)")
+			// Apply +1 to all stats
+			H.change_stat("strength", 1)
+			H.change_stat("perception", 1)
+			H.change_stat("intelligence", 1)
+			H.change_stat("constitution", 1)
+			H.change_stat("endurance", 1)
+			H.change_stat("speed", 1)
+			H.change_stat("fortune", 1)
 	
 	// Then proceed with normal bounty selection
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Blackmoor", "The Grenzelhoftian Holy See", "The Otavan Holy See")
