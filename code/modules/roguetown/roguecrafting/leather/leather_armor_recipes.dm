@@ -138,3 +138,11 @@
 	result = /obj/item/clothing/head/roguetown/helmet/leather
 	reqs = list(/obj/item/natural/hide/cured = 1)
 	sellprice = 27
+
+/datum/crafting_recipe/roguetown/leather/armor/bikini
+	name = "leather bikini"
+	result = /obj/item/clothing/suit/roguetown/armor/leather/bikini
+	reqs = list(/obj/item/clothing/suit/roguetown/armor/leather = 1)
+	craftdiff = 0
+	structurecraft = null
+	tools = null
