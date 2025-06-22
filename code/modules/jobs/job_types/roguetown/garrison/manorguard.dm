@@ -48,7 +48,7 @@
 /datum/outfit/job/roguetown/manorguard
 	cloak = /obj/item/clothing/cloak/stabard/surcoat/guard
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	gloves = /obj/item/clothing/gloves/roguetown/leather
+	gloves = /obj/item/clothing/gloves/roguetown/angle
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	beltl = /obj/item/rogueweapon/mace/cudgel
 	belt = /obj/item/storage/belt/rogue/leather/black
@@ -130,7 +130,7 @@
 // Ranged weapons and daggers on the side - lighter armor, but fleet!
 /datum/advclass/manorguard/skirmisher
 	name = "Skirmisher"
-	tutorial = "You are a professional soldier of the realm, specializing in ranged implements. You sport a keen eye, looking for your enemies weaknesses."
+	tutorial = "You are a professional soldier of the realm, specializing in ranged implements and daggers. You sport a keen eye, looking for your enemies weaknesses."
 	outfit = /datum/outfit/job/roguetown/manorguard/skirmisher
 
 	category_tags = list(CTAG_MENATARMS)
@@ -259,6 +259,72 @@
 	"Bascinet Helmet"		= /obj/item/clothing/head/roguetown/helmet/bascinet,
 	"Sallet Helmet"		= /obj/item/clothing/head/roguetown/helmet/sallet,
 	"Winged Helmet" 	= /obj/item/clothing/head/roguetown/helmet/winged,
+	"Studded Leather Hood" = /obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced,
+	"None"
+	)
+	var/helmchoice = input("Choose your Helm.", "TAKE UP HELMS") as anything in helmets
+	if(helmchoice != "None")
+		head = helmets[helmchoice]
+
+/datum/advclass/manorguard/stalker
+	name = "Stalker"
+	tutorial = "You are a stalker, a rogue familiar with the streets who had a great turn-around and somehow became a man at arms after going up the ladder, You are a agile melee soldier that is specialized to also track people. You have experience using daggers and crossbows."
+	outfit = /datum/outfit/job/roguetown/manorguard/stalker
+	category_tags = list(CTAG_MENATARMS)
+
+/datum/outfit/job/roguetown/manorguard/stalker/pre_equip(mob/living/carbon/human/H)
+	..()
+
+	H.mind.adjust_skillrank(/datum/skill/misc/tracking, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/swords, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/knives, 5, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/swimming, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/climbing, 6, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 5, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/stealing, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/craft/traps, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/craft/crafting, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/riding, 2, TRUE)
+
+	ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_GUARDSMAN, TRAIT_GENERIC) //+1 spd, con, end, +2 per in town
+	ADD_TRAIT(H, TRAIT_LIGHT_STEP, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
+
+	H.change_stat("strength", 1) //hopefully will help them with restraining people.
+	H.change_stat("intelligence", 1)
+	H.change_stat("endurance", 1)
+	H.change_stat("speed", 2)
+	H.grant_language(/datum/language/thievescant)
+
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+	neck = /obj/item/clothing/neck/roguetown/chaincoif
+	mask = /obj/item/clothing/mask/rogue/facemask/steel
+	pants = /obj/item/clothing/under/roguetown/trou/leather
+	backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+	belt = /obj/item/storage/belt/rogue/leather/knifebelt
+	beltr = /obj/item/quiver/bolts
+
+	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/idagger/steel/special = 2, /obj/item/lockpickring/mundane = 1, /obj/item/storage/keyring/guardcastle = 1)
+	H.verbs |= /mob/proc/haltyell
+
+	var/helmets = list(
+	"Simple Helmet" 	= /obj/item/clothing/head/roguetown/helmet,
+	"Kettle Helmet" 	= /obj/item/clothing/head/roguetown/helmet/kettle,
+	"Bascinet Helmet"		= /obj/item/clothing/head/roguetown/helmet/bascinet,
+	"Sallet Helmet"		= /obj/item/clothing/head/roguetown/helmet/sallet,
+	"Winged Helmet" 	= /obj/item/clothing/head/roguetown/helmet/winged,
+	"Studded Leather Hood" = /obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced,
 	"None"
 	)
 	var/helmchoice = input("Choose your Helm.", "TAKE UP HELMS") as anything in helmets

@@ -105,6 +105,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 	var/list/personal_objectives = list() // List of personal objectives not tied to the antag roles
 
+	var/list/special_people = list()
+
 /datum/mind/New(key)
 	src.key = key
 	soulOwner = src
@@ -1001,3 +1003,17 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	for(var/O in personal_objectives)
 		qdel(O)
 	personal_objectives.Cut()
+
+/datum/mind/proc/add_special_person(mob/M, special_colour)
+	if (!istext(special_colour))
+		return
+	if (!special_people[M.real_name])
+		special_people[M.real_name] = special_colour
+
+/datum/mind/proc/remove_special_person(mob/M)
+	if (special_people[M.real_name])
+		special_people -= M.real_name
+
+/datum/mind/proc/get_special_person_colour(mob/M)
+	if (special_people[M.real_name])
+		return special_people[M.real_name]

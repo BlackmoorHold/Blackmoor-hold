@@ -169,6 +169,15 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/list/custom_descriptors = list()
 
 	var/char_accent = "No accent"
+	
+	// family_changes
+	var/spouse_ckey = null
+	var/family_surname = null
+	var/list/family_genitals = list("Male", "Female", "Futa", "Cuntboy")
+	var/allow_latejoin_family = TRUE
+
+	var/list/family_gender = list()
+	var/list/family_species = list()
 
 	var/datum/loadout_item/loadout
 	var/datum/loadout_item/loadout2
@@ -204,6 +213,16 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			return
 	//Set the race to properly run race setter logic
 	set_new_race(pref_species, null)
+	
+	family_species = list()
+	var/list/available_species = get_selectable_species()
+	for(var/species_name in available_species)
+		var/datum/species/S = GLOB.species_list[species_name]
+		family_species += S.id
+	
+	family_gender = list(MALE,FEMALE)
+	family_genitals = list("Male", "Female", "Futa", "Cuntboy")
+	
 	if(!charflaw)
 		charflaw = pick(GLOB.character_flaws)
 		charflaw = GLOB.character_flaws[charflaw]
@@ -338,6 +357,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<BR>"
 			dat += "<b>Nickname:</b> "
 			dat += "<a href='?_src_=prefs;preference=nickname;task=input'>[nickname]</a><BR>"
+			dat += "<b>Surname/Title:</b> <a href='?_src_=prefs;preference=familypref;res=surname'>[family_surname ? family_surname : "(None)"]</a><BR>"
 			// LETHALSTONE EDIT BEGIN: add pronoun prefs
 			dat += "<b>Pronouns:</b> <a href='?_src_=prefs;preference=pronouns;task=input'>[pronouns]</a><BR>"
 			// LETHALSTONE EDIT END
@@ -382,7 +402,18 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			var/datum/faith/selected_faith = GLOB.faithlist[selected_patron?.associated_faith]
 			dat += "<b>Faith:</b> <a href='?_src_=prefs;preference=faith;task=input'>[selected_faith?.name || "FUCK!"]</a><BR>"
 			dat += "<b>Patron:</b> <a href='?_src_=prefs;preference=patron;task=input'>[selected_patron?.name || "FUCK!"]</a><BR>"
-//			dat += "<b>Family:</b> <a href='?_src_=prefs;preference=family'>Unknown</a><BR>" // Disabling until its working
+			dat += "<b>Family:</b> <a href='?_src_=prefs;preference=family'>[family != FAMILY_NONE ? "Yes!" : "No"]</a><BR>"
+			if(family != FAMILY_NONE)
+				dat += "<B>Family Preferences:<br></B>"
+				if(gender == MALE)
+					family_gender = list(FEMALE)
+				else
+					family_gender = list(MALE)
+				dat += " <small><a href='?_src_=prefs;preference=familypref;res=race'><b>Race</b></a></small>"
+				dat += "<BR>"
+				dat += " <small><a href='?_src_=prefs;preference=familypref;res=ckey'><b>Spouse soul: [spouse_ckey ? spouse_ckey : "(Random)"]</b></a></small><BR>"
+				dat += " <small><a href='?_src_=prefs;preference=familypref;res=genitals'><b>Partner's beginning</b></a></small><BR>"
+				dat += " <small><a href='?_src_=prefs;preference=familypref;res=latejoin'><b>Latejoin: [allow_latejoin_family ? "Allowed" : "No"]</b></a></small><BR>"
 			dat += "<b>Dominance:</b> <a href='?_src_=prefs;preference=domhand'>[domhand == 1 ? "Left-handed" : "Right-handed"]</a><BR>"
 
 /*
@@ -602,6 +633,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
+	
 			dat += "<br>"
 
 
@@ -1276,6 +1308,62 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 		return
 	else if(href_list["preference"] == "triumph_buy_menu")
 		SStriumphs.startup_triumphs_menu(user.client)
+
+	else if(href_list["preference"] == "familypref")
+		switch(href_list["res"])
+			if("race")
+				var/choice
+				while(choice != "(DONE)")
+					var/list/choices = list()
+					for(var/A in GLOB.roundstart_races)
+						var/datum/species/S = GLOB.species_list[A]
+						var/index = "[(S.id in family_species) ? "(+)" : ""][S.name]"
+						choices[index] = S.id
+					choices += "(DONE)"
+					choice = input(usr,"Out of all the many races, none catch my fancy quite like... (+) = ON","RACE") as anything in choices
+					if(choice != "(CANCEL)")
+						if(choices[choice] in family_species)
+							family_species -= choices[choice]
+						else
+							family_species += choices[choice]
+			// family_changes - возможность выставить CKEY игрока, с которым хочется создать семью
+			if("ckey")
+				var/msg = "Add PLAYER CKEY of your spouse! Check it twice! Leave the field clear to have random spouse with other parameters."
+				var/potential_spouse_ckey = input(usr, msg, "Bloodbinding", null) as text
+				if(!potential_spouse_ckey)
+					spouse_ckey = null
+				spouse_ckey = potential_spouse_ckey
+			// family_changes - возможность выставить название семьи
+			if("surname")
+				var/msg = "Add surname your family will be known as. You can join after roundstart to form a family if you set up your spouse soul."
+				var/potential_family_surname = input(usr, msg, "Family History", null) as text
+				if(!potential_family_surname)
+					family_surname = null
+				else
+					family_surname = potential_family_surname
+			// family_changes - выставление допустимых гениталий у партнёра
+			if("genitals")
+				to_chat(usr, span_warning("<hr>\
+				The marriage shall not supported by Eora if the mates cannot produce a new life."))
+				var/choice
+				while(choice != "(DONE)")
+					var/list/choices = list()
+					for(var/A in list("Male", "Female", "Futa", "Cuntboy"))
+						var/index = "[(A in family_genitals) ? "(+)" : ""][A]"
+						choices[index] = A
+					choices += "(DONE)"
+					var/msg = "I would prefer... (+) = CONSENT"
+					choice = input(usr, msg, "In the church...") as anything in choices
+					if(choice != "(CANCEL)")
+						if(choices[choice] in family_genitals)
+							family_genitals -= choices[choice]
+						else
+							family_genitals += choices[choice]
+			// family_changes - возможнось формирования семьи после начала раунда
+			if("latejoin")
+				to_chat(usr, span_warning("<hr>\
+				If set as \"Allowed\", then in case of joining after start of the week you will try to form up a family with anyone who seeks for it. Otherwise, you will seek only at the start of week."))	
+				allow_latejoin_family = !allow_latejoin_family
 
 	else if(href_list["preference"] == "keybinds")
 		switch(href_list["task"])
@@ -2092,9 +2180,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						to_chat(user, span_warning("You may switch your character and choose any role, if you don't meet the requirements (if any are specified) it won't be applied"))
 
 				if("family")
-					var/list/loly = list("Not yet.","Work in progress.","Don't click me.","Stop clicking this.","Nope.","Be patient.","Sooner or later.")
-					to_chat(user, "<font color='red'>[pick(loly)]</font>")
-					return
+					if(family == FAMILY_NONE)
+						family = FAMILY_FULL
+					else
+						family = FAMILY_NONE
 				if("hotkeys")
 					hotkeys = !hotkeys
 					if(hotkeys)
@@ -2250,6 +2339,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 				if("pull_requests")
 					chat_toggles ^= CHAT_PULLR
+
+
 
 				if("allow_midround_antag")
 					toggles ^= MIDROUND_ANTAG
@@ -2482,6 +2573,13 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 		character.update_body_parts(redraw = TRUE)
 
 	character.char_accent = char_accent
+	
+	// family_changes
+	character.spouse_ckey = spouse_ckey
+	character.family_surname = family_surname
+	character.family_genitals = family_genitals
+	character.allow_latejoin_family = allow_latejoin_family
+	character.old_real_name = character.real_name
 
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)

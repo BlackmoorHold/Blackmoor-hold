@@ -6382,7 +6382,7 @@
 /area/rogue/indoors)
 "enF" = (
 /obj/structure/fluff/signage{
-	name = "AZURE PEAK - NORTH"
+	name = "BLACKMOOR - NORTH"
 	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield)
@@ -30035,7 +30035,7 @@
 /area/rogue/indoors/town/manor)
 "uXm" = (
 /obj/structure/fluff/walldeco/goblet{
-	name = "Azurian Pints Inn and Bath"
+	name = "Blackmoorian Pints Inn and Bath"
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/tavern)

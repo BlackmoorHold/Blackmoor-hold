@@ -168,7 +168,7 @@
 			H.grant_language(/datum/language/celestial)
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord
 
-			backpack_contents = list(/obj/item/roguekey/mercenary,/obj/item/rogueweapon/huntingknife)
+			backpack_contents = list(/obj/item/roguekey/mercenary,/obj/item/rogueweapon/huntingknife, /obj/item/storage/belt/rogue/surgery_bag)
 			
 			var/datum/devotion/C = new /datum/devotion(H, H.patron)
 			C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)	//Starts off maxed out.

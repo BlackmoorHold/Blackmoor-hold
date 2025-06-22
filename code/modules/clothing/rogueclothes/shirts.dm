@@ -134,9 +134,14 @@
 	name = "fancy coat"
 	desc = "A fancy tunic and coat combo. How elegant."
 	icon_state = "noblecoat"
+	item_state = "noblecoat"
 	sleevetype = "noblecoat"
 	color = CLOTHING_WHITE
 	boobed = TRUE
+	detail_tag = "_detail"
+	detail_color = CLOTHING_BLACK
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
 
 /obj/item/clothing/suit/roguetown/shirt/undershirt/artificer
 	name = "tinker suit"

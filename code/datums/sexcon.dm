@@ -558,14 +558,14 @@
 			if(!(user.lying && owner.lying))
 				testing("eatfail1lyy")
 				return
-	if(user.sexcon.eatingus) //someone else eating us
-		testing("eatfail14")
-		if(user.sexcon.eatingus != owner)
-			testing("eatfail5")
-			return
-		else if(user.sexcon.riding == owner) //start eating instead
-			testing("eatfail6")
-			user.sexcon.stop_riding()
+		if(user.sexcon.eatingus) //someone else eating us
+			testing("eatfail14")
+			if(user.sexcon.eatingus != owner)
+				testing("eatfail5")
+				return
+			else if(user.sexcon.riding == owner) //start eating instead
+				testing("eatfail6")
+				user.sexcon.stop_riding()
 	if(!user.hasVagina()) //start sucking instead
 		return
 	if(weeating)
@@ -604,36 +604,36 @@
 			if(!(user.lying && owner.lying))
 				testing("eatfail1lyy")
 				return
-	if(user.sexcon.eatingus) //someone else eating us
-		testing("eatfail14")
-		if(user.sexcon.eatingus != owner)
-			testing("eatfail5")
+		if(user.sexcon.eatingus) //someone else eating us
+			testing("eatfail14")
+			if(user.sexcon.eatingus != owner)
+				testing("eatfail5")
+				return
+			else if(user.sexcon.riding == owner) //start eating instead
+				testing("eatfail6")
+				user.sexcon.stop_riding()
+		if(!user.hasPenis()) //start sucking instead
 			return
-		else if(user.sexcon.riding == owner) //start eating instead
-			testing("eatfail6")
-			user.sexcon.stop_riding()
-	if(!user.hasPenis()) //start sucking instead
-		return
-	if(weeating)
-		testing("sp1")
-		if(weeating == user)
-			if(eatspeed == initial(eatspeed))
-				eatspeed = max(round(eatspeed / 2), 1)
-				to_chat(owner, "<span class='info'>I speed up.</span>")
+		if(weeating)
+			testing("sp1")
+			if(weeating == user)
+				if(eatspeed == initial(eatspeed))
+					eatspeed = max(round(eatspeed / 2), 1)
+					to_chat(owner, "<span class='info'>I speed up.</span>")
+				else
+					eatspeed = initial(eatspeed)
+					to_chat(owner, "<span class='info'>I slow down.</span>")
 			else
-				eatspeed = initial(eatspeed)
-				to_chat(owner, "<span class='info'>I slow down.</span>")
-		else
-			stop_eating()
-		return
-	eatspeed = initial(eatspeed)
-	weeating = user
-	user.sexcon.lasteat = world.time
-	user.sexcon.eatingus = owner
-	owner.visible_message("<span class='[!weeating.cmode ? "love" : "warning"]'>[owner] sucks [weeating].</span>")
-	user.sexcon.is_sucking = TRUE
-	START_PROCESSING(SSsex, user.sexcon)
-	START_PROCESSING(SSsex, src)
+				stop_eating()
+			return
+		eatspeed = initial(eatspeed)
+		weeating = user
+		user.sexcon.lasteat = world.time
+		user.sexcon.eatingus = owner
+		owner.visible_message("<span class='[!weeating.cmode ? "love" : "warning"]'>[owner] sucks [weeating].</span>")
+		user.sexcon.is_sucking = TRUE
+		START_PROCESSING(SSsex, user.sexcon)
+		START_PROCESSING(SSsex, src)
 
 /datum/sex_controller/proc/begin_fapping(obj/item/grabbing/G, mob/living/user)
 	if(!G)
@@ -1138,6 +1138,9 @@
 	if(owner.mind)
 		if(owner.mind.has_antag_datum(/datum/antagonist/obsessed))
 			return
+	
+	// Cuckold check removed - moved to new sexcon system
+	
 	GLOB.blackmoor_round_stats[STATS_PLEASURES]++
 	blueballs = FALSE
 	adjust_horny(-350)
@@ -1201,6 +1204,7 @@
 		if("insideass")
 			if(owner.has_flaw(/datum/charflaw/addiction/lovefiend))
 				owner.sate_addiction()
+
 			if(ishuman(owner))
 				var/mob/living/carbon/human/H = owner
 				if(H.virginity)
@@ -1232,22 +1236,12 @@
 				if(ishuman(owner) && ishuman(fucking))
 					var/mob/living/carbon/human/H = owner
 					var/mob/living/carbon/human/F = fucking
-					if(F.marriedto)
-						if(F.marriedto != H.real_name)
-							if(SSticker.cuckers)
-								SSticker.cuckers += ", [F.real_name] (with [H.real_name])"
-							else
-								SSticker.cuckers += "[F.real_name] (with [H.real_name])"
-					if(H.marriedto)
-						if(H.marriedto != F.real_name)
-							if(SSticker.cuckers)
-								SSticker.cuckers += ", [H.real_name] (with [F.real_name])"
-							else
-								SSticker.cuckers += "[H.real_name] (with [F.real_name])"
-					if(H.marriedto == F.real_name)
+					// Check for family-based cuckolding
+					if(H.isFamily(F))
 						yee = 1
 						husbando = 1
 						owner.add_stress(/datum/stressevent/cumlove)
+					else
 				if(!yee)
 					owner.add_stress(/datum/stressevent/cummax)
 			else
@@ -1311,9 +1305,10 @@
 					if(ishuman(owner) && ishuman(inpussy))
 						var/mob/living/carbon/human/H = inpussy
 						var/mob/living/carbon/human/F = owner
-						if(H.marriedto == F.real_name)
+						if(H.isFamily(F))
 							yee = 1
 							owner.add_stress(/datum/stressevent/cumlove)
+						else
 					if(!yee)
 						owner.add_stress(/datum/stressevent/cummax)
 				else
@@ -1346,6 +1341,7 @@
 			target.adjust_triumphs(1)
 			to_chat(target, span_love("Our loving is a true TRIUMPH!"))
 
+
 /datum/sex_controller/female/adjust_horny(amt, source) //Vrell - sound effect, leaving them gendered for now.
 	. = ..()
 	if((amt > 0) && prob(80))
@@ -1371,17 +1367,6 @@
 			if("dildo")	//For dildos - by Gardelin0
 				if(!owner.cmode)
 					owner.emote("sexmoanhvy")
-
-/mob/living/carbon/human/proc/become_pregnant(husband)
-	if(QDELETED(src))
-		return
-	if(!hasVagina())
-		return
-	if(stat == DEAD)
-		return
-
-	to_chat(src, "<span class='warning'>I don't feel so good...I'm definetly pregnant!</span>")	//Some kind of a notification - by Gardelin0
-//	add_nausea(101)	Stop throwing up after sex - by Gardelin0
 
 /datum/sex_controller/proc/add_cum_floor(turfu)
 	if(!turfu || !isturf(turfu))
@@ -1424,3 +1409,14 @@
 	mid_length = 390
 	volume = 20
 	extra_range = -4
+
+/mob/living/carbon/human/proc/become_pregnant(husband)
+	if(QDELETED(src))
+		return
+	if(!hasVagina())
+		return
+	if(stat == DEAD)
+		return
+
+	to_chat(src, "<span class='warning'>I don't feel so good...I'm definetly pregnant!</span>")	//Some kind of a notification - by Gardelin0
+//	add_nausea(101)	Stop throwing up after sex - by Gardelin0

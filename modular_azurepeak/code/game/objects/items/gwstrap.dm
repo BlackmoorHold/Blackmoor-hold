@@ -1,6 +1,6 @@
 /obj/item/gwstrap
-	name = "greatweapon strap"
-	desc = ""
+	name = "greatweapon back-strap"
+	desc = "A greatly sized scabbard, strapped around ones back, designed for carrying greatly sized weapons by sheathing and latching it tight."
 	icon_state = "gws0"
 	item_state = "gwstrap"
 	icon = 'modular_azurepeak/icons/obj/items/gwstrap.dmi'
@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	equip_delay_self = 5 SECONDS
-	unequip_delay_self = 5 SECONDS
+	unequip_delay_self = 3.5 SECONDS
 	resistance_flags = NONE
 	max_integrity = 0
 	experimental_onback = FALSE
@@ -20,7 +20,7 @@
 	bigboy = TRUE
 	equip_sound = 'sound/blank.ogg'
 	bloody_icon_state = "bodyblood"
-	strip_delay = 20
+	strip_delay = 2.5 SECONDS
 	var/atom/movable/weps = null
 	sewrepair = TRUE
 
@@ -28,7 +28,7 @@
 	if(istype(A, /obj/item/rogueweapon) && A.w_class >= WEIGHT_CLASS_BULKY)
 		if(weps == null)
 			for(var/obj/item/gwstrap/I in user.get_equipped_items(TRUE))
-				to_chat(loc, span_warning("I work the latches of my strap to holster [A]."))
+				to_chat(loc, span_warning("I work the latches of my strap to sheathe [A]."))
 				if(do_after(user, 50, target = user))
 					user.transferItemToLoc(A, weps)
 					weps = A
@@ -36,21 +36,21 @@
 					getonmobprop("onback")
 					LAZYSET(I.onprop, "onback", getonmobprop("onback"))
 					user.update_inv_back()
-					name = "greatweapon strap ([A.name])"
+					name = "greatweapon back-strap ([A.name])"
 					if(A.sheathe_sound)
 						playsound(src, A.sheathe_sound, 100)
 		else
-			to_chat(loc, span_warning("The holster already holds a weapon!"))
+			to_chat(loc, span_warning("The scabbard already holds a weapon!"))
 		return
 	. = ..()
 
 /obj/item/gwstrap/attack_right(mob/user)
 	if(weps != null)
 		if(!user.get_active_held_item())
-			to_chat(loc, span_warning("I work the latches of my strap to unholster [weps]."))
+			to_chat(loc, span_warning("I work the latches of my strap to unsheathe [weps]."))
 			if(do_after(user, 50, target = user))
 				user.put_in_active_hand(weps, user.active_hand_index)
-				name = "greatweapon strap"
+				name = "greatweapon back-strap"
 				weps = null
 				update_icon()
 				user.update_inv_back()
@@ -74,7 +74,7 @@
 /obj/item/gwstrap/examine(mob/user)
 	. = ..()
 	if(weps != null)
-		. += span_notice("A [weps] is attached the holster.")
+		. += span_notice("A [weps] is attached the scabbard.")
 
 /obj/item/gwstrap/getonmobprop(tag)
 	. = ..()
@@ -97,7 +97,7 @@
 
 /obj/item/gwstrap/proc/on_drop(datum/source, mob/user)
 	if(weps != null)
-		name = "greatweapon strap"
+		name = "greatweapon back-strap"
 		var/atom/movable/I = weps
 		weps = null
 		update_icon()
