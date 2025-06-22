@@ -20,7 +20,7 @@
 	advclass_cat_rolls = list(CTAG_SERGEANT = 20)
 
 	give_bank_account = 50
-	min_pq = 6
+	min_pq = 16
 	max_pq = null
 	cmode_music = 'sound/music/combat_guard4.ogg'
 
