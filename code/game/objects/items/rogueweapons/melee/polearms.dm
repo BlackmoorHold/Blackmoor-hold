@@ -53,6 +53,7 @@
 /datum/intent/spear/cut/bardiche
     damfactor = 1.15
     chargetime = 0
+	swingdelay = 3.5
 
 /datum/intent/spear/cut/glaive
 	damfactor = 1.1
