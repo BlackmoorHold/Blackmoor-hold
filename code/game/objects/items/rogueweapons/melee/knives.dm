@@ -36,6 +36,17 @@
 	clickcd = 8
 	item_d_type = "stab"
 
+/datum/intent/dagger/thrust/pick
+	name = "icepick stab"
+	icon_state = "inpick"
+	attack_verb = list("stabs", "impales")
+	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
+	penfactor = 70
+	clickcd = 14
+	swingdelay = 12
+	damfactor = 1.1
+	blade_class = BCLASS_PICK
+
 /datum/intent/dagger/thrust/seax
 	damfactor = 0.9
 	penfactor = 30
