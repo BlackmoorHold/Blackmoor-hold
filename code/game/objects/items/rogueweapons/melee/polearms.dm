@@ -51,8 +51,8 @@
 	damfactor = 1
 
 /datum/intent/spear/cut/bardiche
-    damfactor = 1.15
-    chargetime = 0
+	damfactor = 1.15
+	chargetime = 0
 	swingdelay = 3.5
 
 /datum/intent/spear/cut/glaive
@@ -103,7 +103,6 @@
 	damfactor = 0.9
 	swingdelay = 6
 	item_d_type = "blunt"
-
 
 /datum/intent/rend
 	name = "rend"
