@@ -10,7 +10,7 @@
 	chargetime = 1
 	warnie = "mobwarning"
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
-	penfactor = 50
+	penfactor = 45
 	item_d_type = "stab"
 
 /datum/intent/spear/thrust/militia
@@ -20,7 +20,6 @@
 /datum/intent/spear/bash
 	name = "bash"
 	blade_class = BCLASS_BLUNT
-	penfactor = BLUNT_DEFAULT_PENFACTOR
 	icon_state = "inbash"
 	attack_verb = list("bashes", "strikes")
 	penfactor = 10
@@ -37,23 +36,29 @@
 	icon_state = "incut"
 	damfactor = 0.8
 	hitsound = list('sound/combat/hits/bladed/genslash (1).ogg', 'sound/combat/hits/bladed/genslash (2).ogg', 'sound/combat/hits/bladed/genslash (3).ogg')
+	swingdelay = 5
 	reach = 2
 	item_d_type = "slash"
 
 /datum/intent/spear/cut/halberd
 	damfactor = 0.9
+	chargetime = 0
+	swingdelay = 3
+	penfactor = 10
 
 /datum/intent/spear/cut/scythe
 	reach = 3
 	damfactor = 1
 
 /datum/intent/spear/cut/bardiche
-    damfactor = 1.2
+    damfactor = 1.15
     chargetime = 0
+	swingdelay = 3.5
 
 /datum/intent/spear/cut/glaive
-	damfactor = 1.2
+	damfactor = 1.1
 	chargetime = 0
+	swingdelay = 2.5
 
 /datum/intent/spear/cast
 	name = "cast"
@@ -94,8 +99,9 @@
 	blade_class = BCLASS_BLUNT
 	icon_state = "inbash"
 	attack_verb = list("bashes", "strikes")
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	damfactor = 1.3
+	penfactor = 25
+	damfactor = 0.9
+	swingdelay = 6
 	item_d_type = "blunt"
 
 
@@ -106,9 +112,10 @@
 	animname = "cut"
 	blade_class = BCLASS_CHOP
 	reach = 1
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	damfactor = 2.5
+	penfactor = 20
+	damfactor = 1.25
 	chargetime = 10
+	swingdelay = 5
 	no_early_release = TRUE
 	hitsound = list('sound/combat/hits/bladed/genslash (1).ogg', 'sound/combat/hits/bladed/genslash (2).ogg', 'sound/combat/hits/bladed/genslash (3).ogg')
 	item_d_type = "slash"
@@ -116,10 +123,10 @@
 
 /datum/intent/rend/reach
 	name = "long rend"
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	misscost = 5
+	penfactor = 25
 	chargetime = 5
-	damfactor = 2
+	swingdelay = 3
+	damfactor = 1.3
 	reach = 2
 
 /datum/intent/rend/reach/partizan
@@ -129,7 +136,7 @@
 	chargetime = 10
 	swingdelay = 8
 	misscost = 20
-	damfactor = 1.8
+	damfactor = 1.5
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
 	item_d_type = "stab"
 	no_early_release = TRUE
@@ -144,7 +151,7 @@
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	chargetime = 2
 	penfactor = 200
-	swingdelay = 5
+	swingdelay = 6
 	damfactor = 0.05
 	item_d_type = "slash"
 	peel_divisor = 4
@@ -156,7 +163,7 @@
 /datum/intent/spear/thrust/quarterstaff
 	blade_class = BCLASS_BLUNT
 	hitsound = list('sound/combat/hits/blunt/bluntsmall (1).ogg', 'sound/combat/hits/blunt/bluntsmall (2).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 5
 	damfactor = 1.3 // Adds up to be slightly stronger than an unenhanced ebeak strike.
 	chargetime = 6 // Meant to be stronger than a bash, but with a delay.
 
@@ -169,22 +176,30 @@
 	attack_verb = list("lances", "runs through", "skewers")
 	animname = "stab"
 	item_d_type = "stab"
-	penfactor = BLUNT_DEFAULT_PENFACTOR // Not a mistake, to prevent it from nuking through armor.
+	penfactor = 40
 	chargetime = 4 SECONDS
-	damfactor = 4 // 80 damage on hit. It is gonna hurt.
+	charging_slowdown = 4
+	damfactor = 2.5
 	reach = 3 // Yep! 3 tiles
-	intdamage_factor = 2 // 4 hits to break coat of plate normally.
+	intdamage_factor = 2
 
 /datum/intent/lance/onehand
-	chargetime = 5 SECONDS
+	chargetime = 6 SECONDS
+	charging_slowdown = 5
 
 //polearm objs ฅ^•ﻌ•^ฅ
+
+/datum/intent/mace/tapstrike/staff
+	name = "tap poke"
+	attack_verb = list("pokes", "probs")
+	animname = "stab"
+	reach = 2
 
 /obj/item/rogueweapon/woodstaff
 	force = 10
 	force_wielded = 15
-	possible_item_intents = list(SPEAR_BASH)
-	gripped_intents = list(SPEAR_BASH,/datum/intent/mace/smash/wood)
+	possible_item_intents = list(SPEAR_BASH, /datum/intent/mace/tapstrike/staff)
+	gripped_intents = list(SPEAR_BASH,/datum/intent/mace/smash/wood, /datum/intent/mace/tapstrike/staff, /datum/intent/mace/tapsmash)
 	name = "wooden staff"
 	desc = "A solid dependable walking stick that allows one to traverse rough terrain with ease, keep the weight off an injured leg, or reliably fend off incoming blows. Perfect for beggars, pilgrims, and mages."
 	icon_state = "woodstaff"
@@ -349,12 +364,22 @@
 /obj/item/rogueweapon/spear/billhook
 	name = "billhook"
 	desc = "A neat hook. Used to pull riders from horses, as well as defend against said horses when used in a proper formation. The reinforcements along it's shaft grant it higher durability against attacks."
+	possible_item_intents = list(/datum/intent/spear/thrust/billhook, SPEAR_BASH) // Bash is for nonlethal takedowns, only targets limbs
+	gripped_intents = list(/datum/intent/spear/thrust/billhook, /datum/intent/spear/thrust/billhook, SPEAR_BASH)
 	icon_state = "billhook"
 	smeltresult = /obj/item/ingot/steel
 	max_blade_int = 200
 	minstr = 8
 	wdefense = 6
 	throwforce = 15
+
+/datum/intent/spear/cut/billhook
+	damfactor = 0.85
+	swingdelay = 2.5
+
+/datum/intent/spear/thrust/billhook
+	chargetime = 1.5
+	penfactor = 50
 
 /obj/item/rogueweapon/spear/improvisedbillhook
 	force = 12
@@ -364,7 +389,7 @@
 	icon_state = "billhook"
 	smeltresult = /obj/item/ingot/iron
 	max_blade_int = 100
-	wdefense = 4
+	wdefense = 4.5
 	throwforce = 10
 
 /obj/item/rogueweapon/spear/stone
@@ -426,20 +451,20 @@
 	walking_stick = TRUE
 	wdefense = 4
 	thrown_bclass = BCLASS_STAB
-	throwforce = 35
+	throwforce = 29
 	resistance_flags = FLAMMABLE
 	pickup_sound = 'modular_helmsguard/sound/sheath_sounds/draw_polearm.ogg'
 	sheathe_sound = 'sound/foley/equip/swordlarge1.ogg'
 
 /obj/item/rogueweapon/fishspear/depthseek //DO NOT ADD RECIPE. MEANT TO BE AN ABYSSORITE RELIC. IDEA COURTESY OF LORDINQPLAS
-	force = 45
+	force = 35
 	name = "blessed depthseeker"
 	desc = "A beautifully crafted weapon, with handle carved of some beast's bone, inlaid with smooth seaglass at pommel and head, with two prongs smithed of fine dwarven steel. The seaglass carving at the head is a masterwork in and of itself, you can feel an abyssal energy radiating off it."
 	icon_state = "depthseek"
 	smeltresult = /obj/item/ingot/blacksteel
 	max_blade_int = 2600
-	wdefense = 8
-	throwforce = 50
+	wdefense = 7
+	throwforce = 35
 
 /obj/item/rogueweapon/fishspear/attack_self(mob/user)
 	if(user.used_intent.type == SPEAR_CAST)
@@ -618,8 +643,8 @@
 /obj/item/rogueweapon/halberd
 	force = 15
 	force_wielded = 30
-	possible_item_intents = list(SPEAR_THRUST, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(SPEAR_THRUST, /datum/intent/spear/cut/halberd, /datum/intent/sword/chop, SPEAR_BASH)
+	possible_item_intents = list(/datum/intent/spear/thrust/halberd, SPEAR_BASH) // Bash is for nonlethal takedowns, only targets limbs
+	gripped_intents = list(/datum/intent/spear/thrust/halberd, /datum/intent/spear/cut/halberd, /datum/intent/sword/chop, SPEAR_BASH)
 	name = "halberd"
 	desc = "A steel halberd, the pinnacle of all cumulative melee weapon knowledge. The only downside is the cost, so it's rarely seen outside of the guardsmans' hands. The reinforcements along the shaft provide greater durability."
 	icon_state = "halberd"
@@ -639,9 +664,13 @@
 	associated_skill = /datum/skill/combat/polearms
 	blade_dulling = DULLING_SHAFT_WOOD
 	walking_stick = TRUE
-	wdefense = 6
+	wdefense = 5.5
 	pickup_sound = 'modular_helmsguard/sound/sheath_sounds/draw_polearm.ogg'
 	sheathe_sound = 'sound/foley/equip/swordlarge1.ogg'
+
+/datum/intent/spear/thrust/halberd
+	chargetime = 2
+	penfactor = 55
 
 /obj/item/rogueweapon/halberd/getonmobprop(tag)
 	. = ..()
@@ -664,14 +693,14 @@
 	desc = "A mutual effort of Noc and Astrata's followers, this halberd was forged with both Silver and Gold alike. Blessed to hold strength and bring hope. Whether dae or nite. The reinforced shaft provides greater durability."
 	icon_state = "gsspear"
 	max_integrity = 300
-	force = 20
-	force_wielded = 35
+	force = 18
+	force_wielded = 33
 
 /obj/item/rogueweapon/halberd/bardiche
 	possible_item_intents = list(/datum/intent/spear/thrust/eaglebeak, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
 	gripped_intents = list(/datum/intent/spear/thrust/eaglebeak, /datum/intent/spear/cut/bardiche, /datum/intent/axe/chop, SPEAR_BASH)
 	name = "bardiche"
-	desc = "A beautiful variant of the halberd. Its reinforced shaft provides it with greater durability against attacks."
+	desc = "A beautiful variant of the halberd, focused around cutting and chopping. Its reinforced shaft provides it with greater durability against attacks."
 	icon_state = "bardiche"
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/iron
@@ -718,7 +747,7 @@
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
 	max_blade_int = 300
-	wdefense = 9
+	wdefense = 6
 
 /obj/item/rogueweapon/halberd/glaive/getonmobprop(tag)
 	. = ..()
@@ -756,7 +785,7 @@
 	max_blade_int = 300
 	blade_dulling = DULLING_SHAFT_REINFORCED
 	walking_stick = TRUE
-	wdefense = 5
+	wdefense = 2.5
 	wbalance = WBALANCE_HEAVY
 	sellprice = 60
 	intdamage_factor = 1.2
@@ -791,16 +820,19 @@
 
 /datum/intent/spear/thrust/eaglebeak
 	penfactor = 20
-	damfactor = 0.9
+	damfactor = 0.8
+	chargetime = 25
+
 
 /datum/intent/spear/thrust/glaive
-	penfactor = 50
-	damfactor = 1.1
+	penfactor = 40
+	damfactor = 1.05
 	chargetime = 0
+	swingdelay = 2
 
 /datum/intent/mace/smash/eaglebeak
 	reach = 2
-	swingdelay = 12
+	swingdelay = 16 // 12 > 16 because it kept bypassing parries and dodges when used on swift, that and it's strong as is.
 	clickcd = 14
 
 /obj/item/rogueweapon/spear/bronze
@@ -1030,7 +1062,7 @@
 	desc = "A staff that makes any journey easier. Durable and swift, capable of bludgeoning stray volves and ruffians alike. Its length allow it to be used for a thrusting attack."
 	force = 15
 	force_wielded = 20
-	gripped_intents = list(/datum/intent/spear/bash/ranged/quarterstaff, /datum/intent/spear/thrust/quarterstaff)
+	gripped_intents = list(/datum/intent/spear/bash/ranged/quarterstaff, /datum/intent/spear/thrust/quarterstaff, /datum/intent/mace/tapstrike/staff, /datum/intent/mace/tapsmash)
 	icon_state = "quarterstaff"
 	max_integrity = 300
 
@@ -1067,7 +1099,7 @@
 	icon = 'icons/roguetown/weapons/64.dmi'
 	minstr = 10
 	max_blade_int = 200
-	wdefense = 6
+	wdefense = 5
 	throwforce = 12	//Not a throwing weapon. Too heavy!
 	blade_dulling = DULLING_SHAFT_REINFORCED
 	icon_angle_wielded = 50
@@ -1088,7 +1120,7 @@
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	icon_state = "boarspear"
 	force_wielded = 33 // 10% base damage increase
-	wdefense = 6 // A little bit extra
+	wdefense = 5
 	max_blade_int = 150 // 50% more sharpness but it barely matter lol
 
 /obj/item/rogueweapon/spear/lance
@@ -1097,9 +1129,9 @@
 	the shaft on impact. "
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	icon_state = "lance"
-	force = 15 // Its gonna sucks for 1 handed use
+	force = 5 // This isn't meant to be used one-handed.
 	force_wielded = 20 // Lower damage because a 3 tiles thrust without full charge time still deal base damage. 
-	wdefense = 4 // 2 Lower than spear
+	wdefense = 2 // If you have to parry with this unwieldy thing to begin with, oofh, besides you can't parry on horseback anyhow.
 	max_integrity = 200
 	max_blade_int = 200 // Better sharpness
 	possible_item_intents = list(SPEAR_THRUST, /datum/intent/lance/onehand, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs

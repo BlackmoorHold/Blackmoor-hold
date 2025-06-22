@@ -3,12 +3,11 @@
 /datum/intent/mace/strike
 	name = "strike"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("strikes", "hits")
+	attack_verb = list("strikes", "whacks")
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	damfactor = 1.1
-	swingdelay = 0
+	penfactor = 20
+	swingdelay = 4 // Idea behind it, is to balance out swift intent and give this weapon a purpose more damage at the cost of delay.
 	icon_state = "instrike"
 	item_d_type = "blunt"
 
@@ -17,13 +16,47 @@
 	blade_class = BCLASS_SMASH
 	attack_verb = list("smashes")
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 70
 	damfactor = 1.5
 	swingdelay = 10
 	clickcd = 14
 	icon_state = "insmash"
 	item_d_type = "blunt"
 
+/datum/intent/mace/tapstrike
+	name = "tap strike"
+	blade_class = BCLASS_BLUNT
+	attack_verb = list("taps", "tapped")
+	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
+	chargetime = 0
+	penfactor = 5
+	damfactor = 0.01
+	swingdelay = 0
+	icon_state = "instrike"
+	item_d_type = "blunt"
+
+/datum/intent/mace/tapstrike/club
+	swingdelay = 4 // Here to simulate the same strike from a mace.
+
+/datum/intent/mace/tapsmash
+	name = "tap smash"
+	blade_class = BCLASS_SMASH
+	attack_verb = list("taps", "tapped")
+	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
+	chargetime = 0
+	penfactor = 5
+	damfactor = 0.01
+	swingdelay = 10
+	clickcd = 14
+	icon_state = "insmash"
+	item_d_type = "blunt"
+
+/datum/intent/mace/tapsmash/sword
+	name = "tap chop"
+	animname = "chop"
+	swingdelay = 8
+	clickcd = 12
+	icon_state = "inchop"
 
 /datum/intent/mace/rangedthrust
 	name = "thrust"
@@ -32,7 +65,7 @@
 	animname = "stab"
 	icon_state = "instab"
 	reach = 2
-	chargetime = 1
+	chargetime = 1.5
 	recovery = 30
 	warnie = "mobwarning"
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
@@ -101,7 +134,7 @@
 
 
 /obj/item/rogueweapon/mace/church
-	force = 25
+	force = 15
 	force_wielded = 30
 	name = "bell ringer"
 	desc = "This heavy hammer is used to ring the church's bell."
@@ -111,8 +144,8 @@
 	wdefense = 3
 
 /obj/item/rogueweapon/mace/steel
-	force = 25
-	force_wielded = 32
+	force = 22
+	force_wielded = 29
 	name = "steel mace"
 	desc = "This steel mace is objectively superior to an iron one."
 	icon_state = "smace"
@@ -156,13 +189,13 @@
 	force = 15
 	force_wielded = 18
 	name = "wooden club"
-	desc = "A primitive cudgel carved of a stout piece of treefall."
+	desc = "A primitive club carved of a stout piece of treefall."
 	icon_state = "club1"
 	//dropshrink = 0.75
 	wbalance = WBALANCE_NORMAL
-	wdefense = 1
-	possible_item_intents = list(/datum/intent/mace/strike/wood)
-	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
+	wdefense = 2
+	possible_item_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/tapstrike/club)
+	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood, /datum/intent/mace/tapstrike/club, /datum/intent/mace/tapsmash)
 	smeltresult = /obj/item/ash
 	anvilrepair = /datum/skill/craft/carpentry
 	blade_dulling = DULLING_SHAFT_WOOD
@@ -175,11 +208,12 @@
 
 /datum/intent/mace/strike/wood
 	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 10
+	swingdelay = 0
 
 /datum/intent/mace/smash/wood
 	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 20
 
 /datum/intent/mace/smash/wood/ranged
 	reach = 2
@@ -188,20 +222,30 @@
 	name = "cudgel"
 	desc = "A stubby little club for brigands or thieves. Attempting parries with this is a bad idea."
 	force = 25
-	icon_state = "cudgel"
 	force_wielded = 25
-	possible_item_intents = list(/datum/intent/mace/strike)
-	gripped_intents = list(/datum/intent/mace/smash, /datum/intent/mace/strike)
-	smeltresult = /obj/item/ash
+	icon_state = "cudgel"
+	possible_item_intents = list(/datum/intent/mace/strike/cudgel)
+	gripped_intents = list(/datum/intent/mace/strike/cudgel, /datum/intent/mace/smash/cudgel)
+	smeltresult = /obj/item/iron
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
 	wbalance = WBALANCE_NORMAL
-	minstr = 7
-	wdefense = 1
+	minstr = 5
+	wdefense = 0.5
 	resistance_flags = FLAMMABLE
 	blade_dulling = DULLING_SHAFT_WOOD
 	grid_width = 32
 	grid_height = 96
+
+/datum/intent/mace/strike/cudgel
+	penfactor = 10
+	swingdelay = 0
+
+/datum/intent/mace/smash/cudgel
+	penfactor = 30
+	damfactor = 1.25
+	swingdelay = 6
+	clickcd = 12
 
 /obj/item/rogueweapon/mace/cudgel/copper
 	name = "copper bludgeon"
@@ -215,17 +259,17 @@
 /obj/item/rogueweapon/mace/cudgel/justice
 	name = "'Justice'"
 	desc = "The icon of the right of office of the Marshal. While mostly ceremonial in design, it serves it's purpose in dishing out some much needed justice."
-	force = 30
+	force = 27.5
 	icon_state = "justice"
-	force_wielded = 30
-	gripped_intents = list(/datum/intent/mace/strike,/datum/intent/mace/smash)
+	force_wielded = 27.5
+	gripped_intents = list(/datum/intent/mace/strike/cudgel, /datum/intent/mace/smash/cudgel)
 	smeltresult = /obj/item/ingot/steel
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
 	blade_dulling = DULLING_SHAFT_REINFORCED
 	wbalance = WBALANCE_SWIFT
 	minstr = 7
-	wdefense = 5
+	wdefense = 4.5
 
 /obj/item/rogueweapon/mace/cudgel/getonmobprop(tag)
 	. = ..()
@@ -238,13 +282,13 @@
 
 /obj/item/rogueweapon/mace/wsword
 	name = "wooden sword"
-	desc = "This wooden sword is great for training."
+	desc = "This wooden sword is great for training. Or humiliating opponents."
 	force = 5
 	force_wielded = 8
 	icon_state = "wsword"
 	//dropshrink = 0.75
-	possible_item_intents = list(/datum/intent/mace/strike/wood)
-	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
+	possible_item_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/tapstrike)
+	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood, /datum/intent/mace/tapstrike, /datum/intent/mace/tapsmash/sword)
 	smeltresult = /obj/item/ash
 	minstr = 7
 	wdefense = 5
@@ -308,7 +352,7 @@
 
 
 /obj/item/rogueweapon/mace/goden
-	force = 15
+	force = 16.5
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/mace/strike)
 	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/mace/rangedthrust, /datum/intent/effect/daze)
@@ -358,8 +402,8 @@
 	name = "grand mace"
 	desc = "Good morning, sire."
 	icon_state = "polemace"
-	force = 15
-	force_wielded = 35
+	force = 16.5
+	force_wielded = 33
 	smeltresult = /obj/item/ingot/steel
 	blade_dulling = DULLING_SHAFT_METAL
 	smelt_bar_num = 2
@@ -394,8 +438,8 @@
 	name = "Silver mace"
 	desc = "An ornate mace, plated in a ceremonial veneer of silver. Even the unholy aren't immune to discombobulation."
 	icon_state = "psymace"
-	force = 25
-	force_wielded = 32
+	force = 22
+	force_wielded = 29
 	wbalance = WBALANCE_HEAVY
 	dropshrink = 0.75
 	slot_flags = ITEM_SLOT_BACK //Looks better on back
@@ -480,7 +524,7 @@
 	animname = "stab"
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	misscost = 1
-	swingdelay = 15
+	swingdelay = 20
 	clickcd = 15
 	penfactor = 80
 	damfactor = 0.9

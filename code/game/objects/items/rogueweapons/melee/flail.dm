@@ -1,37 +1,12 @@
-/obj/item/rogueweapon/flail
-	force = 25
-	possible_item_intents = list(/datum/intent/flail/strike, /datum/intent/flail/strike/smash)
-	name = "flail"
-	desc = "This is a swift, iron flail. Strikes hard and far."
-	icon_state = "iflail"
-	icon = 'icons/roguetown/weapons/32.dmi'
-	sharpness = IS_BLUNT
-	//dropshrink = 0.75
-	wlength = WLENGTH_NORMAL
-	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
-	associated_skill = /datum/skill/combat/whipsflails
-	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ingot/iron
-	parrysound = list('sound/combat/parry/parrygen.ogg')
-	swingsound = BLUNTWOOSH_MED
-	blade_dulling = DULLING_SHAFT_WOOD
-	throwforce = 5
-	wdefense = 0
-	minstr = 4
-	grid_width = 32
-	grid_height = 96
-	intdamage_factor = 1.1
-	pickup_sound = 'sound/foley/equip/equip_armor_chain.ogg'
-	sheathe_sound = 'sound/items/wood_sharpen.ogg'
+//intent datums ฅ^•ﻌ•^ฅ 
 
 /datum/intent/flail/strike
 	name = "strike"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("strikes", "hits")
+	attack_verb = list("strikes", "whacks")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 10
 	icon_state = "instrike"
 	item_d_type = "blunt"
 
@@ -41,11 +16,12 @@
 /datum/intent/flail/strikerange
 	name = "ranged strike"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("strikes", "hits")
+	attack_verb = list("strikes", "whacks")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
-	chargetime = 0
+	chargetime = 20
 	recovery = 15
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 20
+	swingdelay = 2.5
 	reach = 2
 	icon_state = "instrike"
 	item_d_type = "blunt"
@@ -55,7 +31,7 @@
 	chargetime = 5
 	chargedrain = 2
 	no_early_release = TRUE
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 70
 	recovery = 10
 	damfactor = 1.6
 	chargedloop = /datum/looping_sound/flailswing
@@ -81,9 +57,10 @@
 	chargedrain = 2
 	no_early_release = TRUE
 	recovery = 30
-	damfactor = 1.5
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	damfactor = 1.65
+	penfactor = 75
 	reach = 2
+	swingdelay = 5
 	chargedloop = /datum/looping_sound/flailswing
 	keep_looping = TRUE
 	icon_state = "insmash"
@@ -101,12 +78,53 @@
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
+/datum/intent/flail/suckercurverange // Currently not in use, maybe make it an alt grip.
+	name = "sucker curve"
+	blade_class = BCLASS_BLUNT
+	attack_verb = list("curve strikes", "curve whacks")
+	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
+	chargetime = 10
+	recovery = 10
+	damfactor = 0.85
+	penfactor = 20
+	swingdelay = 2.5
+	reach = 2
+	icon_state = "instrike"
+	item_d_type = "blunt"
+	canparry = FALSE
+
+/obj/item/rogueweapon/flail
+	force = 15
+	possible_item_intents = list(/datum/intent/flail/strike, /datum/intent/flail/strikerange, /datum/intent/flail/strike/smash, /datum/intent/flail/strike/smashrange)
+	name = "flail"
+	desc = "This is a swift, iron flail. Strikes hard and far."
+	icon_state = "iflail"
+	icon = 'icons/roguetown/weapons/32.dmi'
+	sharpness = IS_BLUNT
+	//dropshrink = 0.75
+	wlength = WLENGTH_NORMAL
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
+	associated_skill = /datum/skill/combat/whipsflails
+	anvilrepair = /datum/skill/craft/weaponsmithing
+	smeltresult = /obj/item/ingot/iron
+	parrysound = list('sound/combat/parry/parrygen.ogg')
+	swingsound = BLUNTWOOSH_MED
+	blade_dulling = DULLING_SHAFT_WOOD
+	throwforce = 5
+	wdefense = 0
+	minstr = 4
+	grid_width = 32
+	grid_height = 96
+	intdamage_factor = 1.1
+	pickup_sound = 'sound/foley/equip/equip_armor_chain.ogg'
+	sheathe_sound = 'sound/items/wood_sharpen.ogg'
 
 /obj/item/rogueweapon/flail/aflail
 	name = "decrepit flail"
 	desc = "This is a swift, ancient flail. Strikes hard and far. Aeon's grasp is upon its form."
 	icon_state = "aflail"
-	force = 22
+	force = 18
 	max_integrity = 175
 	smeltresult = /obj/item/ingot/aalloy
 	blade_dulling = DULLING_SHAFT_CONJURED
@@ -118,7 +136,7 @@
 	smeltresult = /obj/item/ingot/aaslag
 
 /obj/item/rogueweapon/flail/sflail
-	force = 30
+	force = 21
 	icon_state = "flail"
 	desc = "This is a swift, steel flail. Strikes hard and far."
 	smeltresult = /obj/item/ingot/steel
@@ -141,44 +159,61 @@
 /datum/intent/whip/lash
 	name = "lash"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("lashes", "cracks")
+	attack_verb = list("lashes", "whips")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
 	recovery = 7
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 10
 	damfactor = 1.1
 	reach = 2
 	icon_state = "inlash"
-	item_d_type = "slash"
+	item_d_type = "blunt"
 
 /datum/intent/whip/crack
 	name = "crack"
-	blade_class = BCLASS_CUT
-	attack_verb = list("cracks", "strikes") //something something dwarf fotresss
+	blade_class = BCLASS_STAB
+	attack_verb = list("cracks", "snap-lashes") //something something dwarf fotresss
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
 	recovery = 10
 	penfactor = 40
 	reach = 3
+	swingdelay = 2.5
 	icon_state = "incrack"
-	item_d_type = "slash"
+	item_d_type = "stab"
 
-/datum/intent/whip/punish
+/datum/intent/whip/punish // This is purely for roleplay punishing.
 	name = "punish"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("lashes")
+	attack_verb = list("punish-lashes, punish-whips")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
 	recovery = 10
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	damfactor = 0.2
+	penfactor = 20
 	reach = 2
 	icon_state = "inpunish"
 	item_d_type = "blunt"
 
+/datum/intent/whip/suckercurveranged // To get around dodge and parries, might give an accuracy penalty later
+	name = "sucker lash"
+	blade_class = BCLASS_BLUNT
+	attack_verb = list("punish-lashes, punish-whips")
+	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
+	chargetime = 0
+	recovery = 10
+	damfactor = 0.75
+	penfactor = 10
+	reach = 2
+	icon_state = "instrike"
+	item_d_type = "blunt"
+	canparry = FALSE
+	candodge = FALSE
+
 /obj/item/rogueweapon/whip
 	force = 21
-	possible_item_intents = list(/datum/intent/whip/crack, /datum/intent/whip/lash, /datum/intent/whip/punish)
-	name = "whip"
+	possible_item_intents = list(/datum/intent/whip/crack, /datum/intent/whip/lash, /datum/intent/whip/punish, /datum/intent/whip/suckercurveranged)
+	name = "leather whip"
 	desc = "A leather whip. Built to last, with a sharp stone for a tip."
 	icon_state = "whip"
 	icon = 'icons/roguetown/weapons/32.dmi'
@@ -186,7 +221,7 @@
 	//dropshrink = 0.75
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_HIP
 	associated_skill = /datum/skill/combat/whipsflails
 	anvilrepair = /datum/skill/craft/tanning
 	parrysound = list('sound/combat/parry/parrygen.ogg')
@@ -222,18 +257,18 @@
 	name = "nagaika whip"
 	desc = "A short but heavy leather whip, sporting a blunt reinforced tip and a longer handle."
 	icon_state = "nagaika"
-	force = 25		//Same as a cudgel/sword for intent purposes. Basically a 2 range cudgel while one-handing.
+	force = 20		// Basically a 2 range cudgel while one-handing it with the crack-blunt intent.
 	possible_item_intents = list(/datum/intent/whip/crack/blunt, /datum/intent/whip/lash, /datum/intent/whip/punish, /datum/intent/sword/strike)
-	wdefense = 1	//Akin to a cudgel, still terrible at parrying though.
+	wdefense = 1	// Akin to a cudgel, still terrible at parrying though.
 
 /obj/item/rogueweapon/whip/xylix
 	name = "cackle lash"
 	desc = "The chimes of this whip are said to sound as the trickster's laughter itself."
 	icon_state = "xylixwhip"
-	force = 24
+	force = 22
 
 /obj/item/rogueweapon/whip/antique
-	force = 29
+	force = 23
 	name = "Repenta En"
 	desc = "An extremely well maintained whip, with a polished steel tip and gilded handle"
 	minstr = 11
@@ -317,6 +352,6 @@
 	desc = "In another lyfe, this humble thresher was used to pound stalks into grain. Under a militiaman's grasp, however, it has found a new purpose: to humble overconfident bandits with crippling blows."
 	icon_state = "milflail"
 	possible_item_intents = list(/datum/intent/flail/strike, /datum/intent/flail/strike/smash/militia)
-	force = 27
+	force = 25
 	wdefense = 3
 	wbalance = WBALANCE_HEAVY

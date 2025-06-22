@@ -1,5 +1,5 @@
-//intent datums ฅ^•ﻌ•^ฅ
-
+//intent datums ฅ^•ﻌ•^ฅ | Ctrl+f keywords, Cut/stab/chop/strike/peel/peel-big-intent]*/
+/*[Cut-intent]*/
 /datum/intent/sword/cut
 	name = "cut"
 	icon_state = "incut"
@@ -11,18 +11,18 @@
 	swingdelay = 0
 	damfactor = 1.1
 	item_d_type = "slash"
-
+/*[Cut-militia-intent]*/
 /datum/intent/sword/cut/militia
 	penfactor = 30
 	damfactor = 1.2
 	chargetime = 0.2
-
+/*[Chop-militia-intent]*/
 /datum/intent/sword/chop/militia
 	penfactor = 50
 	chargetime = 0.5
 	swingdelay = 0
 	damfactor = 1.0
-
+/*[Stab-intent]*/
 /datum/intent/sword/thrust
 	name = "stab"
 	icon_state = "instab"
@@ -34,10 +34,10 @@
 	chargetime = 0
 	swingdelay = 0
 	item_d_type = "stab"
-
+/*[Stab-krieg-intent]*/
 /datum/intent/sword/thrust/krieg
 	damfactor = 0.9
-
+/*[Strike-intent]*/
 /datum/intent/sword/strike
 	name = "pommel strike"
 	icon_state = "instrike"
@@ -50,7 +50,21 @@
 	swingdelay = 0
 	damfactor = 1
 	item_d_type = "blunt"
-
+/*[Peel-small-intent]*/
+/datum/intent/sword/peel/small
+	name = "armor peel"
+	icon_state = "inpeel"
+	attack_verb = list("peels", "chips")
+	animname = "cut"
+	blade_class = BCLASS_PEEL
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	chargetime = 0
+	penfactor = 200
+	swingdelay = 2.5
+	damfactor = 0.05
+	item_d_type = "slash"
+	peel_divisor = 7
+/*[Peel-intent]*/
 /datum/intent/sword/peel
 	name = "armor peel"
 	icon_state = "inpeel"
@@ -60,16 +74,17 @@
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	chargetime = 0
 	penfactor = 200
-	swingdelay = 0
+	swingdelay = 3.5
 	damfactor = 0.05
 	item_d_type = "slash"
-	peel_divisor = 4
-
+	peel_divisor = 5
+/*[Peel-big-intent]*/
 /datum/intent/sword/peel/big
 	name = "big sword armor peel"
-	peel_divisor = 3
-	reach = 2
-
+	peel_divisor = 4
+	swingdelay = 4.5
+//	reach = 2 // Being both able to hit less times and from afar is a tad much.
+/*[Chop-intent]*/
 /datum/intent/sword/chop
 	name = "chop"
 	icon_state = "inchop"
@@ -77,16 +92,17 @@
 	animname = "chop"
 	blade_class = BCLASS_CHOP
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
-	penfactor = 30
+	penfactor = 15
 	swingdelay = 8
-	damfactor = 1.0
+	damfactor = 0.8
 	item_d_type = "slash"
 
 /datum/intent/sword/cut/falx
-	penfactor = 20
+	penfactor = 15
+	clickcd = 10.5
 
 /datum/intent/sword/chop/falx
-	penfactor = 40
+	penfactor = 20
 
 /datum/intent/sword/cut/krieg
 	clickcd = 10
@@ -103,8 +119,8 @@
 	name = "arming sword"
 	desc = "A long steel blade attached to a hilt, separated by a crossguard. The arming sword has been Psydonia's implement of war by excellence for generations."
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
-	force = 22
-	force_wielded = 25
+	force = 16
+	force_wielded = 23
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/peel)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/sword/peel)
 	armor = ARMOR_SWORD
@@ -165,7 +181,7 @@
 /obj/item/rogueweapon/sword/falx
 	name = "falx"
 	desc = "An unusual type of curved sword that evolved from the farmer's sickle. It has an inwards edge, making it useful for cutting and chopping."
-	force = 22
+	force = 19
 	possible_item_intents = list(/datum/intent/sword/cut/falx,  /datum/intent/sword/chop/falx, /datum/intent/sword/strike, /datum/intent/sword/peel)
 	icon_state = "falx"
 	max_blade_int = 100
@@ -199,7 +215,7 @@
 				return list("shrink" = 0.5,"sx" = -4,"sy" = -6,"nx" = 5,"ny" = -6,"wx" = 0,"wy" = -6,"ex" = -1,"ey" = -6,"nturn" = 100,"sturn" = 156,"wturn" = 90,"eturn" = 180,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
 /obj/item/rogueweapon/sword/stone
-	force = 17 //Weaker than a short sword
+	force = 17 // Weaker than a short sword.
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/chop)
 	gripped_intents = null
 	name = "stone sword"
@@ -216,7 +232,7 @@
 /obj/item/rogueweapon/sword/short
 	name = "steel shortsword"
 	desc = "The arming sword's shorter and much older brother. Despite being centuries older than the swords of todae, it remains in use as a cheap sidearm for shieldbearers and archers."
-	force = 19
+	force = 18
 	possible_item_intents = list(/datum/intent/sword/cut/short, /datum/intent/sword/thrust/short, /datum/intent/sword/peel)
 	icon_state = "swordshort"
 	gripped_intents = null
@@ -238,8 +254,8 @@
 	name = "longsword"
 	desc = "A lethal and perfectly balanced weapon. The longsword is the protagonist of endless tales and myths all across Psydonia, seen in the hands of noblemen and an ever-decreasing quantity of master duelists.\
 		 It has great cultural significance in the empires of Grenzelhoft and Etrusca, where legendary swordsmen have created and perfected many fighting techniques of todae."
-	force = 25
-	force_wielded = 30
+	force = 19
+	force_wielded = 27
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/sword/peel)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/peel, /datum/intent/sword/chop)
 	alt_intents = list(/datum/intent/effect/daze, /datum/intent/sword/strike, /datum/intent/sword/bash)
@@ -313,8 +329,8 @@
 /obj/item/rogueweapon/sword/long/heirloom
 	name = "old longsword"
 	desc = "A very old steel longsword that has since become a showpiece. Perhaps a family relic, or the weapon of a dead knight."
-	force = 20
-	force_wielded = 32
+	force = 18
+	force_wielded = 28
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/sword/chop)
 	icon_state = "heirloom"
@@ -383,11 +399,11 @@
 			if("onbelt") 
 				return list("shrink" = 0.4,"sx" = -4,"sy" = -6,"nx" = 5,"ny" = -6,"wx" = 0,"wy" = -6,"ex" = -1,"ey" = -6,"nturn" = 100,"sturn" = 156,"wturn" = 90,"eturn" = 180,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
-/obj/item/rogueweapon/sword/long/judgement/ascendant //meant to be insanely OP; solo antag wep
+/obj/item/rogueweapon/sword/long/judgement/ascendant // Meant to be insanely OP; solo antag wep (Noooh)
 	name = "\"The Redentor\""
 	desc = "An intricately forged sword of great power. And the preacher said: \"For the Lord is my tower, and He gives me the power to tear down the works of the enemy.\""
-	force = 50
-	force_wielded = 70
+	force = 35
+	force_wielded = 50
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/sword/chop)
 	icon_state = "crucified"
@@ -417,8 +433,8 @@
 /obj/item/rogueweapon/sword/long/vlord
 	name = "\"Ichor Fang\""
 	desc = "An unholy longsword made of odd steel. A green crystalline mass covers the blade and pommel, its edges and serrations tougher and sharper than anything forged by a master swordsmith."
-	force = 40
-	force_wielded = 55
+	force = 30
+	force_wielded = 45
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/peel, /datum/intent/sword/strike)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/sword/chop)
 	alt_intents = list(/datum/intent/effect/daze, /datum/intent/sword/strike, /datum/intent/sword/bash)
@@ -462,8 +478,8 @@
 /obj/item/rogueweapon/sword/sabre/shamshir
 	name = "shamshir"
 	desc = "A curved one-handed longsword. This type of scimitar is the quintessential armament of Shalvistine horsemen, its name derived from Sama'glos for \"Tiger's claw\"."
-	force = 24
-	wdefense = 6.5	//Has chop mode, so slightly less defense. Slightly.
+	force = 19
+	wdefense = 6.5	// Has chop mode, so slightly less defense. Slightly.
 	wbalance = WBALANCE_SWIFT
 	icon_state = "tabi"
 	max_integrity = 230
@@ -495,9 +511,9 @@
 /obj/item/rogueweapon/sword/long/marlin
 	name = "shalal saber"
 	desc = "A large yet surprisingly agile curved blade meant to be wielded in two hands. It has a similar composition to northwestern Psydonian longswords, but it's notably lighter."
-	force = 26
-	force_wielded = 31
-	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike, /datum/intent/sword/peel)
+	force = 17.5
+	force_wielded = 29
+	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike, /datum/intent/sword/peel/small)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike, /datum/intent/sword/chop, /datum/intent/sword/peel)
 	icon_state = "marlin"
 	max_integrity = 235
@@ -535,19 +551,21 @@
 			if("onbelt")
 				return list("shrink" = 0.5,"sx" = -4,"sy" = -6,"nx" = 5,"ny" = -6,"wx" = 0,"wy" = -6,"ex" = -1,"ey" = -6,"nturn" = 100,"sturn" = 156,"wturn" = 90,"eturn" = 180,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
-//Slightly more expensive than a longsword by 1 iron, so gets to be slightly better.
+// Slightly more expensive than a longsword by 1 iron, so gets to be slightly better.
 /obj/item/rogueweapon/sword/long/exe
 	name = "executioners sword"
 	desc = "A longsword with extra heft to its blade, reinforced."
-	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/peel, /datum/intent/sword/strike)
-	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/axe/chop)
+	force = 15
+	force_wielded = 30
+	possible_item_intents = list(/datum/intent/sword/strike)
+	gripped_intents = list(/datum/intent/axe/chop, /datum/intent/sword/thrust/exe, /datum/intent/sword/strike)
 	icon_state = "exe"
 	minstr = 12
-	slot_flags = ITEM_SLOT_BACK //Too big for hip
+	slot_flags = ITEM_SLOT_BACK // Too big for hip
 
 /datum/intent/sword/thrust/exe
-	swingdelay = 4	//Slight delay to stab; big and heavy.
-	penfactor = 30	//Slightly better pen than base longsword, which is 20. It's a heavy blade so.
+	swingdelay = 8	// Think of it as a one two motion.
+	penfactor = 30	// Slightly better pen than base longsword, which is 20. It's a heavy blade so.
 
 /obj/item/rogueweapon/sword/long/exe/astrata
 	name = "\"Solar Judge\""
@@ -594,6 +612,8 @@
 	name = "iron arming sword"
 	desc = "A long iron blade attached to a hilt, separated by a crossguard. The arming sword has been Psydonia's implement of war by excellence for generations, this one is cheaper than its steel brother."
 	icon_state = "isword"
+	force = 16
+	force_wielded = 23
 	minstr = 6
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = 135
@@ -690,16 +710,21 @@
 	icon_state = "smesser"
 	max_integrity = 180
 	force = 22	//Same damage as the iron messer
-	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust, /datum/intent/axe/chop, /datum/intent/sword/peel)
+	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust/messer, /datum/intent/axe/chop, /datum/intent/sword/peel)
 	gripped_intents = null
 	minstr = 5
+
+/datum/intent/sword/thrust/messer
+	damfactor = 0.9
+	penfactor = 25
+	swingdelay = 6
 
 /obj/item/rogueweapon/sword/sabre
 	name = "sabre"
 	desc = "A very popular backsword made for cavalrymen that originated in Naledi and spread its influence further north, reaching Aavnr as a \"Szablya\" and notoriously cementing itself as the preferred weapon of the Potentate's Hussars."
 	icon_state = "saber"
 	max_integrity = 230
-	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust/sabre, /datum/intent/sword/peel, /datum/intent/sword/strike)
+	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust/sabre, /datum/intent/sword/peel/small, /datum/intent/sword/strike)
 	gripped_intents = null
 	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')
 	swingsound = BLADEWOOSH_SMALL
@@ -708,13 +733,12 @@
 	wbalance = WBALANCE_SWIFT
 
 /datum/intent/sword/cut/sabre
-	clickcd = 8			//Faster than sword by 4
-	damfactor = 1.25	//Better than rapier (Base is 1.1 for swords)
-	penfactor = 10		//Very slight buff to pen on cut mode. Still weaker than sword-chop mode.
+	clickcd = 8			// Faster than sword by 4
+	penfactor = 10		// Very slight buff to pen on cut mode. Still weaker than sword-chop mode.
 
 /datum/intent/sword/thrust/sabre
-	clickcd = 9			//Fast but just shy of being as good as a rapier by 1.
-	damfactor = 0.9		//10% worse	than base
+	clickcd = 9.5		// Fast but just shy of being as good as a rapier by 1.5.
+	damfactor = 0.9		// 10% worse than base
 
 /obj/item/rogueweapon/sword/sabre/dec
 	icon_state = "decsaber"
@@ -910,12 +934,15 @@
 	desc = "The mariner's special: A short, broad sabre with a slightly curved blade optimized for slashing."
 	icon_state = "cutlass"
 	max_integrity = 240
-	force = 23
-	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/chop, /datum/intent/sword/peel)
+	force = 20
+	possible_item_intents = list(/datum/intent/sword/cut/cutlass, /datum/intent/sword/chop, /datum/intent/sword/peel)
 	gripped_intents = null
 	wdefense = 6.5
-	wbalance = WBALANCE_SWIFT
-	
+
+/datum/intent/sword/cut/cutlass
+	damfactor = 1.15
+	penfactor = 15
+	swingdelay = 4
 
 /obj/item/rogueweapon/sword/silver
 	force = 24
@@ -1170,8 +1197,8 @@
 /obj/item/rogueweapon/sword/long/holysee
 	name = "eclipsum sword"
 	desc = "A deadly longsword born of Astratan and Nocite hands, this blade was forged with both silver and gold alike. Blessed to hold strength and bring hope, whether it be during the dae or the nite."
-	force = 34
-	force_wielded = 50
+	force = 30
+	force_wielded = 40
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/peel, /datum/intent/sword/strike)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/peel, /datum/intent/sword/chop)
 	icon_state = "eclipsum"

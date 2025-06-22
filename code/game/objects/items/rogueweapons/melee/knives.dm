@@ -10,11 +10,19 @@
 	animname = "cut"
 	blade_class = BCLASS_CUT
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
+	damfactor = 0.85
 	penfactor = 0
 	chargetime = 0
 	swingdelay = 0
 	clickcd = 10
 	item_d_type = "slash"
+
+/datum/intent/dagger/cut/knife
+	damfactor = 1
+
+/datum/intent/dagger/cut/stiletto
+	damfactor = 0.55
+	blade_class = BCLASS_BLUNT // It has blunt edges, it's purely designed for stabbing.
 
 /datum/intent/dagger/thrust
 	name = "thrust"
@@ -28,26 +36,34 @@
 	clickcd = 8
 	item_d_type = "stab"
 
-/datum/intent/dagger/thrust/pick
+/datum/intent/dagger/thrust/seax
+	damfactor = 0.9
+	penfactor = 30
+
+/datum/intent/dagger/thrust/stiletto
+	damfactor = 1.05
+	penfactor = 80
+
+/datum/intent/dagger/thrust
 	name = "icepick stab"
 	icon_state = "inpick"
 	attack_verb = list("stabs", "impales")
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
-	penfactor = 80
+	penfactor = 70
 	clickcd = 14
 	swingdelay = 12
 	damfactor = 1.1
 	blade_class = BCLASS_PICK
 
 /datum/intent/dagger/sucker_punch
-	name = "sucker punch"
-	icon_state = "inpunch"
-	attack_verb = list("punches", "jabs",)
+	name = "sucker hilt"
+	icon_state = "instrike"
+	attack_verb = list("hilt pommels", "hilt jabs",)
 	animname = "strike"
 	blade_class = BCLASS_BLUNT
 	hitsound = list('sound/combat/hits/blunt/bluntsmall (1).ogg', 'sound/combat/hits/blunt/bluntsmall (2).ogg', 'sound/combat/hits/kick/kick.ogg')
 	damfactor = 1
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 10
 	clickcd = 14
 	recovery = 10
 	item_d_type = "blunt"
@@ -71,11 +87,18 @@
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
 	penfactor = 30
 
+/datum/intent/dagger/chop/cleaver/seax
+	name = "seax chop"
+	penfactor = 25
+	damfactor = 1.35
+	swingdelay = 3.5
+	clickcd = 9.05
+
 //knife and dagger objs ฅ^•ﻌ•^ฅ
 
 /obj/item/rogueweapon/huntingknife
 	force = 12
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/thrust, /datum/intent/dagger/chop)
+	possible_item_intents = list(/datum/intent/dagger/cut/knife, /datum/intent/dagger/thrust, /datum/intent/dagger/chop)
 	slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_MOUTH
 	name = "hunting knife"
 	desc = "A hunter's prized possession. Keep it sharp, and it might last you through the wild."
@@ -142,7 +165,7 @@
 	force = 15
 	name = "cleaver"
 	desc = "Chop, chop, chop!"
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver)
+	possible_item_intents = list(/datum/intent/dagger/cut/knife, /datum/intent/dagger/chop/cleaver)
 	icon_state = "cleaver"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	parrysound = list('sound/combat/parry/bladed/bladedmedium (1).ogg','sound/combat/parry/bladed/bladedmedium (2).ogg','sound/combat/parry/bladed/bladedmedium (3).ogg')
@@ -186,7 +209,7 @@
 	force = 15
 	name = "chef's knife"
 	desc = "Keep it in the kitchen!"
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver, /datum/intent/dagger/thrust)
+	possible_item_intents = list(/datum/intent/dagger/cut/knife, /datum/intent/dagger/chop/cleaver, /datum/intent/dagger/thrust)
 	icon_state = "chefsknife"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	parrysound = list('sound/combat/parry/bladed/bladedmedium (1).ogg','sound/combat/parry/bladed/bladedmedium (2).ogg','sound/combat/parry/bladed/bladedmedium (3).ogg')
@@ -198,11 +221,11 @@
 	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/huntingknife/combat
-	force = 16
+	force = 16.5
 	name = "seax"
 	desc = "A fighting knife used amongst the Grenzels and Northerners for centuries, serving dual purpose as a \
 	tool of daily life and as a capable fighting knife."
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver, /datum/intent/dagger/sucker_punch,)
+	possible_item_intents = list(/datum/intent/dagger/cut/knife, /datum/intent/dagger/thrust/seax, /datum/intent/dagger/chop/cleaver/seax, /datum/intent/dagger/sucker_punch,)
 	icon_state = "combatknife"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	parrysound = list('sound/combat/parry/bladed/bladedmedium (1).ogg','sound/combat/parry/bladed/bladedmedium (2).ogg','sound/combat/parry/bladed/bladedmedium (3).ogg')
@@ -249,14 +272,14 @@
 	name = "steel dagger"
 	desc = "This is a dagger made of solid steel, more durable."
 	icon_state = "sdagger"
-	force = 20
+	force = 18.5
 	max_integrity = 150
 	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/holysee
 	name = "eclipsum dagger"
 	desc = "A blade forged from the Holy metals of the twinned gods Noc and Astrata, Silver and Gold fused under an Eclipse and blessed, these daggers are very grudgingly given out by the Grenzelhoftian See to ordained Priests of the Ten."
-	force = 25
+	force = 23
 	max_integrity = 200
 	icon_state = "gsdagger"
 
@@ -269,27 +292,29 @@
 
 
 /obj/item/rogueweapon/huntingknife/idagger/dtace
+	possible_item_intents = list(/datum/intent/dagger/thrust/stiletto, /datum/intent/dagger/cut/stiletto, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch)
 	name = "'De Tace'"
 	desc = "The right hand of the right hand, this narrow length of steel serves as a quick solution to petty greviences."
 	icon_state = "stiletto"
-	force = 25
+	force = 20
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/steel
 
-/obj/item/rogueweapon/huntingknife/idagger/steel/parrying //direct upgrade but more costly.
+/obj/item/rogueweapon/huntingknife/idagger/steel/parrying
 	name = "steel parrying dagger"
 	desc = "This is a parrying dagger made of solid steel, used to catch opponent's weapons in the handguard, but it's not as good for actual stabbing work."
-	force = 15
-	throwforce = 15
+	force = 14
+	throwforce = 14
 	icon_state = "spdagger"
 	wdefense = 6
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/parrying/vaquero
+	possible_item_intents = list(/datum/intent/dagger/thrust, /datum/intent/dagger/cut/stiletto, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch)
 	name = "sail dagger"
 	desc = "An exceptionally protective parrying dagger popular in the Etruscan Isles, this dagger features a plain metal guard in the shape of a ship's sail."
 	wdefense = 7
-	force = 17
-	throwforce = 17
+	force = 16
+	throwforce = 16
 	icon_state = "sail_dagger"
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/special
@@ -381,7 +406,7 @@
 /obj/item/rogueweapon/huntingknife/idagger/silver/elvish
 	name = "elvish dagger"
 	desc = "This beautiful dagger is of intricate, elvish design. Sharper, too."
-	force = 22
+	force = 21
 	icon_state = "elfdagger"
 	item_state = "elfdag"
 	last_used = 0
@@ -390,12 +415,12 @@
 /obj/item/rogueweapon/huntingknife/idagger/silver/elvish/drow
 	name = "drowish dagger"
 	desc = "A vicious wave-bladed dagger from the Underdark."
-	force = 25
+	force = 22.5
 	last_used = 0
 	is_silver = TRUE
 
 /obj/item/rogueweapon/huntingknife/idagger/navaja
-	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut,  /datum/intent/dagger/thrust/pick)
+	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut/knife, /datum/intent/dagger/thrust/pick)
 	name = "navaja"
 	desc = "A folding Etruscan knife valued by merchants, mercenaries and peasants for its convenience. It possesses a long hilt, allowing for a sizeable blade with good reach."
 	force = 5
@@ -409,10 +434,10 @@
 	extended = !extended
 	playsound(src.loc, 'sound/blank.ogg', 50, TRUE)
 	if(extended)
-		force = 20
-		wdefense = 6
+		force = 19
+		wdefense = 4
 		w_class = WEIGHT_CLASS_NORMAL
-		throwforce = 23
+		throwforce = 22
 		icon_state = "navaja_o"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		sharpness = IS_SHARP
@@ -463,9 +488,9 @@
 	name = "steel tossblade"
 	desc = "There are rumors of some sea-marauders loading these into metal tubes with explosive powder to launch then fast and far. Probably won't catch on."
 	item_state = "bone_dagger"
-	throwforce = 28
+	throwforce = 20
 	max_integrity = 100
-	armor_penetration = 40
+	armor_penetration = 20
 	icon_state = "throw_knifes"
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 30, "embedded_fall_chance" = 5)
 	sellprice = 2
@@ -480,8 +505,8 @@
 	desc = "An unconventional method of delivering silver to a heretic; but one that the Ten smile at, all the same. Doubles as an actual knife in a pinch, though obviously not as well."
 	item_state = "bone_dagger"
 	force = 12
-	throwforce = 28
-	armor_penetration = 50
+	throwforce = 20
+	armor_penetration = 25
 	max_integrity = 150
 	wdefense = 3
 	icon_state = "throw_knifep"
