@@ -94,7 +94,7 @@
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
 	penfactor = 15
 	swingdelay = 8
-	damfactor = 1.2
+	damfactor = 1.15 // Cut lacks penetration factor for basic swords, the idea of it originally being a lower damage than cut was the critical upside of easier delimbing, the goal was totmake axes to be the best at chopping and axe variant polearms, if a chopping sword is of interest, use the executioners sword instead.
 	item_d_type = "slash"
 
 /datum/intent/sword/cut/falx
