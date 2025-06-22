@@ -94,7 +94,7 @@
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
 	penfactor = 15
 	swingdelay = 8
-	damfactor = 0.8
+	damfactor = 1.2
 	item_d_type = "slash"
 
 /datum/intent/sword/cut/falx
