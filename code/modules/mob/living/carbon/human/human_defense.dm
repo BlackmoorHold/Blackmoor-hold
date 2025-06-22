@@ -1,9 +1,9 @@
-/mob/living/carbon/human/getarmor(def_zone, type, damage, armor_penetration, blade_dulling, peeldivisor, intdamfactor)
+/mob/living/carbon/human/getarmor(def_zone, type, damage, armor_penetration, blade_dulling, intdamfactor)
 	var/armorval = 0
 	var/organnum = 0
 
 	if(def_zone)
-		return checkarmor(def_zone, type, damage, armor_penetration, blade_dulling, peeldivisor, intdamfactor)
+		return checkarmor(def_zone, type, damage, armor_penetration, blade_dulling, intdamfactor)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL my bodyparts for protection, and averages out the values
@@ -14,7 +14,7 @@
 	return (armorval/max(organnum, 1))
 
 
-/mob/living/carbon/human/proc/checkarmor(def_zone, d_type, damage, armor_penetration, blade_dulling, peeldivisor, intdamfactor)
+/mob/living/carbon/human/proc/checkarmor(def_zone, d_type, damage, armor_penetration, blade_dulling, intdamfactor)
 	if(!d_type)
 		return 0
 	if(isbodypart(def_zone))
@@ -28,7 +28,7 @@
 			continue
 		if(bp && istype(bp , /obj/item/clothing))
 			var/obj/item/clothing/C = bp
-			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
+			if(zone2covered(def_zone, C.body_parts_covered))
 				if(C.max_integrity)
 					if(C.obj_integrity <= 0)
 						continue
@@ -50,9 +50,6 @@
 				var/bluntrating = used.armor.getRating("blunt")
 				intdamage -= intdamage * ((bluntrating / 2) / 100)	//Half of the blunt rating reduces blunt damage taken by %-age.
 		used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
-		if(damage)
-			if(blade_dulling == BCLASS_PEEL)
-				used.peel_coverage(def_zone, peeldivisor)
 	if(physiology)
 		protection += physiology.armor.getRating(d_type)
 	return protection
@@ -69,7 +66,7 @@
 			continue
 		if(bp && istype(bp , /obj/item/clothing))
 			var/obj/item/clothing/C = bp
-			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
+			if(zone2covered(def_zone, C.body_parts_covered))
 				if(C.obj_integrity > 1)
 					if(d_type in C.prevent_crits)
 						return TRUE
@@ -523,9 +520,9 @@
 		var/obj/item/clothing/arm_clothes = null
 		if(gloves)
 			arm_clothes = gloves
-		if(wear_pants && ((wear_pants.body_parts_covered_dynamic & HANDS) || (wear_pants.body_parts_covered_dynamic & ARMS)))
+		if(wear_pants && ((wear_pants.body_parts_covered & HANDS) || (wear_pants.body_parts_covered & ARMS)))
 			arm_clothes = wear_pants
-		if(wear_armor && ((wear_armor.body_parts_covered_dynamic & HANDS) || (wear_armor.body_parts_covered_dynamic & ARMS)))
+		if(wear_armor && ((wear_armor.body_parts_covered & HANDS) || (wear_armor.body_parts_covered & ARMS)))
 			arm_clothes = wear_armor
 
 		if(arm_clothes)

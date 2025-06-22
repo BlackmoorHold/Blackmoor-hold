@@ -302,7 +302,8 @@
 //verbose = TRUE will include BOTH flags like "ARMS" and individual flags like "L ARM"
 //precise = TRUE will EXCLUDE combined flags like "ARMS" or "LEGS" and only include "L ARM" / "R ARM" etc
 //leaving both FALSE will include combined flags where appropriate.
-/proc/body_parts_covered2organ_names(bpc, verbose = FALSE, precise = FALSE)
+// ^^ Terminated them. Peel intent must be purged.
+/proc/body_parts_covered2organ_names(bpc)
 	var/list/covered_parts = list()
 
 	if(!bpc)
@@ -312,7 +313,7 @@
 		covered_parts |= list(READABLE_ZONE_HEAD)
 	if(bpc & NECK)
 		covered_parts |= list(READABLE_ZONE_NECK)
-	if(bpc & FACE && !precise)
+	if(bpc & FACE)
 		covered_parts |= list(READABLE_ZONE_FACE)
 	if(verbose || precise || !(bpc & FACE))
 		if(bpc & MOUTH)
@@ -329,7 +330,7 @@
 	if(bpc & GROIN)
 		covered_parts |= list(READABLE_ZONE_GROIN)
 
-	if(bpc & ARMS && !precise)
+	if(bpc & ARMS)
 		covered_parts |= list(READABLE_ZONE_ARMS)
 	if(verbose || precise || !(bpc & ARMS))
 		if(bpc & ARM_LEFT)
@@ -337,7 +338,7 @@
 		if(bpc & ARM_RIGHT)
 			covered_parts |= list(READABLE_ZONE_R_ARM)
 
-	if(bpc & HANDS && !precise)
+	if(bpc & HANDS)
 		covered_parts |= list(READABLE_ZONE_HANDS)
 	if(verbose || precise || !(bpc & HANDS))
 		if(bpc & HAND_LEFT)
@@ -345,7 +346,7 @@
 		if(bpc & HAND_RIGHT)
 			covered_parts |= list(READABLE_ZONE_R_HAND)
 
-	if(bpc & LEGS && !precise)
+	if(bpc & LEGS)
 		covered_parts |= list(READABLE_ZONE_LEGS)
 	if(verbose || precise || !(bpc & LEGS))
 		if(bpc & LEG_LEFT)
@@ -354,7 +355,7 @@
 			covered_parts |= list(READABLE_ZONE_R_LEG)
 
 
-	if(bpc & FEET && !precise)
+	if(bpc & FEET)
 		covered_parts |= list(READABLE_ZONE_FEET)
 	if(verbose || precise || !(bpc & FEET))
 		if(bpc & FOOT_LEFT)

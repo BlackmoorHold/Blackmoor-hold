@@ -267,8 +267,8 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 					if(C.armor)
 						if(C.armor.slash == 0 && C.armor.stab == 0 && C.armor.blunt == 0 && C.armor.piercing == 0)	//No armor but there's an armor datum. Useless for Assess, so we skip it.
 							continue
-					if(C.body_parts_covered_dynamic)
-						readable_coverage = body_parts_covered2organ_names(C.body_parts_covered_dynamic, verbose = TRUE)
+					if(C.body_parts_covered)
+						readable_coverage = body_parts_covered2organ_names(C.body_parts_covered, verbose = TRUE)
 					
 					if(length(C.prevent_crits) && (is_normal || is_smart))
 						for(var/critzone in C.prevent_crits)

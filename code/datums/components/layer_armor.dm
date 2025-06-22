@@ -279,3 +279,4 @@
 			LAZYADD(repairable_damtypes, type)
 			status = TRUE
 	return status
+// This could be part of the peeling PR, but I quite don't remember.
