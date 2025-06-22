@@ -226,7 +226,7 @@
 	icon_state = "cudgel"
 	possible_item_intents = list(/datum/intent/mace/strike/cudgel)
 	gripped_intents = list(/datum/intent/mace/strike/cudgel, /datum/intent/mace/smash/cudgel)
-	smeltresult = /obj/item/iron
+	smeltresult = /obj/item/ingot/iron
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
 	wbalance = WBALANCE_NORMAL
