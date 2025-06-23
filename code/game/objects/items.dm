@@ -241,7 +241,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(grid_width <= 0)
 		grid_width = (w_class * world.icon_size)
 	if(grid_height <= 0)
-		grid_height = (w_class * world.icon_size
+		grid_height = (w_class * world.icon_size)
 
 	update_transform()
 
