@@ -82,7 +82,6 @@
 		HT.rogfat_add(HT.maxrogfat / fatiguemod)
 		HT.Slowdown(3)
 		HT.emote("huh")
-		HU.purge_peel(BAIT_PEEL_REDUCTION)
 		HU.changeNext_move(0.1 SECONDS, override = TRUE)
 		to_chat(HU, span_notice("[HT] fell for my bait <b>perfectly</b>! One more!"))
 		to_chat(HT, span_danger("I fall for [HU]'s bait <b>perfectly</b>! I'm losing my footing! <b>I can't let this happen again!</b>"))

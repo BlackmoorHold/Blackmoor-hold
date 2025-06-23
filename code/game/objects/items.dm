@@ -72,7 +72,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	var/body_parts_covered_dynamic = 0
-	var/body_parts_inherent	= 0 //bodypart coverage areas you cannot peel off because it wouldn't make any sense (peeling chest off of torso armor, hands off of gloves, head off of helmets, etc)
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
@@ -484,7 +483,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 						inspec += "<b>[capitalize(zone)]</b> | "
 				else
 					var/list/zones = list()
-					//We have some part peeled, so we turn the printout into precise mode and highlight the missing coverage.
+					//We have some part missing, so we turn the printout into precise mode and highlight the missing coverage.
 					for(var/zoneorg in body_parts_covered2organ_names(C.body_parts_covered, precise = TRUE))
 						zones += zoneorg
 					for(var/zonedyn in body_parts_covered2organ_names(C.body_parts_covered_dynamic, precise = TRUE))
@@ -494,15 +493,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 					for(var/zone in zones)			
 						inspec += "<b><font color = '#7e0000'>[capitalize(zone)]</font></b> | "
 				inspec += "<br>"
-			if(C.body_parts_inherent)
-				inspec += "<b>CANNOT BE PEELED: </b>"
-				var/list/inherentList = body_parts_covered2organ_names(C.body_parts_inherent)
-				if(length(inherentList) == 1)
-					inspec += "<b><font color = '#77cde2'>[capitalize(inherentList[1])]</font></b>"
-				else
-					inspec += "| "
-					for(var/zone in inherentList)
-						inspec += "<b><font color = '#77cde2'>[capitalize(zone)]</b></font> | "
 			if(C.prevent_crits)
 				if(length(C.prevent_crits))
 					inspec += "\n<b>PREVENTS CRITS:</b>"
@@ -1337,49 +1327,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/mutable_appearance/damage = new(damaged_icon)
 	damage.alpha = 150
 	add_overlay(damage)
-
-/// Proc that is only called with the Peel intent. Stacks consecutive hits, shreds coverage once a threshold is met. Thresholds are defined on /obj/item
-/obj/item/proc/peel_coverage(bodypart, divisor)
-	var/coveragezone = attackzone2coveragezone(bodypart)
-	if(!(body_parts_inherent & coveragezone))
-		if(!last_peeled_limb || coveragezone == last_peeled_limb)
-			if(divisor >= peel_threshold)
-				peel_count += divisor ? (peel_threshold / divisor ) : 1
-			else if(divisor < peel_threshold)
-				peel_count++
-			if(peel_count >= peel_threshold)
-				body_parts_covered_dynamic &= ~coveragezone
-				playsound(src, 'sound/foley/peeled_coverage.ogg', 100)
-				var/list/peeledpart = body_parts_covered2organ_names(coveragezone, precise = TRUE)
-				var/parttext
-				if(length(peeledpart))
-					parttext = peeledpart[1]	//There should really only be one bodypart that gets exposed here.
-				visible_message("<font color = '#f5f5f5'><b>[parttext ? parttext : "Coverage"]</font></b> gets peeled off of [src]!")
-				reset_peel(success = TRUE)
-			else
-				visible_message(span_info("Peel strikes [src]! <b>[ROUND_UP(peel_count)]</b>!"))
-		else
-			last_peeled_limb = coveragezone
-			reset_peel()
-	else
-		last_peeled_limb = coveragezone
-		reset_peel()
-
-/obj/item/proc/repair_coverage()
-	body_parts_covered_dynamic = body_parts_covered
-	reset_peel()
-
-/obj/item/proc/reset_peel(success = FALSE)
-	if(peel_count > 0 && !success)
-		visible_message(span_info("Peel count lost on [src]!"))
-	peel_count = 0
-
-/obj/item/proc/reduce_peel(amt)
-	if(peel_count > amt)
-		peel_count -= amt
-	else
-		peel_count = 0
-	visible_message(span_info("Peel reduced to [peel_count == 0 ? "none" : "[peel_count]"] on [src]!"))
 
 /obj/item/proc/attackzone2coveragezone(location)
 	switch(location)

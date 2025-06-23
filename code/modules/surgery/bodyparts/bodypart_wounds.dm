@@ -130,8 +130,6 @@
 	if(user)
 		if(user.goodluck(2))
 			dam += 10
-		if(istype(user.rmb_intent, /datum/rmb_intent/weak) || bclass == BCLASS_PEEL)
-			do_crit = FALSE
 	testing("bodypart_attacked_by() dam [dam]")
 	var/added_wound
 	switch(bclass) //do stuff but only when we are a blade that adds wounds
