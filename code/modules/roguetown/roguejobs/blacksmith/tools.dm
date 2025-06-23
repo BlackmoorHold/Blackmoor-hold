@@ -92,10 +92,8 @@
 			if(repair_percent == 0.01) // If an inexperienced repair attempt has been successful
 				to_chat(user, span_warning("You fumble your way into slightly repairing [attacked_item]."))
 			else
-				user.visible_message(span_info("[user] repairs [attacked_item]!"))
-				if(attacked_item.body_parts_covered != attacked_item.body_parts_covered_dynamic)
+				user.visible_message(span_info("[user] repairs [attacked_item]!")
 					user.visible_message(span_info("[user] repairs [attacked_item]'s coverage!"))
-					attacked_item.repair_coverage()
 			if(attacked_item.obj_broken && attacked_item.obj_integrity == attacked_item.max_integrity)
 				attacked_item.obj_fix()
 			blacksmith_mind.add_sleep_experience(attacked_item.anvilrepair, exp_gained/2) //We gain as much exp as we fix divided by 2

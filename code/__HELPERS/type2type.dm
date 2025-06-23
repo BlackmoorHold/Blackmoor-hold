@@ -315,7 +315,7 @@
 		covered_parts |= list(READABLE_ZONE_NECK)
 	if(bpc & FACE)
 		covered_parts |= list(READABLE_ZONE_FACE)
-	if(verbose || precise || !(bpc & FACE))
+	if(bpc & FACE))
 		if(bpc & MOUTH)
 			covered_parts |= list(READABLE_ZONE_MOUTH)
 		if(bpc & NOSE)
@@ -332,7 +332,7 @@
 
 	if(bpc & ARMS)
 		covered_parts |= list(READABLE_ZONE_ARMS)
-	if(verbose || precise || !(bpc & ARMS))
+	if(bpc & ARMS)
 		if(bpc & ARM_LEFT)
 			covered_parts |= list(READABLE_ZONE_L_ARM)
 		if(bpc & ARM_RIGHT)
@@ -340,7 +340,7 @@
 
 	if(bpc & HANDS)
 		covered_parts |= list(READABLE_ZONE_HANDS)
-	if(verbose || precise || !(bpc & HANDS))
+	if(bpc & HANDS)
 		if(bpc & HAND_LEFT)
 			covered_parts |= list(READABLE_ZONE_L_HAND)
 		if(bpc & HAND_RIGHT)
@@ -348,7 +348,7 @@
 
 	if(bpc & LEGS)
 		covered_parts |= list(READABLE_ZONE_LEGS)
-	if(verbose || precise || !(bpc & LEGS))
+	if(bpc & LEGS)
 		if(bpc & LEG_LEFT)
 			covered_parts |= list(READABLE_ZONE_L_LEG)
 		if(bpc & LEG_RIGHT)
@@ -357,7 +357,7 @@
 
 	if(bpc & FEET)
 		covered_parts |= list(READABLE_ZONE_FEET)
-	if(verbose || precise || !(bpc & FEET))
+	if(bpc & FEET)
 		if(bpc & FOOT_LEFT)
 			covered_parts |= list(READABLE_ZONE_L_FOOT)
 		if(bpc & FOOT_RIGHT)

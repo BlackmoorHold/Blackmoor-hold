@@ -9,7 +9,7 @@
 #define UPD_NECK (1 << 2)
 
 /datum/component/adjustable_clothing
-	///Body coverage zones (For armor) it should have when open. body_coverage_dynamic will take these.
+	///Body coverage zones (For armor) it should have when open. body_coverage will take these.
 	var/flags_open
 	///flags_inv the object will have if toggled open.
 	var/flags_inv_open
@@ -75,12 +75,12 @@
 
 /datum/component/adjustable_clothing/proc/toggle_open(obj/item/clothing/C, forced = FALSE)
 	if(!forced)	//We skip this if we're equipping or dropping the item to prevent coverage glitches.
-		if(!(C.body_parts_covered_dynamic == C.body_parts_covered))	//Our coverage does not match.
-			flags_removed = (C.body_parts_covered - C.body_parts_covered_dynamic)	//We store the difference.
-		else if(C.body_parts_covered_dynamic == C.body_parts_covered && C.body_parts_covered_dynamic & flags_removed)	//We match AND _dynamic has our stored flags. Means the coverage was repaired.
+		if(!(C.body_parts_covered == C.body_parts_covered))	//Our coverage does not match.
+			flags_removed = (C.body_parts_covered - C.body_parts_covered)	//We store the difference.
+		else if(C.body_parts_covered == C.body_parts_covered && C.body_parts_covered & flags_removed)	//We match AND  has our stored flags. Means the coverage was repaired.
 			flags_removed = null
-	C.body_parts_covered_dynamic = flags_open
-	C.body_parts_covered_dynamic &= ~flags_removed
+	C.body_parts_covered = flags_open
+	C.body_parts_covered &= ~flags_removed
 	C.flags_inv = flags_inv_open
 	C.flags_cover = flags_cover_open
 	C.block2add = fov_open
@@ -89,12 +89,12 @@
 
 /datum/component/adjustable_clothing/proc/toggle_closed(obj/item/clothing/C, forced = FALSE)
 	if(!forced)
-		if(!(C.body_parts_covered_dynamic == flags_open))
-			flags_removed = flags_open - C.body_parts_covered_dynamic
-		else if(C.body_parts_covered_dynamic == flags_open && C.body_parts_covered_dynamic & flags_removed)
+		if(!(C.body_parts_covered == flags_open))
+			flags_removed = flags_open - C.body_parts_covered
+		else if(C.body_parts_covered == flags_open && C.body_parts_covered & flags_removed)
 			flags_removed = null
-	C.body_parts_covered_dynamic = C.body_parts_covered
-	C.body_parts_covered_dynamic &= ~flags_removed
+	C.body_parts_covered = C.body_parts_covered
+	C.body_parts_covered &= ~flags_removed
 	C.flags_inv = initial(C.flags_inv)
 	C.flags_cover = initial(C.flags_cover)
 	C.block2add = initial(C.block2add)
