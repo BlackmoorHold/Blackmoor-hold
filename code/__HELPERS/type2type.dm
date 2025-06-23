@@ -315,7 +315,7 @@
 		covered_parts |= list(READABLE_ZONE_NECK)
 	if(bpc & FACE)
 		covered_parts |= list(READABLE_ZONE_FACE)
-	if(bpc & FACE))
+	if(bpc & FACE)
 		if(bpc & MOUTH)
 			covered_parts |= list(READABLE_ZONE_MOUTH)
 		if(bpc & NOSE)
