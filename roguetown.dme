@@ -1445,6 +1445,7 @@
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\wretch\necromancer.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\wretch\outlaw.dm"
 #include "code\modules\jobs\job_types\roguetown\adventurer\types\wretch\poacher.dm"
+#include "code\modules\jobs\job_types\roguetown\adventurer\types\wretch\warscholar.dm"
 #include "code\modules\jobs\job_types\roguetown\church\druid.dm"
 #include "code\modules\jobs\job_types\roguetown\church\martyr.dm"
 #include "code\modules\jobs\job_types\roguetown\church\monk.dm"
@@ -2338,6 +2339,5 @@
 #include "modular_hearthstone\code\modules\spells\roguetown\flagellant.dm"
 #include "modular_helmsguard\code\modules\mobs\farm\horse.dm"
 #include "modular_helmsguard\code\modules\mobs\farm\wraiths.dm"
-#include "code\modules\jobs\job_types\roguetown\adventurer\types\wretch\warscholar.dm"
 // END_INCLUDE
 
