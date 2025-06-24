@@ -1,21 +1,22 @@
-/datum/advclass/mercenary/warscholar
+// Naledi Warscholar - now a wretch class
+/datum/advclass/wretch/warscholar
 	name = "Naledi Warscholar"
 	tutorial = "Heralded by sigils of black-and-gold and their distinct masks, the Naledi Warscholars once prowled the dunes of their homeland, exterminating daemons in exchange for coin, artifacts, or knowledge. As Naledi's economy falters, the Warscholars travel to foreign lands to seek further business."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
-	outfit = /datum/outfit/job/roguetown/mercenary/warscholar
-	category_tags = list(CTAG_MERCENARY)
+	outfit = /datum/outfit/job/roguetown/wretch/warscholar
+	category_tags = list(CTAG_WRETCH)
 	cmode_music = 'sound/music/warscholar.ogg'
 	traits_applied = list(TRAIT_OUTLANDER)
 	classes = list("Hierophant" = "You are a Naledi Hierophant, a magician who studied under cloistered sages, well-versed in all manners of arcyne. You prioritize enhancing your teammates and distracting foes while staying in the backline.",
 					"Pontifex" = "You are a Naledi Pontifex, a warrior trained into a hybridized style of movement-controlling magic and hand-to-hand combat. Though your abilities in magical fields are lacking, you are far more dangerous than other magi in a straight fight. You manifest your calm, practiced skill into a killing intent that takes the shape of an arcyne blade.",
 					"Vizier" = "You are a Naledi Vizier. Your research into miracles and holy incantations has lead you to esoteric magycks. Though psydonians have long struggled to channel their all-father's divinity, a combination of the saint's power may be similar enough.")
 
-/datum/outfit/job/roguetown/mercenary/warscholar
+/datum/outfit/job/roguetown/wretch/warscholar
 	var/detailcolor
 	allowed_patrons = list(/datum/patron/old_god)
 
-/datum/outfit/job/roguetown/mercenary/warscholar/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/wretch/warscholar/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/list/naledicolors = sortList(list(
 		"GOLD" = "#C8BE6D",
@@ -117,7 +118,7 @@
 			H.grant_language(/datum/language/celestial)
 			H.grant_language(/datum/language/thievescant)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fetch) // In an attempt to make them less Possibly Wildly OP, they can't freely pick their spells. Casts at apprentice level, but doesn't get the spellbuy points it'd provide.
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fetch)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/ensnare)
 			H.mind.AddSpell(new/obj/effect/proc_holder/spell/invoked/projectile/repel)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/bladeofpsydon)
@@ -179,13 +180,13 @@
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/convergence)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/stasis)
 
+	wretch_select_bounty(H)
 
-
-/datum/outfit/job/roguetown/mercenary/warscholar/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/roguetown/wretch/warscholar/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
 	for(var/obj/item/clothing/V in H.get_equipped_items(FALSE))
 		if(V.naledicolor)
 			V.color = detailcolor
 			V.update_icon()
-	H.regenerate_icons()
+	H.regenerate_icons() 
