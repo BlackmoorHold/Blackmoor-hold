@@ -15,7 +15,7 @@
 	min_pq = 20
 	max_pq = null
 
-	advclass_cat_rolls = list(CTAG_WRETCH = 20, "warscholar" = 20) // 'warscholar' is now a wretch class
+	advclass_cat_rolls = list(CTAG_WRETCH = 20)
 	PQ_boost_divider = 10
 	round_contrib_points = 2
 
