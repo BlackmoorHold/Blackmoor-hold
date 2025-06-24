@@ -1,4 +1,3 @@
-
 /datum/crafting_recipe/roguetown/structure
 	abstract_type = /datum/crafting_recipe/roguetown/structure
 	req_table = FALSE
@@ -443,6 +442,18 @@
 	verbage_simple = "construct"
 	verbage = "constructs"
 	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/structure/pillory
+	name = "pillory"
+	result = /obj/structure/pillory
+	reqs = list(/obj/item/grown/log/tree/small = 3)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 2
+	category = "Structures"
+
+/obj/structure/pillory
 
 /datum/crafting_recipe/roguetown/structure/chest
 	name = "chest"

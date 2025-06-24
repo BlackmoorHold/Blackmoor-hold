@@ -5,7 +5,7 @@
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	allowed_races = RACES_NEUTRAL_UP
+	allowed_races = RACES_ALL_KINDS//Dungeoneer is a freak. His race selection should allow this.
 	allowed_patrons = NON_PSYDON_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_DUNGEONEER

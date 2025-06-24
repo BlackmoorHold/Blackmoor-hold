@@ -148,6 +148,9 @@
 	armor = ARMOR_PADDED_GOOD
 	sellprice = 30
 	color = "#976E6B"
+	sewrepair = TRUE
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
 	var/shiftable = TRUE
 	var/shifted = FALSE
 
@@ -187,6 +190,22 @@
 	icon_state = "fancygamb"
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	color = "#FFFFFF"
+	shiftable = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/royal
+	name = "royal gambeson"
+	desc = "A fancy gambeson for royalty. Adorned with extra details and padded for extra protection."
+	icon_state = "royalgamb"
+	color = "#FFFFFF"
+	allowed_race = NON_DWARVEN_RACE_TYPES
+	sellprice = 50
+	boobed = TRUE
+	nodismemsleeves = TRUE
+	sleeved_detail = TRUE
+	boobed_detail = FALSE
+	detail_tag = "_detail"
+	detail_color = "#e2ab32"
+	max_integrity = 250 //Same as grenzelshirt
 	shiftable = FALSE
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft
@@ -561,7 +580,6 @@
 	icon_state = "spellcasterrobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
-	sleeved = null
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL

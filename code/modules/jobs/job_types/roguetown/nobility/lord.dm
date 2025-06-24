@@ -34,6 +34,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	give_bank_account = 1000
 	required = TRUE
 	cmode_music = 'sound/music/combat_noble.ogg'
+	ruler_family = TRUE
 	//allowed_patrons = NON_PSYDON_PATRONS		//No Psydonites - Lore reason: Town is Astratan town, you are crowned by Astrata for right to rule. (Inhumen people pose as Ten worshipers.) - Commented out for now, we now have storyteller tension to cause issues for psydonites.
 
 /datum/job/roguetown/exlord //just used to change the lords title
@@ -110,7 +111,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	else if(should_wear_masc_clothes(H))
 		pants = /obj/item/clothing/under/roguetown/tights/black
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
-		armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/black
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/royal
 		shoes = /obj/item/clothing/shoes/roguetown/boots
 		if(H.mind)
 			H.mind.adjust_skillrank(/datum/skill/combat/polearms, 2, TRUE)

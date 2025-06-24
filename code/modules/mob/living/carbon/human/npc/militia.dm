@@ -86,7 +86,10 @@
 	if(prob(50))
 		shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/
 	if(prob(25))
-		armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+		if(should_wear_femme_clothes(H))
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
+		else
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	if(prob(50))
 		pants = /obj/item/clothing/under/roguetown/trou

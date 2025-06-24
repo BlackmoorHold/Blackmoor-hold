@@ -87,7 +87,7 @@
 	sellprice = 26
 
 /datum/crafting_recipe/roguetown/leather/armor/cuirass
-	name = "leather cuirass"
+	name = "leather cuirass (2 leather)"
 	result = /obj/item/clothing/suit/roguetown/armor/leather/cuirass
 	reqs = list(/obj/item/natural/hide/cured = 2)
 	sellprice = 26
@@ -138,3 +138,9 @@
 	result = /obj/item/clothing/head/roguetown/helmet/leather
 	reqs = list(/obj/item/natural/hide/cured = 1)
 	sellprice = 27
+
+/datum/crafting_recipe/roguetown/leather/armor/lcoif
+	name = "leather coif (1 fibers, 1 leather)"
+	result = /obj/item/clothing/neck/roguetown/coif
+	reqs = list(/obj/item/natural/hide/cured = 1, /obj/item/natural/fibers = 1)
+	craftdiff = 1

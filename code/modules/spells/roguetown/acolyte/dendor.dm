@@ -121,7 +121,7 @@
 	desc = "Take on the form of one of Dendor's sacred beasts."
 	overlay_state = "tamebeast"
 	releasedrain = 60
-	recharge_time = 30 SECONDS
+	recharge_time = 180 SECONDS
 	invocation = "Treefather grant me your form!"
 	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/holy

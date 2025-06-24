@@ -68,13 +68,29 @@
 		return
 	lastminer = user
 	..()
-	var/olddam = turf_integrity
-	if(turf_integrity && turf_integrity > 10)
-		if(turf_integrity < olddam)
-			if(prob(50))
-				if(user.Adjacent(src))
-					var/obj/item/natural/stone/S = new(src)
-					S.forceMove(get_turf(user))
+	// Auto mining logic
+	if(istype(I, /obj/item/rogueweapon/pick))
+		if(!isliving(user))
+			return
+
+		var/mob/living/L = user
+		user.doing = FALSE
+		// Makes more sense for the check since they always
+		// become an open tile afterwards
+		while(density && user.Adjacent(src))
+			if((L.rogstam > 0) && (do_after(user, CLICK_CD_MELEE, TRUE, src)))
+				..()
+				var/olddam = turf_integrity
+				if(turf_integrity && turf_integrity > 10)
+					if(turf_integrity < olddam)
+						if(prob(50))
+							if(user.Adjacent(src))
+								var/obj/item/natural/stone/S = new(src)
+								S.forceMove(get_turf(user))
+					if(!density)
+						break
+			else
+				break
 
 /turf/closed/mineral/attack_right(mob/user)
 	var/obj/item = user.get_active_held_item()

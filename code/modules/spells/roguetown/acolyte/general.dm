@@ -16,6 +16,32 @@
 	miracle = TRUE
 	devotion_cost = 10
 
+/obj/effect/proc_holder/spell/invoked/lesser_heal/proc/get_most_damaged_limb(mob/living/carbon/C)
+	var/obj/item/bodypart/most_damaged_limb = null
+	var/highest_damage = 0
+	var/obj/item/bodypart/bleeding_limb = null
+	var/highest_bleed_rate = 0
+
+	// First check for bleeding limbs
+	for(var/obj/item/bodypart/BP in C.bodyparts)
+		var/bleed_rate = BP.get_bleed_rate()
+		if(bleed_rate > highest_bleed_rate)
+			highest_bleed_rate = bleed_rate
+			bleeding_limb = BP
+
+	// If we found a bleeding limb, return it
+	if(bleeding_limb)
+		return bleeding_limb
+
+	// If no bleeding limbs, find the most damaged limb
+	for(var/obj/item/bodypart/BP in C.bodyparts)
+		var/total_damage = BP.get_damage()
+		if(total_damage > highest_damage)
+			highest_damage = total_damage
+			most_damaged_limb = BP
+
+	return most_damaged_limb
+
 /obj/effect/proc_holder/spell/invoked/lesser_heal/cast(list/targets, mob/living/user)
 	. = ..()
 	if(isliving(targets[1]))
@@ -185,7 +211,15 @@
 			else
 				no_embeds = TRUE
 			if(no_embeds)
+				// Always apply the status effect for visual effects
 				target.apply_status_effect(/datum/status_effect/buff/healing, healing)
+				
+				// Find and heal the most damaged limb
+				var/obj/item/bodypart/most_damaged_limb = get_most_damaged_limb(H)
+				if(most_damaged_limb && most_damaged_limb.get_damage() > 0)
+					most_damaged_limb.heal_damage(healing * 2, healing * 2, healing * 2)
+					H.update_damage_overlays()
+					to_chat(H, span_notice("The miracle mends my [most_damaged_limb.name]!"))
 			else
 				message_out = span_warning("The wounds tear and rip around the embedded objects!")
 				message_self = span_warning("Agonising pain shoots through your body as magycks try to sew around the embedded objects!")
@@ -257,6 +291,32 @@
 	miracle = TRUE
 	devotion_cost = 10
 
+/obj/effect/proc_holder/spell/invoked/regression/proc/get_most_damaged_limb(mob/living/carbon/C)
+	var/obj/item/bodypart/most_damaged_limb = null
+	var/highest_damage = 0
+	var/obj/item/bodypart/bleeding_limb = null
+	var/highest_bleed_rate = 0
+
+	// First check for bleeding limbs
+	for(var/obj/item/bodypart/BP in C.bodyparts)
+		var/bleed_rate = BP.get_bleed_rate()
+		if(bleed_rate > highest_bleed_rate)
+			highest_bleed_rate = bleed_rate
+			bleeding_limb = BP
+
+	// If we found a bleeding limb, return it
+	if(bleeding_limb)
+		return bleeding_limb
+
+	// If no bleeding limbs, find the most damaged limb
+	for(var/obj/item/bodypart/BP in C.bodyparts)
+		var/total_damage = BP.get_damage()
+		if(total_damage > highest_damage)
+			highest_damage = total_damage
+			most_damaged_limb = BP
+
+	return most_damaged_limb
+
 /obj/effect/proc_holder/spell/invoked/regression/cast(list/targets, mob/living/user)
 	. = ..()
 	if(isliving(targets[1]))
@@ -265,7 +325,18 @@
 		var/healing = 2.5
 		if(target.has_status_effect(/datum/status_effect/buff/stasis))
 			healing += 2.5
-		target.apply_status_effect(/datum/status_effect/buff/healing, healing)
+		
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			var/obj/item/bodypart/target_limb = get_most_damaged_limb(H)
+			if(target_limb)
+				// Heal the most damaged/bleeding limb
+				target_limb.heal_damage(healing * 10, healing * 10) // Convert healing to damage values
+				H.update_damage_overlays()
+			else
+				target.apply_status_effect(/datum/status_effect/buff/healing, healing)
+		else
+			target.apply_status_effect(/datum/status_effect/buff/healing, healing)
 		return TRUE
 	revert_cast()
 	return FALSE

@@ -422,12 +422,12 @@
 	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP)
 
 /obj/item/clothing/under/roguetown/chainlegs/skirt
-	name = "steel chain skirt"
-	desc = "A knee-length maille skirt, warding cuts against the thighs without slowing the feet."
+	name = "steel mail skirt"
+	desc = "A knee-length mail skirt, warding cuts against the thighs without slowing the feet."
 	icon_state = "chain_skirt"
 	item_state = "chain_skirt"
-	body_parts_covered = GROIN
-	armor_class = ARMOR_CLASS_LIGHT
+	body_parts_covered = LEGS
+	armor_class = ARMOR_CLASS_LIGHT	// Coverage to class trade.
 
 /obj/item/clothing/under/roguetown/platelegs/skirt
 	name = "steel plate tassets"
@@ -435,8 +435,8 @@
 	gender = PLURAL
 	icon_state = "plate_skirt"
 	item_state = "plate_skirt"
-	body_parts_covered = GROIN
-	armor_class = ARMOR_CLASS_LIGHT
+	body_parts_covered = LEGS
+	armor_class = ARMOR_CLASS_MEDIUM // Coverage to class trade.
 
 /obj/item/clothing/under/roguetown/loincloth
 	name = "loincloth"

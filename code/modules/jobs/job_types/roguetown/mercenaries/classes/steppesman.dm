@@ -67,7 +67,10 @@
 			shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 			head = /obj/item/clothing/head/roguetown/helmet
 			gloves = /obj/item/clothing/gloves/roguetown/leather
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+			if(should_wear_femme_clothes(H))
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
+			else
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 			cloak = /obj/item/clothing/cloak/raincloak/furcloak
 			wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 			beltr = /obj/item/quiver/javelin/iron
@@ -94,7 +97,10 @@
 			shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 			head = /obj/item/clothing/head/roguetown/papakha	//No helm
 			gloves = /obj/item/clothing/gloves/roguetown/leather
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+			if(should_wear_femme_clothes(H))
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
+			else
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 			cloak = /obj/item/clothing/cloak/volfmantle			//Crazed man, gives the look.
 			wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 			beltr = /obj/item/rogueweapon/shield/buckler		//Doesn't get good shield skill + no armor, so they get this to compensate for no parry on whip.

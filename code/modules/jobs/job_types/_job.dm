@@ -142,6 +142,11 @@
 
 	var/list/virtue_restrictions
 	var/list/vice_restrictions
+	
+	// family_changes
+	var/ruler_family = FALSE
+	var/family_blacklisted = FALSE
+	var/lord_rel_type = REL_TYPE_RELATIVE
 
 
 /datum/job/proc/special_job_check(mob/dead/new_player/player)
@@ -218,9 +223,17 @@
 		H.cmode_music = cmode_music
 
 	if(H.mind.special_role == "Court Agent" || H.mind.assigned_role == "Bandit" || H.mind.assigned_role == "Wretch") //For obfuscating Court Agents & Bandits in Actors list
-		GLOB.actors_list[H.mobid] = "[H.real_name] as Adventurer<BR>"
+		if (istype(H, /mob/living/carbon/human)) //For determining if the actor has a species name to display
+			var/mob/living/carbon/human/Hu = H 
+			GLOB.actors_list[H.mobid] = "[H.real_name] as the [Hu.dna.species.name] Adventurer<BR>"
+		else
+			GLOB.actors_list[H.mobid] = "[H.real_name] as Adventurer<BR>"
 	else
-		GLOB.actors_list[H.mobid] = "[H.real_name] as [H.mind.assigned_role]<BR>"
+		if (istype(H, /mob/living/carbon/human)) //For determining if the actor has a species name to display
+			var/mob/living/carbon/human/Hu = H
+			GLOB.actors_list[H.mobid] = "[H.real_name] as the [Hu.dna.species.name] [H.mind.assigned_role]<BR>"
+		else
+			GLOB.actors_list[H.mobid] = "[H.real_name] as [H.mind.assigned_role]<BR>"
 
 /client/verb/set_mugshot()
 	set category = "OOC"

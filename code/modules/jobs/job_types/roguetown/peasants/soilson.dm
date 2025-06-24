@@ -1,5 +1,6 @@
 /datum/job/roguetown/farmer
 	title = "Soilson"
+	f_title = "Soilbride"
 	flag = FARMER
 	department_flag = PEASANTS
 	faction = "Station"

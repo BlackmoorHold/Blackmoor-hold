@@ -1,7 +1,7 @@
 //intent datums ฅ^•ﻌ•^ฅ
 
 /datum/intent/sword/cut
-	name = "strike"
+	name = "cut"
 	icon_state = "incut"
 	attack_verb = list("cuts", "slashes")
 	animname = "cut"
@@ -41,7 +41,7 @@
 /datum/intent/sword/strike
 	name = "pommel strike"
 	icon_state = "instrike"
-	attack_verb = list("bashes", "clubs")
+	attack_verb = list("pommel strikes", "hilt strikes")
 	animname = "strike"
 	blade_class = BCLASS_BLUNT
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
@@ -121,7 +121,7 @@
 	swingsound = BLADEWOOSH_MED
 	associated_skill = /datum/skill/combat/swords
 	max_blade_int = 100
-	max_integrity = 150
+	max_integrity = 175
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_BULKY
 	pickup_sound = 'sound/foley/equip/swordlarge1.ogg'
@@ -133,9 +133,9 @@
 	//dropshrink = 0.75
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
-	minstr = 7
+	minstr = 6
 	sellprice = 30
-	wdefense = 4
+	wdefense = 4.5
 	grid_width = 32
 	grid_height = 64
 	pickup_sound = 'modular_helmsguard/sound/sheath_sounds/draw_sword.ogg'
@@ -157,9 +157,10 @@
 	force = 20
 	possible_item_intents = list(/datum/intent/sword/cut/short, /datum/intent/sword/thrust/short, /datum/intent/sword/peel)
 	icon_state = "falchion"
+	max_integrity = 250
 	gripped_intents = null
 	minstr = 4
-	wdefense = 6
+	wdefense = 6.5
 
 /obj/item/rogueweapon/sword/falx
 	name = "falx"
@@ -171,7 +172,7 @@
 	max_integrity = 125
 	gripped_intents = null
 	minstr = 4
-	wdefense = 6
+	wdefense = 5
 
 /obj/item/rogueweapon/sword/decorated
 	name = "decorated arming sword"
@@ -220,7 +221,7 @@
 	icon_state = "swordshort"
 	gripped_intents = null
 	minstr = 4
-	wdefense = 4
+	wdefense = 4.5
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
 	grid_width = 32
@@ -462,9 +463,10 @@
 	name = "shamshir"
 	desc = "A curved one-handed longsword. This type of scimitar is the quintessential armament of Shalvistine horsemen, its name derived from Sama'glos for \"Tiger's claw\"."
 	force = 24
-	wdefense = 6	//Has chop mode, so slightly less defense. Slightly.
+	wdefense = 6.5	//Has chop mode, so slightly less defense. Slightly.
 	wbalance = WBALANCE_SWIFT
 	icon_state = "tabi"
+	max_integrity = 230
 	icon = 'icons/roguetown/weapons/64.dmi'
 	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust, /datum/intent/sword/peel, /datum/intent/sword/chop)
 	alt_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust, /datum/intent/sword/strike, /datum/intent/sword/chop)
@@ -498,6 +500,7 @@
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike, /datum/intent/sword/peel)
 	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike, /datum/intent/sword/chop, /datum/intent/sword/peel)
 	icon_state = "marlin"
+	max_integrity = 235
 	icon = 'icons/roguetown/weapons/64.dmi'
 	item_state = "marlin"
 	lefthand_file = 'icons/mob/inhands/weapons/roguebig_lefthand.dmi'
@@ -593,17 +596,18 @@
 	icon_state = "isword"
 	minstr = 6
 	smeltresult = /obj/item/ingot/iron
-	max_integrity = 100
+	max_integrity = 135
 	sellprice = 10
 
 /obj/item/rogueweapon/sword/iron/short
 	name = "iron shortsword"
 	desc = "The arming sword's shorter and much older brother. Despite being centuries older than the swords of todae, it remains in use as a cheap sidearm for shieldbearers and archers. This iron variant predates them all."
 	icon_state = "iswordshort"
+	max_integrity = 125
 	possible_item_intents = list(/datum/intent/sword/cut/short, /datum/intent/sword/thrust/short, /datum/intent/sword/peel)
 	gripped_intents = null
 	minstr = 4
-	wdefense = 3
+	wdefense = 3.5
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
 	grid_width = 32
@@ -662,12 +666,13 @@
 	desc = "A basic single-edge sword that is usually used to finish off hunted game. It excels at slicing and chopping, and it's made of iron. \
 	It's a fairly reliable and affordable self-defense weapon."
 	icon_state = "imesser"
+	max_integrity = 160
 	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust, /datum/intent/axe/chop, /datum/intent/sword/peel)
 	gripped_intents = null
 	minstr = 4
 	wdefense = 2
 
-// This typepath is so fucked bruh but I am not repeating code and not dropping a massive merge conflict for now
+// This typepath is so buggered bruh but I am not repeating code and not dropping a massive merge conflict for now
 /obj/item/rogueweapon/sword/iron/messer/copper 
 	name = "copper messer"
 	desc = "A copper hunting sword. Less durable than its iron counterpart."
@@ -675,7 +680,7 @@
 	icon_state = "cmesser"
 	max_integrity = 150
 	minstr = 4
-	wdefense = 2
+	wdefense = 2.5
 	smeltresult = /obj/item/ingot/copper
 
 /obj/item/rogueweapon/sword/short/messer
@@ -683,6 +688,7 @@
 	desc = "A \"Großesmesser\" of disputed Grenzel origin, meaning greatknife. It's a basic single-edge sword for civilian and military use. It excels at slicing and chopping, and it's made of steel. \
 	It can fill the exact function of a hunting sword, this one is more durable."
 	icon_state = "smesser"
+	max_integrity = 180
 	force = 22	//Same damage as the iron messer
 	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust, /datum/intent/axe/chop, /datum/intent/sword/peel)
 	gripped_intents = null
@@ -692,21 +698,22 @@
 	name = "sabre"
 	desc = "A very popular backsword made for cavalrymen that originated in Naledi and spread its influence further north, reaching Aavnr as a \"Szablya\" and notoriously cementing itself as the preferred weapon of the Potentate's Hussars."
 	icon_state = "saber"
+	max_integrity = 230
 	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/thrust/sabre, /datum/intent/sword/peel, /datum/intent/sword/strike)
 	gripped_intents = null
 	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')
 	swingsound = BLADEWOOSH_SMALL
 	minstr = 5
-	wdefense = 7		//Same as rapier
+	wdefense = 6.5
 	wbalance = WBALANCE_SWIFT
 
 /datum/intent/sword/cut/sabre
-	clickcd = 8		//Faster than sword by 4
+	clickcd = 8			//Faster than sword by 4
 	damfactor = 1.25	//Better than rapier (Base is 1.1 for swords)
-	penfactor = 10		//Very slight buff to pen on cut mode. Still weaker then sword-chop mode.
+	penfactor = 10		//Very slight buff to pen on cut mode. Still weaker than sword-chop mode.
 
 /datum/intent/sword/thrust/sabre
-	clickcd = 9			//Fast but still not as fast as rapier n' shittier.
+	clickcd = 9			//Fast but just shy of being as good as a rapier by 1.
 	damfactor = 0.9		//10% worse	than base
 
 /obj/item/rogueweapon/sword/sabre/dec
@@ -758,6 +765,7 @@
 		A very young type of fighting technique for this weapon is emerging in the island, aptly named \"Destreza\" for dexterity."
 	icon = 'icons/roguetown/weapons/64.dmi'
 	icon_state = "rapier"
+	max_integrity = 215
 	bigboy = TRUE
 	pixel_y = -16
 	pixel_x = -16
@@ -773,13 +781,14 @@
 		)
 	swingsound = BLADEWOOSH_SMALL
 	minstr = 6
-	wdefense = 7
+	wdefense = 7.5
 	wbalance = WBALANCE_SWIFT
 
 /obj/item/rogueweapon/sword/rapier/vaquero
 	name = "cup-hilt rapier"
 	desc = "A special variant of an Etruscan rapier. The cup hilt of this weapon is both simpler to produce and more protective than the type of traditional design of current rapiers."
 	icon = 'icons/roguetown/weapons/64.dmi'
+	max_integrity = 225
 	icon_state = "cup_hilt_rapier"
 	wdefense = 8
 	force = 25
@@ -900,10 +909,11 @@
 	name = "cutlass"
 	desc = "The mariner's special: A short, broad sabre with a slightly curved blade optimized for slashing."
 	icon_state = "cutlass"
+	max_integrity = 240
 	force = 23
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/chop, /datum/intent/sword/peel)
 	gripped_intents = null
-	wdefense = 6
+	wdefense = 6.5
 	wbalance = WBALANCE_SWIFT
 	
 
@@ -925,7 +935,7 @@
 	force_wielded = 32
 	icon_state = "blackflamb"
 	smeltresult = /obj/item/ingot/blacksteel
-	max_integrity = 200
+	max_integrity = 215
 
 /obj/item/rogueweapon/sword/long/blackflamb/getonmobprop(tag)
 	. = ..()
@@ -1168,7 +1178,7 @@
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
 	smelt_bar_num = 2
-	max_integrity = 999
+	max_integrity = 9999
 
 /obj/item/rogueweapon/sword/long/holysee/getonmobprop(tag)
 	. = ..()
@@ -1273,6 +1283,8 @@
 	It is meant to be wielded with both hands and is a popular weapon amongst Grenzelhoftian mercenaries."
 	icon = 'icons/roguetown/weapons/swords64.dmi'
 	icon_state = "kriegmesser"
+	max_integrity = 190
+	
 	possible_item_intents = list(/datum/intent/sword/cut/krieg, /datum/intent/sword/chop/falx, /datum/intent/rend/krieg, /datum/intent/sword/strike)
 	gripped_intents = list(/datum/intent/sword/cut/krieg, /datum/intent/sword/thrust/krieg, /datum/intent/rend/krieg, /datum/intent/sword/strike)
 	alt_intents = null // Can't mordhau this

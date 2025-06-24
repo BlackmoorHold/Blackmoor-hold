@@ -15,7 +15,10 @@
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/black/iron
 	head = /obj/item/clothing/head/roguetown/helmet
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
+	else
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltl = /obj/item/rogueweapon/sword/short
 	beltr = /obj/item/quiver/bolts

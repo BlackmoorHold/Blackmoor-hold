@@ -1,17 +1,17 @@
 /datum/job/roguetown/niteman
-	title = "Bathmaster"
+	title = "Nightmaster"
+	f_title = "Nightmistress"
 	flag = NITEMASTER
 	department_flag = YEOMEN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	f_title = "Bathmatron"
 	allowed_races = RACES_ALL_KINDS
-	tutorial = "You are renting out the bathhouse in a joint operation with the Innkeep. You provide security for the bathwenches and help them to find work--when you're not being a trouble-making rake that others suffer to tolerate."
+	tutorial = "You own the brothel in the city. You provide security to the nightmaidens and help them to find work-- when you're not being a trouble-making rake that others suffer to tolerate."
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/niteman
 	display_order = JDO_NITEMASTER
-	give_bank_account = 20
+	give_bank_account = 150
 	min_pq = 1
 	max_pq = null
 	bypass_lastclass = TRUE
@@ -36,6 +36,7 @@
 	ADD_TRAIT(H, TRAIT_NUTCRACKER, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_CICERONE, TRAIT_GENERIC)
 	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/convertrole/prostitute)
 		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 3, TRUE)
@@ -48,7 +49,7 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/riding, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/knives, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/knives, 4, TRUE)
 		H.change_stat("strength", 1)
 		H.change_stat("intelligence", -1)
 		H.change_stat("constitution", 1)
@@ -59,3 +60,12 @@
 		H.dna.species.soundpack_m = new /datum/voicepack/male/zeth()
 	else if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/armordress/alt
+
+/obj/effect/proc_holder/spell/self/convertrole/prostitute
+	name = "Hire Prostitute"
+	new_role = "Nightswain"
+	overlay_state = "recruit_servant"
+	recruitment_faction = "Prostitute"
+	recruitment_message = "Work for me, %RECRUIT."
+	accept_message = "I will."
+	refuse_message = "I refuse."

@@ -16,7 +16,10 @@
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
+	else
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	cloak = /obj/item/clothing/suit/roguetown/shirt/robe/black
 	belt = /obj/item/storage/belt/rogue/leather

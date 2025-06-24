@@ -113,11 +113,6 @@
 				if(their_god)
 					. += (user_side == mob_side) ? span_notice("Fellow [their_god.name] supporter!") : span_userdanger("Vile [their_god.name] supporter!")
 
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(H.marriedto == name)
-				. += span_love("It's my spouse.")
-
 		if(name in GLOB.excommunicated_players)
 			. += span_userdanger("HERETIC! SHAME!")
 
@@ -201,6 +196,16 @@
 	var/is_normal = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+
+		// Family examine text
+		if(H.isFamily(src))
+			var/datum/relation/R = H.getRelationship(src)
+			if(R)
+				. += span_love("It's my [R.name]!")
+		else if(family)
+			var/datum/family/F = getFamily()
+			if(F)
+				. += span_notice("Ah, they belong to the [F.name] family!")
 
 		if(HAS_TRAIT(H, TRAIT_INTELLECTUAL) || H.mind?.get_skill_level(H, /datum/skill/craft/blacksmithing) >= SKILL_EXP_EXPERT)
 			is_smart = TRUE	//Most of this is determining integrity of objects + seeing multiple layers. 
@@ -748,11 +753,17 @@
 		if(heart?.inscryption && (heart.inscryption_key in maniac.key_nums))
 			. += span_danger("[t_He] know[p_s()] [heart.inscryption_key], I AM SURE OF IT!")
 
+/* includes nsfw preview
 	if(!obscure_name || client?.prefs.masked_examine)
 		if(headshot_link && ((wear_shirt || wear_armor) || !nsfw_headshot_link))
 			. += "<span class='info'><img src=[headshot_link] width=100 height=100/></span>"
 		if(nsfw_headshot_link && !wear_armor && !wear_shirt)
 			. += "<span class='info'><img src=[nsfw_headshot_link] width=100 height=150/></span>"
+*/
+
+	if(!obscure_name || client?.prefs.masked_examine)
+		if(headshot_link)
+			. += "<span class='info'><img src=[headshot_link] width=100 height=100/></span>"
 
 	if(Adjacent(user))
 		if(observer_privilege)

@@ -7,7 +7,7 @@
 	spawn_positions = 1
 
 	allowed_sexes = list(MALE, FEMALE) //same as town guard
-	allowed_races = RACES_TOLERATED_UP
+	allowed_races = RACES_SHUNNED_UP//Identical to MAA.
 	tutorial = "You've known combat your entire life. There isn't a way to kill a man you havent practiced in the tapestries of war itself. You wouldn't call yourself a hero--those belong to the men left rotting in the fields where you honed your ancient trade. You don't sleep well at night anymore, you don't like remembering what you've had to do to survive. Trading adventure for stable pay was the only logical solution, and maybe someday you'll get to lay down the blade and rest your weary body..."
 	allowed_patrons = NON_PSYDON_PATRONS
 	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
@@ -167,7 +167,7 @@
 
 /datum/outfit/job/roguetown/vet/calvaryman/pre_equip(mob/living/carbon/human/H)
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/	////Former knights should have knightly armour. 
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/	////Former knights should have knightly armour.
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight
 	pants = /obj/item/clothing/under/roguetown/chainlegs
@@ -316,7 +316,7 @@
 	category_tags = list(CTAG_VETERAN)
 
 // Originally was meant to be a horse archer. I decided that was a bad idea.
-// Former Bogmaster maybe? I feel like that'd be cooler than just an archer guy. 
+// Former Bogmaster maybe? I feel like that'd be cooler than just an archer guy.
 
 /datum/outfit/job/roguetown/vet/scout/pre_equip(mob/living/carbon/human/H)
 	neck = /obj/item/clothing/neck/roguetown/gorget

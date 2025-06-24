@@ -8,7 +8,7 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE
-	max_integrity = 200
+	max_integrity = 50
 	integrity_failure = 0.5
 	var/base_state = "window-solid"
 	var/lockdir = 0
@@ -51,7 +51,7 @@
 	icon_state = null
 	base_state = null
 	opacity = TRUE
-	max_integrity = 200 
+	max_integrity = 50 
 	integrity_failure = 0.5
 
 /obj/structure/roguewindow/stained/silver
@@ -70,7 +70,7 @@
 	icon_state = "woodwindowdir"
 	base_state = "woodwindow"
 	opacity = TRUE
-	max_integrity = 200
+	max_integrity = 50
 	integrity_failure = 0.5
 
 /obj/structure/roguewindow/openclose/OnCrafted(dirin)
@@ -86,7 +86,7 @@
 	desc = "A glass window. This one looks reinforced with a metal mesh."
 	icon_state = "reinforcedwindowdir"
 	base_state = "reinforcedwindow"
-	max_integrity = 800
+	max_integrity = 500
 	integrity_failure = 0.1
 
 /obj/structure/roguewindow/openclose/reinforced/OnCrafted(dirin)
@@ -102,7 +102,7 @@
 	desc = "A glass window. This one looks reinforced with a metal frame."
 	icon_state = "brickwindowdir"
 	base_state = "brickwindow"
-	max_integrity = 1000	//Better than reinforced by a bit; metal frame.
+	max_integrity = 800	//Better than reinforced by a bit; metal frame.
 
 /obj/structure/roguewindow/openclose/reinforced/brick/OnCrafted(dirin)
 	dir = turn(dirin, 180)

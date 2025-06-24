@@ -23,15 +23,27 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 5, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/stealing, 5, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 5, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/misc/tracking, 4, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/tracking, 4, TRUE)	
+	// Weapon choice system
+	H.adjust_blindness(-3)
+	var/weapons = list("Crossbow & Bolts", "Recurve Bow & Arrows")
+	var/weapon_choice = input("Choose your ranged weapon.", "TAKE UP ARMS") as anything in weapons
+	H.set_blindness(0)
+	switch(weapon_choice)
+		if("Crossbow & Bolts")
+			H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 4, TRUE)
+			backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+			beltr = /obj/item/quiver/bolts
+		if("Recurve Bow & Arrows")
+			H.mind.adjust_skillrank(/datum/skill/combat/bows, 4, TRUE)
+			backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+			beltr = /obj/item/quiver/arrows
+
 	cloak = /obj/item/clothing/suit/roguetown/armor/longcoat
 	wrists = /obj/item/clothing/neck/roguetown/psicross/silver
 	gloves = /obj/item/clothing/gloves/roguetown/leather/black
 	beltl = /obj/item/rogueweapon/mace/cudgel
-	beltr = /obj/item/quiver/bolts
 	backr = /obj/item/storage/backpack/rogue/satchel/black
-	backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/black/psydon
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
