@@ -1699,8 +1699,6 @@
 	..()
 	if(!picked)
 		var/choice = input(user, "Choose a color.", "Orle") as anything in colorlist + pridelist
-		user.visible_message(span_warning("[user] adds [W] to [src]."))
-		user.transferItemToLoc(W, src, FALSE, FALSE)
 		detail_color = colorlist[choice]
 		detail_tag = "_detail"
 		if(choice in pridelist)
