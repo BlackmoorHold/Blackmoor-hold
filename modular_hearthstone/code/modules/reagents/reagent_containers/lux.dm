@@ -1,6 +1,6 @@
 /obj/item/reagent_containers/lux
 	name = "lux"
-	desc = "The stuff of life and souls, retrieved from within a hopefully-willing donor. It's a bit clammy and squishy, like a half-fried egg."
+	desc = "The stuff of life and souls. Extracting and using lux is heresy, forbidden by the faith of the Ten."
 	icon = 'icons/roguetown/items/produce.dmi'
 	icon_state = "lux"
 	item_state = "lux"
@@ -8,7 +8,7 @@
 	volume = 15
 	list_reagents = list(/datum/reagent/vitae = 5)
 	grind_results = list(/datum/reagent/vitae = 5)
-	sellprice = 90
+	sellprice = 250
 
 /datum/reagent/vitae
 	name = "Vitae"
