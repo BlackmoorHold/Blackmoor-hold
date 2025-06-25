@@ -63,3 +63,6 @@
 /datum/ai_movement/astar/stop_moving_towards(datum/ai_controller/controller)
 	controller.movement_path = null
 	return ..()
+
+/datum/ai_movement/astar/backstep
+	// Simple backstep movement that inherits from astar
