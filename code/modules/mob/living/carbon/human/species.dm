@@ -1581,7 +1581,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/bladec = user.used_intent.blade_class
 	if(H == user && bladec == BCLASS_PEEL)
 		bladec = BCLASS_BLUNT
-	
 	var/higher_intfactor = max(user.used_intent.masteritem?.intdamage_factor, user.used_intent.intent_intdamage_factor)
 	var/lowest_intfactor = min(user.used_intent.masteritem?.intdamage_factor, user.used_intent.intent_intdamage_factor)
 	var/used_intfactor = 1
@@ -1954,7 +1953,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		for(var/X in burning_items)
 			var/obj/item/I = X
-			I.fire_act(((H.fire_stacks + H.divine_fire_stacks) * 50)) //damage taken is reduced to 2% of this value by fire_act()
+			I.fire_act(((H.fire_stacks + H.fire_stacks) * 50)) //damage taken is reduced to 2% of this value by fire_act()
 
 		var/thermal_protection = H.get_thermal_protection()
 

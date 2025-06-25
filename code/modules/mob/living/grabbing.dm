@@ -202,15 +202,11 @@
 					if(get_location_accessible(C, BODY_ZONE_PRECISE_NECK))
 						if(prob(25))
 							C.emote("choke")
-						var/choke_damage
-						if(user.STASTR > STRENGTH_SOFTCAP)
-							choke_damage = STRENGTH_SOFTCAP
-						else
-							choke_damage = user.STASTR * 0.75
+						var/choke_damage = user.STASTR * 0.75
 						if(chokehold)
-							choke_damage *= 1.2		//Slight bonus
+							choke_damage *= 1.2
 						if(C.pulling == user && C.grab_state >= GRAB_AGGRESSIVE)
-							choke_damage *= 0.95	//Slight malice
+							choke_damage *= 0.95
 						C.adjustOxyLoss(choke_damage)
 						C.visible_message(span_danger("[user] [pick("chokes", "strangles")] [C][chokehold ? " with a chokehold" : ""]!"), \
 								span_userdanger("[user] [pick("chokes", "strangles")] me[chokehold ? " with a chokehold" : ""]!"), span_hear("I hear a sickening sound of pugilism!"), COMBAT_MESSAGE_RANGE, user)

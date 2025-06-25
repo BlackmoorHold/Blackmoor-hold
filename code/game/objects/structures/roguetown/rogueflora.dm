@@ -39,7 +39,7 @@
 	if(.)
 		if(!was_destroyed && obj_destroyed)
 			record_featured_stat(FEATURED_STATS_TREE_FELLERS, user)
-			GLOB.azure_round_stats[STATS_TREES_CUT]++
+			GLOB.blackmoor_round_stats[STATS_TREES_CUT]++
 
 /obj/structure/flora/roguetree/spark_act()
 	fire_act()
@@ -177,7 +177,7 @@
 	name = "pine stump"
 	icon_state = "dead4"
 	icon = 'icons/obj/flora/pines.dmi'
-	static_debris = list(/obj/item/rogueore/coal/charcoal = 1)
+	static_debris = list(/obj/item/rogueore/charcoal = 1)
 	stump_type = null
 	pixel_x = -32
 
@@ -301,7 +301,7 @@
 
 /obj/structure/flora/roguegrass/bush
 	name = "bush"
-	desc = "A bush. It's crawling with spiders, but maybe there’s something useful inside..."
+	desc = "A bush. It's crawling with spiders, but maybe there's something useful inside..."
 	icon_state = "bush2"
 	layer = ABOVE_ALL_MOB_LAYER
 	var/res_replenish
@@ -419,7 +419,7 @@
 
 /obj/structure/flora/roguegrass/bush/wall
 	name = "great bush"
-	desc = "A bush. This one’s roots are thick enough to block the way."
+	desc = "A bush. This one's roots are thick enough to block the way."
 	opacity = TRUE
 	density = 1
 	climbable = FALSE
@@ -669,7 +669,7 @@
 	. = ..()
 	icon_state = "swampweed[rand(1,3)]"
 	if(prob(88))
-		bushtype = pickweight(list(/obj/item/reagent_containers/food/snacks/grown/rogue/swampweed = 1))
+		bushtype = pickweight(list(/obj/item/reagent_containers/food/snacks/grown/rogue/sweetleaf = 1))
 	loot_replenish3()
 	pixel_x += rand(-3,3)
 
@@ -677,7 +677,7 @@
 	if(bushtype)
 		looty += bushtype
 	if(prob(66))
-		looty += /obj/item/reagent_containers/food/snacks/grown/rogue/swampweed
+		looty += /obj/item/reagent_containers/food/snacks/grown/rogue/sweetleaf
 
 /obj/structure/flora/roguegrass/swampweed/attack_hand(mob/user)
 	if(isliving(user))
@@ -773,7 +773,7 @@
 	name = "burnt pine tree"
 	icon_state = "dead1"
 	max_integrity = 50
-	static_debris = list(/obj/item/rogueore/coal/charcoal = 1)
+	static_debris = list(/obj/item/rogueore/charcoal = 1)
 	resistance_flags = FIRE_PROOF
 	stump_type = /obj/structure/flora/roguetree/stump/pine
 

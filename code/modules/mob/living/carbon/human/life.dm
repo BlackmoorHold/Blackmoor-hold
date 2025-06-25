@@ -1,5 +1,3 @@
-
-
 //NOTE: Breathing happens once per FOUR TICKS, unless the last breath fails. In which case it happens once per ONE TICK! So oxyloss healing is done once per 4 ticks while oxyloss damage is applied once per tick!
 
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
@@ -140,10 +138,15 @@
 
 	if(!last_fire_update)
 		last_fire_update = fire_stacks
-	if((fire_stacks + divine_fire_stacks > 10 && last_fire_update <= 10) || (fire_stacks + divine_fire_stacks <= 10 && last_fire_update > 10))
-		last_fire_update = fire_stacks + divine_fire_stacks
+	if((fire_stacks + fire_stacks > 10 && last_fire_update <= 10) || (fire_stacks + fire_stacks <= 10 && last_fire_update > 10))
+		last_fire_update = fire_stacks + fire_stacks
 		update_fire()
 
+	if(fire_stacks + fire_stacks > 10)
+		Immobilize(30)
+		emote("firescream", TRUE)
+	else
+		emote("pain", TRUE)
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
@@ -161,7 +164,7 @@
 	//If firestacks are high enough
 	if(!dna || dna.species.CanIgniteMob(src))
 		if(!on_fire)
-			if(fire_stacks + divine_fire_stacks > 10)
+			if(fire_stacks + fire_stacks > 10)
 				Immobilize(30)
 				emote("firescream", TRUE)
 			else

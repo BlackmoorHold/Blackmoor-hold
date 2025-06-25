@@ -267,8 +267,6 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		retreating = null
 		retreat_distance = initial(retreat_distance)
 		minimum_distance = initial(minimum_distance)
-	if(HAS_TRAIT(src, TRAIT_RIGIDMOVEMENT))
-		return
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		move_to_delay = initial(move_to_delay)
 		return
@@ -535,9 +533,9 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 
 /mob/living/simple_animal/handle_fire()
 	. = ..()
-	if(fire_stacks + divine_fire_stacks > 0)
+	if(fire_stacks + fire_stacks > 0)
 		apply_damage(5, BURN)
-		if(fire_stacks + divine_fire_stacks > 5)
+		if(fire_stacks + fire_stacks > 5)
 			apply_damage(10, BURN)
 
 //mob/living/simple_animal/IgniteMob()

@@ -243,3 +243,26 @@
 	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/swords, 3, TRUE)
+
+/mob/living/carbon/human/species/skeleton/proc/equip_greater_skeleton_outfit()
+	equip_to_slot_or_del(new /obj/item/clothing/wrists/roguetown/bracers/leather(src), SLOT_WRISTS, TRUE)
+	equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/chainmail/iron(src), SLOT_ARMOR, TRUE)
+	if(prob(50))
+		equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant(src), SLOT_SHIRT, TRUE)
+	else
+		equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l(src), SLOT_SHIRT, TRUE)
+	equip_to_slot_or_del(new /obj/item/clothing/under/roguetown/chainlegs/iron(src), SLOT_PANTS, TRUE)
+	equip_to_slot_or_del(new /obj/item/clothing/head/roguetown/helmet/leather(src), SLOT_HEAD, TRUE)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/roguetown/boots(src), SLOT_SHOES, TRUE)
+
+/datum/outfit/job/roguetown/greater_skeleton/pre_equip(mob/living/carbon/human/H) //equipped onto Summon Greater Undead player skeletons only after the mind is added
+	..()
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
+	if(prob(50))
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
+	else
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
+	head = /obj/item/clothing/head/roguetown/helmet/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots

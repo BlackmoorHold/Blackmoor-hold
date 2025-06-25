@@ -1,4 +1,6 @@
-UBSYSTEM_DEF(pathfinder)
+SUBSYSTEM_DEF(pathfinder)
+
+/datum/controller/subsystem/pathfinder
 	name = "Pathfinder"
 	init_order = INIT_ORDER_PATH
 	flags = SS_NO_FIRE

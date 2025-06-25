@@ -362,7 +362,7 @@
 				if(lockprogress >= locktreshold)
 					to_chat(user, "<span class='deadsay'>The locking mechanism gives.</span>")
 					record_featured_stat(FEATURED_STATS_CRIMINALS, user)
-					GLOB.azure_round_stats[STATS_LOCKS_PICKED]++
+					GLOB.blackmoor_round_stats[STATS_LOCKS_PICKED]++
 					togglelock(user)
 					break
 				else
@@ -577,14 +577,14 @@
 		if(!open(user))
 			to_chat(user, span_warning("It won't budge!"))
 			return
-	step_towards(user, T2)
-	T1 = get_turf(user)
-	if(T1 == T2)
-		user.resting = TRUE //so people can jump into crates without slamming the lid on their head
-		if(!close(user))
-			to_chat(user, span_warning("I can't get [src] to close!"))
+		step_towards(user, T2)
+		T1 = get_turf(user)
+		if(T1 == T2)
+			user.resting = TRUE //so people can jump into crates without slamming the lid on their head
+			if(!close(user))
+				to_chat(user, span_warning("I can't get [src] to close!"))
+				user.resting = FALSE
+				return
 			user.resting = FALSE
-			return
-		user.resting = FALSE
-		togglelock(user)
-		T1.visible_message(span_warning("[user] dives into [src]!"))
+			togglelock(user)
+			T1.visible_message(span_warning("[user] dives into [src]!"))

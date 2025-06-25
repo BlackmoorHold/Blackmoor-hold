@@ -133,7 +133,7 @@
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
 	item_d_type = "stab"
 	no_early_release = TRUE
-	intdamage_factor = 0.6
+	intent_intdamage_factor = 0.6
 
 /datum/intent/partizan/peel
 	name = "armor peel"
@@ -173,7 +173,7 @@
 	chargetime = 4 SECONDS
 	damfactor = 4 // 80 damage on hit. It is gonna hurt.
 	reach = 3 // Yep! 3 tiles
-	intdamage_factor = 2 // 4 hits to break coat of plate normally.
+	intent_intdamage_factor = 2 // 4 hits to break coat of plate normally.
 
 /datum/intent/lance/onehand
 	chargetime = 5 SECONDS
@@ -756,7 +756,6 @@
 	max_blade_int = 300
 	blade_dulling = DULLING_SHAFT_REINFORCED
 	walking_stick = TRUE
-	wdefense = 5
 	wbalance = WBALANCE_HEAVY
 	sellprice = 60
 	intdamage_factor = 1.2
@@ -1099,7 +1098,7 @@
 	icon_state = "lance"
 	force = 15 // Its gonna sucks for 1 handed use
 	force_wielded = 20 // Lower damage because a 3 tiles thrust without full charge time still deal base damage. 
-	wdefense = 4 // 2 Lower than spear
+	wdefense = 5
 	max_integrity = 200
 	max_blade_int = 200 // Better sharpness
 	possible_item_intents = list(SPEAR_THRUST, /datum/intent/lance/onehand, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs

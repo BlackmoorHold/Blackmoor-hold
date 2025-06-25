@@ -94,7 +94,6 @@
 			target.key = C.key
 			target.visible_message(span_warning("[target]'s eyes light up with an eerie glow!"))
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/self/suicidebomb/lesser)
-			target.equipOutfit(/datum/outfit/job/roguetown/greater_skeleton)
 		else
 			target.visible_message(span_warning("[target]'s form crumbles into dust."))
 			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "GREATER SKELETON"), 3 SECONDS)

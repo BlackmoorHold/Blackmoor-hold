@@ -58,7 +58,7 @@
 	playsound(src.loc, 'sound/foley/zfall.ogg', 100, FALSE)
 	if(!isgroundlessturf(T))
 		ZImpactDamage(T, levels)
-		GLOB.azure_round_stats[STATS_MOAT_FALLERS]++
+		GLOB.blackmoor_round_stats[STATS_MOAT_FALLERS]++
 	return ..()
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
@@ -606,7 +606,7 @@
 		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		
 		if(istype(src.loc, /turf/open/water) && !HAS_TRAIT(src, TRAIT_NOBREATH) && lying && client)
-			GLOB.azure_round_stats[STATS_PEOPLE_DROWNED]++
+			GLOB.blackmoor_round_stats[STATS_PEOPLE_DROWNED]++
 
 		adjustOxyLoss(201)
 		updatehealth()
@@ -837,7 +837,6 @@
 			wound.heal_wound(wound.whp)
 	ExtinguishMob()
 	fire_stacks = 0
-	divine_fire_stacks = 0
 	confused = 0
 	dizziness = 0
 	drowsyness = 0
@@ -1038,7 +1037,7 @@
 			return
 	log_combat(src, null, "surrendered")
 	surrendering = 1
-	GLOB.azure_round_stats[STATS_YIELDS]++
+	GLOB.blackmoor_round_stats[STATS_YIELDS]++
 	toggle_cmode()
 	changeNext_move(CLICK_CD_EXHAUSTED)
 	var/obj/effect/temp_visual/surrender/flaggy = new(src)
@@ -1417,7 +1416,7 @@
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
-	if((fire_stacks > 0 || divine_fire_stacks > 0) && !on_fire)
+	if(fire_stacks > 0 && !on_fire)
 		if(HAS_TRAIT(src, TRAIT_NOFIRE) && prob(90)) // Nofire is described as nonflammable, not immune. 90% chance of avoiding ignite
 			return
 		testing("ignis")
@@ -1450,9 +1449,6 @@
 	fire_stacks = CLAMP(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
-
-/mob/living/proc/adjust_divine_fire_stacks(add_fire_stacks) //Adjusting the amount of divine_fire_stacks we have on person
-	divine_fire_stacks = CLAMP(divine_fire_stacks + add_fire_stacks, 0, 100)
 
 //Share fire evenly between the two mobs
 //Called in MobBump() and Crossed()
