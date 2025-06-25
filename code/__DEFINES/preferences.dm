@@ -116,6 +116,8 @@
 #define AGE_MIDDLEAGED		"Middle-Aged"
 #define AGE_OLD				"Old"
 
+#define AGE_VALUES list(AGE_ADULT = 1, AGE_MIDDLEAGED = 2, AGE_OLD = 3)
+
 #define ALL_AGES_LIST list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 
 //Voice ranges

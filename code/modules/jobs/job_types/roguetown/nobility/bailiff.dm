@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_NO_CONSTRUCT
+	allowed_races = RACES_TOLERATED_UP
 	allowed_patrons = NON_PSYDON_PATRONS
 	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
 	display_order = JDO_MARSHAL
@@ -30,7 +30,7 @@
 
 /datum/outfit/job/roguetown/marshal/pre_equip(mob/living/carbon/human/H)
 	..()
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/royal
 	pants = /obj/item/clothing/under/roguetown/tights/black
 	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
 	backl = /obj/item/storage/backpack/rogue/satchel

@@ -138,7 +138,7 @@
 /datum/advclass/squire/skirmisher
 	name = "Irregular Squire"
 	tutorial = "As militaries become more flexible and tactics more moderne the importance of irregular troops \
-	has become more apparent, and hopefuls such as yourself have been trained into the future of elite skirmisher \
+	has become more apparent, and hopefuls such as yourself have been trained into the future of elite skirmisher or stalker \
 	troops."
 	outfit = /datum/outfit/job/roguetown/squire/skirmisher
 		

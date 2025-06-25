@@ -246,7 +246,7 @@
 	lockid = "townie"
 
 /obj/item/roguekey/bath // For use in round-start available bathhouse quarters. Do not use default lockID.
-	name = "bathhouse quarter key"
+	name = "brothel quarter key"
 	desc = "The key to an employee's quarters. Hope it's not lost."
 	icon_state = "brownkey"
 	lockid = "bath"
@@ -454,7 +454,7 @@
 	lockid = "nightman"
 
 /obj/item/roguekey/nightmaiden
-	name = "bathhouse key"
+	name = "brothel key"
 	desc = "This regal key opens doors inside the bath-house."
 	icon_state = "bathkey"
 	lockid = "nightmaiden"

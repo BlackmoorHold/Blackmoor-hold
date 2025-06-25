@@ -4,9 +4,9 @@
 	i_type = "Armor"
 	craftdiff = 1
 
-//For the sake of keeping the code modular with the introduction of new metals, each recipe has had it's main resource added to it's datum
-//This way, we can avoid having to name things in strange ways and can simply have iron/cuirass, stee/cuirass, blacksteel/cuirass->
-//-> and not messy names like ibreastplate and hplate
+// For the sake of keeping the code modular with the introduction of new metals, each recipe has had it's main resource added to it's datum
+// This way, we can avoid having to name things in strange ways and can simply have iron/cuirass, steel/cuirass, blacksteel/cuirass->
+// Instead of messy names like ibreastplate and hplate
 
 // --------- COPPER RECIPES -----------
 /datum/anvil_recipe/armor/copper/
@@ -444,6 +444,15 @@
 /datum/anvil_recipe/armor/steel/chainmantle
 	name = "Chain Mantle"
 	req_bar = /obj/item/ingot/steel
+	additional_items = list(/obj/item/ingot/steel)
+	created_item = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle
+	createditem_num = 1
+	craftdiff = 2
+
+/datum/anvil_recipe/armor/steel/chainmantle/iron
+	name = "Chain Mantle"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/ingot/iron)
 	created_item = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle
 	createditem_num = 1
 	craftdiff = 2
@@ -451,7 +460,15 @@
 /datum/anvil_recipe/armor/steel/fullchaincoif
 	name = "Full Chain Coif"
 	req_bar = /obj/item/ingot/steel
+	additional_items = list(/obj/item/ingot/steel)
 	created_item = /obj/item/clothing/neck/roguetown/chaincoif/full
+	craftdiff = 2
+
+/datum/anvil_recipe/armor/steel/fullchaincoif/iron
+	name = "Full Chain Coif"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/ingot/iron)
+	created_item = /obj/item/clothing/neck/roguetown/chaincoif/full/iron
 	craftdiff = 2
 
 /datum/anvil_recipe/armor/steel/chainglove
@@ -536,6 +553,12 @@
 	name = "Plate Bracers"
 	req_bar = /obj/item/ingot/steel
 	created_item = /obj/item/clothing/wrists/roguetown/bracers
+	createditem_num = 1
+
+/datum/anvil_recipe/armor/steel/platebracer/iron
+	name = "Plate Bracers"
+	req_bar = /obj/item/ingot/iron
+	created_item = /obj/item/clothing/wrists/roguetown/bracers/iron
 	createditem_num = 1
 
 /datum/anvil_recipe/armor/steel/helmetnasal

@@ -256,7 +256,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/nightmaiden
-	name = "Bathhouse Attendant"
+	name = "Nightswain"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/merchant

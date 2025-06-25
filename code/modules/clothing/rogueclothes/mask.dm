@@ -59,17 +59,20 @@
 
 /obj/item/clothing/mask/rogue/eyepatch
 	name = "eyepatch"
-	desc = "An eyepatch, fitted for the right eye."
+	desc = "An eyepatch, fitted for the right eye, used by pirates and those with poked eyes, the patch itself makes parrying to perform on the blindspot"
 	icon_state = "eyepatch"
-	max_integrity = 20
+	max_integrity = 50
+	armor = ARMOR_MASK_EYEPATCH
+	body_parts_covered = RIGHT_EYE
 	integrity_failure = 0.5
 	block2add = FOV_RIGHT
 	body_parts_covered = EYES
 	sewrepair = TRUE
 
 /obj/item/clothing/mask/rogue/eyepatch/left
-	desc = "An eyepatch, fitted for the left eye."
+	desc = "An eyepatch, fitted for the left eye, used by pirates and those with poked eyes, the patch itself makes parrying to perform on the blindspot"
 	icon_state = "eyepatch_l"
+	body_parts_covered = LEFT_EYE
 	block2add = FOV_LEFT
 
 /obj/item/clothing/mask/rogue/lordmask
@@ -108,6 +111,7 @@
 
 /obj/item/clothing/mask/rogue/facemask
 	name = "iron mask"
+	desc = "An iron mask which protects the eyes, nose and mouth while also obscuring the face it."
 	icon_state = "imask"
 	max_integrity = 100
 	blocksound = PLATEHIT
@@ -134,12 +138,13 @@
 /obj/item/clothing/mask/rogue/facemask/copper
 	name = "copper mask"
 	icon_state = "cmask"
-	desc = "A heavy copper mask that conceals and protects the face, though not very effectively."
+	desc = "A heavy copper mask which protects the eyes, nose and mouth yet not all that effectively while also obscuring the face it."
 	armor = ARMOR_MASK_METAL_BAD
 	smeltresult = /obj/item/ingot/copper
 
 /obj/item/clothing/mask/rogue/facemask/hound
 	name = "hound mask"
+	desc = "An mask of iron with a shape of a hound's muzzle which protects the eyes, nose and mouth while also obscuring the face it."
 	icon_state = "imask_hound"
 	max_integrity = 100
 	blocksound = PLATEHIT
@@ -221,6 +226,7 @@
 
 /obj/item/clothing/mask/rogue/facemask/steel
 	name = "steel mask"
+	desc = "A mask of steel which protects the eyes, nose and mouth while also obscuring the face it."
 	icon_state = "smask"
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/steel
@@ -233,11 +239,11 @@
 
 /obj/item/clothing/mask/rogue/facemask/steel/hound
 	name = "steel hound mask"
-	desc = "A steel mask, made for those who have snouts, protecting the eyes, nose and muzzle while obscuring the face."
+	desc = "A mask of steel with a shape of a hound's muzzle which protects the eyes, nose and mouth while also obscuring the face it."
 	icon_state = "smask_hound"
 
 /obj/item/clothing/mask/rogue/facemask/goldmask
-	name = "Gold Mask"
+	name = "gold mask"
 	icon_state = "goldmask"
 	max_integrity = 150
 	sellprice = 100
@@ -304,7 +310,7 @@
 /obj/item/clothing/mask/rogue/ragmask/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/equip/rummaging-03.ogg', null, (UPD_HEAD|UPD_MASK))	//Standard mask
 
-/obj/item/clothing/mask/rogue/ragmask/red //predyed mask for NPCs
+/obj/item/clothing/mask/rogue/ragmask/red //pre-dyed mask for NPCs
 	color = CLOTHING_RED
 
 /obj/item/clothing/mask/rogue/lordmask/naledi

@@ -134,9 +134,14 @@
 	name = "fancy coat"
 	desc = "A fancy tunic and coat combo. How elegant."
 	icon_state = "noblecoat"
+	item_state = "noblecoat"
 	sleevetype = "noblecoat"
 	color = CLOTHING_WHITE
 	boobed = TRUE
+	detail_tag = "_detail"
+	detail_color = CLOTHING_BLACK
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
 
 /obj/item/clothing/suit/roguetown/shirt/undershirt/artificer
 	name = "tinker suit"
@@ -546,3 +551,82 @@
 	sewrepair = TRUE
 	flags_inv = null
 	slot_flags = ITEM_SLOT_SHIRT
+
+//................ Noble Dress ............... //
+/obj/item/clothing/suit/roguetown/shirt/dress/noble
+	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR
+	icon = 'icons/roguetown/clothing/shirts_royalty.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts_royalty.dmi'
+	name = "noble dress"
+	desc = "An elegant dress fit for nobility, crafted with the finest materials and adorned with intricate details."
+	body_parts_covered = CHEST|GROIN|ARMS|VITALS
+	icon_state = "nobledress"
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts_royalty.dmi'
+	boobed = TRUE
+	detail_tag = "_detail"
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+
+/obj/item/clothing/suit/roguetown/shirt/dress/noble/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
+
+/obj/item/clothing/suit/roguetown/shirt/dress/noble/lordcolor(primary,secondary)
+	detail_color = primary
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/shirt/dress/noble/Initialize()
+	. = ..()
+	if(GLOB.lordprimary)
+		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
+	else
+		GLOB.lordcolor += src
+
+/obj/item/clothing/suit/roguetown/shirt/dress/noble/Destroy()
+	GLOB.lordcolor -= src
+	return ..()
+
+//................ Velvet Dress ............... //
+/obj/item/clothing/suit/roguetown/shirt/dress/velvet
+	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR
+	icon = 'icons/roguetown/clothing/shirts_royalty.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts_royalty.dmi'
+	name = "velvet dress"
+	desc = "A luxurious dress made of the finest velvet, soft to the touch and rich in appearance."
+	body_parts_covered = CHEST|GROIN|ARMS|VITALS
+	icon_state = "velvetdress"
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts_royalty.dmi'
+	boobed = TRUE
+	detail_tag = "_detail"
+	detail_color = CLOTHING_PURPLE
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+
+/obj/item/clothing/suit/roguetown/shirt/dress/velvet/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
+
+/obj/item/clothing/suit/roguetown/shirt/dress/velvet/lordcolor(primary,secondary)
+	detail_color = primary
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/shirt/dress/velvet/Initialize()
+	. = ..()
+	if(GLOB.lordprimary)
+		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
+	else
+		GLOB.lordcolor += src
+
+/obj/item/clothing/suit/roguetown/shirt/dress/velvet/Destroy()
+	GLOB.lordcolor -= src
+	return ..()

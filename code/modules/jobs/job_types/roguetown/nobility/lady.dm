@@ -19,6 +19,8 @@
 	min_pq = 5
 	max_pq = null
 	round_contrib_points = 3
+	ruler_family = TRUE
+	lord_rel_type = REL_TYPE_SPOUSE
 
 /datum/job/roguetown/exlady //just used to change the ladys title
 	title = "Consort Dowager"
@@ -52,7 +54,7 @@
 		head = /obj/item/clothing/head/roguetown/nyle/consortcrown
 		pants = /obj/item/clothing/under/roguetown/tights
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/guard
-		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/royal
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
 		belt = /obj/item/storage/belt/rogue/leather
 		beltl = /obj/item/storage/keyring/royal

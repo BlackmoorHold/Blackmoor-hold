@@ -12,19 +12,28 @@
 	grid_height = 64
 
 /obj/item/clothing/wrists/roguetown/bracers
-	name = "bracers"
+	name = "steel bracers"
 	desc = "Steel bracers that protect the arms."
-	body_parts_covered = ARMS
 	icon_state = "bracers"
 	item_state = "bracers"
+	max_integrity = 300
 	armor = ARMOR_BOOTS_PLATED
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	blocksound = PLATEHIT
 	resistance_flags = FIRE_PROOF
-	max_integrity = 300
+
 	anvilrepair = /datum/skill/craft/armorsmithing
 	sewrepair = FALSE
 	smeltresult = /obj/item/ingot/steel
+
+/obj/item/clothing/wrists/roguetown/bracers/iron
+	name = "iron bracers"
+	desc = "Iron bracers that protect the arms."
+	icon_state = "bracers" // Lacks their own iron bracers sprite
+	item_state = "bracers" // Lacks their own iron bracers sprite
+	max_integrity = 260
+	armor = ARMOR_BOOTS_PLATED_IRON
+	smeltresult = /obj/item/ingot/iron
 
 /obj/item/clothing/wrists/roguetown/bracers/aalloy
 	name = "decrepit bracers"
@@ -44,7 +53,8 @@
 	desc = "Standard leather bracers that offer some meager protection for the arms."
 	icon_state = "lbracers"
 	item_state = "lbracers"
-	armor = ARMOR_PADDED_GOOD
+	max_integrity = 250
+	armor = ARMOR_LEATHER
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST)
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
@@ -61,7 +71,7 @@
 	icon_state = "albracers"
 	armor = ARMOR_LEATHER_GOOD
 	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT, BCLASS_TWIST, BCLASS_CHOP, BCLASS_SMASH)
-	max_integrity = 250
+	max_integrity = 265
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/hide/cured
 
@@ -70,6 +80,7 @@
 	desc = "Copper forearm guards that offer some protection while looking rather stylish"
 	icon_state = "copperarm"
 	item_state = "copperarm"
+	max_integrity = 225
 	smeltresult = /obj/item/ingot/copper
 	armor = ARMOR_MASK_METAL_BAD
 
@@ -130,7 +141,7 @@
 	armor = ARMOR_LEATHER_STUDDED
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = SOFTHIT
-	max_integrity = 250
+	max_integrity = 285
 	anvilrepair = /datum/skill/craft/blacksmithing
 	smeltresult = /obj/item/ingot/iron
 	w_class = WEIGHT_CLASS_NORMAL

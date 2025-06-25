@@ -276,20 +276,20 @@
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/steel
 
-/obj/item/rogueweapon/huntingknife/idagger/steel/parrying
+/obj/item/rogueweapon/huntingknife/idagger/steel/parrying //direct upgrade but more costly.
 	name = "steel parrying dagger"
-	force = 12
-	throwforce = 12
-	desc = "This is a parrying dagger made of solid steel, used to catch opponent's weapons in the handguard. It's a bit more dull, however."
+	desc = "This is a parrying dagger made of solid steel, used to catch opponent's weapons in the handguard, but it's not as good for actual stabbing work."
+	force = 15
+	throwforce = 15
 	icon_state = "spdagger"
 	wdefense = 6
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/parrying/vaquero
 	name = "sail dagger"
-	force = 15
-	throwforce = 15
 	desc = "An exceptionally protective parrying dagger popular in the Etruscan Isles, this dagger features a plain metal guard in the shape of a ship's sail."
 	wdefense = 7
+	force = 17
+	throwforce = 17
 	icon_state = "sail_dagger"
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/special
@@ -388,7 +388,7 @@
 	is_silver = TRUE
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/elvish/drow
-	name = "dark elvish dagger"
+	name = "drowish dagger"
 	desc = "A vicious wave-bladed dagger from the Underdark."
 	force = 25
 	last_used = 0
