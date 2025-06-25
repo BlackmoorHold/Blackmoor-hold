@@ -58,7 +58,7 @@
 	playsound(src.loc, 'sound/foley/zfall.ogg', 100, FALSE)
 	if(!isgroundlessturf(T))
 		ZImpactDamage(T, levels)
-		GLOB.blackmoor_round_stats[STATS_MOAT_FALLERS]++
+		GLOB.azure_round_stats[STATS_MOAT_FALLERS]++
 	return ..()
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
@@ -312,6 +312,10 @@
 			return FALSE
 		if(!lying_attack_check(L))
 			return FALSE
+		// snowflake check for blocking mouthgrabs on biting deadites
+		if(L.zone_selected == BODY_ZONE_PRECISE_MOUTH && istype(mouth, /obj/item/grabbing/bite))
+			to_chat(L, span_warning("You can't grab [src]'s mouth while [p_theyre()] biting something!"))
+			return FALSE
 	return TRUE
 
 /mob/living/carbon/proc/kick_attack_check(mob/living/L)
@@ -340,7 +344,7 @@
 				acceptable = list(BODY_ZONE_HEAD, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_R_EYE,BODY_ZONE_PRECISE_L_EYE, BODY_ZONE_PRECISE_EARS, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_SKULL, BODY_ZONE_PRECISE_NOSE, BODY_ZONE_PRECISE_MOUTH)
 		else
 			if(!CZ)
-				acceptable = list(BODY_ZONE_HEAD, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_R_EYE,BODY_ZONE_PRECISE_L_EYE, BODY_ZONE_PRECISE_EARS, BODY_ZONE_PRECISE_SKULL, BODY_ZONE_PRECISE_NOSE, BODY_ZONE_PRECISE_MOUTH)
+				acceptable = list(BODY_ZONE_HEAD, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_R_EYE,BODY_ZONE_PRECISE_L_EYE, BODY_ZONE_PRECISE_EARS, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_SKULL, BODY_ZONE_PRECISE_NOSE, BODY_ZONE_PRECISE_MOUTH)
 				if(HAS_TRAIT(L, TRAIT_CIVILIZEDBARBARIAN))
 					acceptable = list(BODY_ZONE_HEAD, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_R_EYE,BODY_ZONE_PRECISE_L_EYE, BODY_ZONE_PRECISE_EARS, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_SKULL, BODY_ZONE_PRECISE_NOSE, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 	else if(!(L.mobility_flags & MOBILITY_STAND) && (mobility_flags & MOBILITY_STAND)) //we are prone, victim is standing
@@ -602,7 +606,7 @@
 		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		
 		if(istype(src.loc, /turf/open/water) && !HAS_TRAIT(src, TRAIT_NOBREATH) && lying && client)
-			GLOB.blackmoor_round_stats[STATS_PEOPLE_DROWNED]++
+			GLOB.azure_round_stats[STATS_PEOPLE_DROWNED]++
 
 		adjustOxyLoss(201)
 		updatehealth()
@@ -833,6 +837,7 @@
 			wound.heal_wound(wound.whp)
 	ExtinguishMob()
 	fire_stacks = 0
+	divine_fire_stacks = 0
 	confused = 0
 	dizziness = 0
 	drowsyness = 0
@@ -851,7 +856,7 @@
 		return FALSE
 
 
-/mob/living/carbon/can_be_revived()
+/mob/living/carbon/human/can_be_revived()
 	. = ..()
 	var/obj/item/bodypart/head/H = get_bodypart(BODY_ZONE_HEAD)
 	if(H)
@@ -1011,12 +1016,14 @@
 	if(buckled && last_special <= world.time)
 		resist_buckle()
 
+	//Breaking out of a container (Locker, sleeper, cryo...)
+	else if(isobj(loc))
+		var/obj/C = loc
+		C.container_resist(src)
+
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
-		else if(has_status_effect(/datum/status_effect/leash_pet))
-			if(istype(src, /mob/living/carbon))
-				resist_leash()
 		else if(last_special <= world.time)
 			resist_restraints() //trying to remove cuffs.
 
@@ -1031,7 +1038,7 @@
 			return
 	log_combat(src, null, "surrendered")
 	surrendering = 1
-	GLOB.blackmoor_round_stats[STATS_YIELDS]++
+	GLOB.azure_round_stats[STATS_YIELDS]++
 	toggle_cmode()
 	changeNext_move(CLICK_CD_EXHAUSTED)
 	var/obj/effect/temp_visual/surrender/flaggy = new(src)
@@ -1410,7 +1417,7 @@
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
-	if(fire_stacks > 0 && !on_fire)
+	if((fire_stacks > 0 || divine_fire_stacks > 0) && !on_fire)
 		if(HAS_TRAIT(src, TRAIT_NOFIRE) && prob(90)) // Nofire is described as nonflammable, not immune. 90% chance of avoiding ignite
 			return
 		testing("ignis")
@@ -1443,6 +1450,9 @@
 	fire_stacks = CLAMP(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
+
+/mob/living/proc/adjust_divine_fire_stacks(add_fire_stacks) //Adjusting the amount of divine_fire_stacks we have on person
+	divine_fire_stacks = CLAMP(divine_fire_stacks + add_fire_stacks, 0, 100)
 
 //Share fire evenly between the two mobs
 //Called in MobBump() and Crossed()

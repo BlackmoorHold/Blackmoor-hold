@@ -535,6 +535,11 @@
 //			if(SSshuttle.emergency.timeLeft() < 30 MINUTES)
 //				. += span_warning("The last boat will leave in [round(SSshuttle.emergency.timeLeft()/600)] minutes.")
 
+/obj/structure/fluff/clock/CanAStarPass(ID, to_dir, caller)
+	if(to_dir == dir)
+		return FALSE // don't even bother climbing over it
+	return ..()
+
 /obj/structure/fluff/clock/CanPass(atom/movable/mover, turf/target)
 	if(get_dir(loc, mover) == dir)
 		return 0
@@ -651,7 +656,7 @@
 	if(!user.is_literate())
 		. += "I have no idea what it says."
 	else
-		. += "It says \"BLACKMOOR\""
+		. += "It says \"AZURE PEAK\""
 
 /obj/structure/fluff/buysign
 	icon_state = "signwrote"
@@ -760,6 +765,11 @@
 	if(get_dir(loc, mover) == dir)
 		return 0
 	return !density
+
+/obj/structure/fluff/statue/CanAStarPass(ID, to_dir, caller)
+	if(to_dir == dir)
+		return FALSE // don't even bother climbing over it
+	return ..()
 
 /obj/structure/fluff/statue/CheckExit(atom/movable/O, turf/target)
 	if(get_dir(O.loc, target) == dir)
@@ -967,7 +977,7 @@
 					if(player.mind)
 						if(player.mind.has_antag_datum(/datum/antagonist/bandit))
 							var/datum/antagonist/bandit/bandit_players = player.mind.has_antag_datum(/datum/antagonist/bandit)
-							GLOB.blackmoor_round_stats[STATS_SHRINE_VALUE] += W.get_real_price()
+							GLOB.azure_round_stats[STATS_SHRINE_VALUE] += W.get_real_price()
 							bandit_players.favor += donatedamnt
 							bandit_players.totaldonated += donatedamnt
 							to_chat(player, ("<font color='yellow'>[user.name] donates [donatedamnt] to the shrine! You now have [bandit_players.favor] favor.</font>"))
@@ -1014,6 +1024,11 @@
 		return 0
 	return !density
 
+/obj/structure/fluff/psycross/CanAStarPass(ID, to_dir, caller)
+	if(to_dir == dir)
+		return FALSE // don't even bother climbing over it
+	return ..()
+
 /obj/structure/fluff/psycross/CheckExit(atom/movable/O, turf/target)
 	if(get_dir(O.loc, target) == dir)
 		return 0
@@ -1038,66 +1053,98 @@
 	icon_state = "invertedcross"
 	divine = FALSE
 
-/obj/structure/fluff/psycross/attackby(obj/item/W, mob/living/carbon/human/user, params)
+/obj/structure/fluff/psycross/attackby(obj/item/W, mob/user, params)
 	if(user.mind)
-		if((user.mind.assigned_role == "Priest") || ((user.mind.assigned_role == "Acolyte") && (user.patron.type == /datum/patron/divine/eora)))
+		if(user.mind.assigned_role == "Priest")
 			if(istype(W, /obj/item/reagent_containers/food/snacks/grown/apple))
+				if(!istype(get_area(user), /area/rogue/indoors/town/church/chapel))
+					to_chat(user, span_warning("I need to do this in the chapel."))
+					return FALSE
 				var/marriage
 				var/obj/item/reagent_containers/food/snacks/grown/apple/A = W
-				
+				//The MARRIAGE TEST BEGINS
 				if(A.bitten_names.len)
 					if(A.bitten_names.len == 2)
+						//Groom provides the surname that the bride will take
 						var/mob/living/carbon/human/thegroom
 						var/mob/living/carbon/human/thebride
-						
-						// Find people by bite order, not random viewer order
-						for(var/bite_name in A.bitten_names)
-							for(var/mob/M in viewers(src, 7))
-								if(!ishuman(M))
-									continue
-								var/mob/living/carbon/human/C = M
-								if(C.stat == DEAD)
-									continue
-								if(!C.client)
-									continue
-								if(C.family)
-									continue
-								if(C.real_name == bite_name)
-									if(!thegroom)
-										thegroom = C  // First bite = groom
-									else if(!thebride)
-										thebride = C  // Second bite = bride
-									break
+						//Did anyone get cold feet on the wedding?
+						for(var/mob/M in viewers(src, 7))
+							testing("check [M]")
 							if(thegroom && thebride)
 								break
+							if(!ishuman(M))
+								continue
+							var/mob/living/carbon/human/C = M
+							/*
+							* This is for making the first biters name
+							* always be applied to the groom.
+							* second. This seems to be the best way
+							* to use the least amount of variables.
+							*/
+							var/name_placement = 1
+							for(var/X in A.bitten_names)
+								//I think that guy is dead.
+								if(C.stat == DEAD)
+									continue
+								//That person is not a player or afk.
+								if(!C.client)
+									continue
+								//Gotta get a divorce first
+								if(C.marriedto)
+									continue
+								if(C.real_name == X)
+									//I know this is very sloppy but its alot less code.
+									switch(name_placement)
+										if(1)
+											if(thegroom)
+												continue
+											thegroom = C
+										if(2)
+											if(thebride)
+												continue
+											thebride = C
+									testing("foundbiter [C.real_name]")
+									name_placement++
 
+						//WE FOUND THEM LETS GET THIS SHOW ON THE ROAD!
 						if(!thegroom || !thebride)
+							testing("fail22")
 							return
-						
-						var/datum/family/F = SSfamily.makeFamily(thegroom)
-						if(!F)
-							return
-
-						// Handle surname change for bride like regular family system
-						var/groom_surname = thegroom.family_surname
-						if(!groom_surname)
-							// If groom has no surname, create "of [firstname]"
-							var/list/groom_name_parts = splittext(thegroom.real_name, " ")
-							groom_surname = "of [groom_name_parts[1]]"
-						// Apply surname to bride (first name + groom's surname)
-						var/list/bride_name_parts = splittext(thebride.real_name, " ")
-						thebride.real_name = "[bride_name_parts[1]] [groom_surname]"
-
-						F.addMember(thebride)
-						F.addRel(thegroom,thebride,REL_TYPE_SPOUSE)
-						F.addRel(thebride,thegroom,REL_TYPE_SPOUSE)
-
+						//Alright now for the boring surname formatting.
+						var/surname2use
+						var/index = findtext(thegroom.real_name, " ")
+						var/bridefirst
+						thegroom.original_name = thegroom.real_name
+						thebride.original_name = thebride.real_name
+						if(!index)
+							surname2use = thegroom.dna.species.random_surname()
+						else
+							/*
+							* This code prevents inheriting the last name of
+							* " of wolves" or " the wolf"
+							* remove this if you want "Skibbins of wolves" to
+							* have his bride become "Sarah of wolves".
+							*/
+							if(findtext(thegroom.real_name, " of ") || findtext(thegroom.real_name, " the "))
+								surname2use = thegroom.dna.species.random_surname()
+								thegroom.change_name(copytext(thegroom.real_name, 1,index))
+							else
+								surname2use = copytext(thegroom.real_name, index)
+								thegroom.change_name(copytext(thegroom.real_name, 1,index))
+						index = findtext(thebride.real_name, " ")
+						if(index)
+							thebride.change_name(copytext(thebride.real_name, 1,index))
+						bridefirst = thebride.real_name
+						thegroom.change_name(thegroom.real_name + surname2use)
+						thebride.change_name(thebride.real_name + surname2use)
+						thegroom.marriedto = thebride.real_name
+						thebride.marriedto = thegroom.real_name
 						thegroom.adjust_triumphs(1)
 						thebride.adjust_triumphs(1)
-						priority_announce("[thegroom.real_name] has married [thebride.real_name]!", title = "Holy Union!", sound = 'sound/misc/bell.ogg')
+						//Bite the apple first if you want to be the groom.
+						priority_announce("[thegroom.real_name] has married [bridefirst]!", title = "Holy Union!", sound = 'sound/misc/bell.ogg')
 						marriage = TRUE
-						SSfamily.family_candidates -= thegroom
-						SSfamily.family_candidates -= thebride
 						qdel(A)
 
 				if(!marriage)

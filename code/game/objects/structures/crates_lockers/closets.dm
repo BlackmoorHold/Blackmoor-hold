@@ -119,6 +119,11 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += span_notice("Ctrl-Shift-click [src] to jump inside.")*/
 
+/obj/structure/closet/CanAStarPass(ID, dir, caller)
+	if(wall_mounted)
+		return TRUE
+	return ..()
+
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target)
 	if(wall_mounted)
 		return TRUE
@@ -357,7 +362,7 @@
 				if(lockprogress >= locktreshold)
 					to_chat(user, "<span class='deadsay'>The locking mechanism gives.</span>")
 					record_featured_stat(FEATURED_STATS_CRIMINALS, user)
-					GLOB.blackmoor_round_stats[STATS_LOCKS_PICKED]++
+					GLOB.azure_round_stats[STATS_LOCKS_PICKED]++
 					togglelock(user)
 					break
 				else

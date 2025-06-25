@@ -89,10 +89,11 @@
 		if(!L.can_zTravel(target, UP))
 			to_chat(user, span_warning("I can't climb there."))
 			return
-		var/used_time = 0
-		var/exp_to_gain = 0 
+		var/used_time = 3 SECONDS
+		var/exp_to_gain = 0
+		var/myskill = SKILL_LEVEL_NOVICE // default for NPCs
 		if(L.mind)
-			var/myskill = L.mind.get_skill_level(/datum/skill/misc/climbing)
+			myskill = L.mind.get_skill_level(/datum/skill/misc/climbing)
 			if(HAS_TRAIT(L, TRAIT_WOODWALKER))
 				exp_to_gain = L.STAINT
 			else
@@ -123,7 +124,7 @@
 	if(.)
 		if(!was_destroyed && obj_destroyed)
 			record_featured_stat(FEATURED_STATS_TREE_FELLERS, user)
-			GLOB.blackmoor_round_stats[STATS_TREES_CUT]++
+			GLOB.azure_round_stats[STATS_TREES_CUT]++
 
 /obj/structure/flora/newtree/update_icon()
 	icon_state = ""

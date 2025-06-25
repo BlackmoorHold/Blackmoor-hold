@@ -2,12 +2,12 @@
 
 /mob/living/carbon/human/species/human/northern/militia //weak peasant infantry. Neutral but can be given factions for events. doesn't attack players. 
 	aggressive=1 //they attack things. INCLUDING SAIGAS (THIS MEANS THEY WILL AGGRO ON PEOPLES MOUNTS)
-	mode = AI_IDLE
+	rude = TRUE
+	mode = NPC_AI_IDLE
 	faction = list("neutral")
 	ambushable = FALSE
 	dodgetime = 30
 	flee_in_pain = TRUE
-	stand_attempts = 6
 	possible_rmb_intents = list()
 	var/is_silent = TRUE /// Determines whether or not we will scream our funny lines at people.
 
@@ -48,7 +48,6 @@
 	job = "Militia"
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NOROGSTAM, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/militia)
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
@@ -74,7 +73,7 @@
 		face_atom(get_step(src,pick(GLOB.cardinals)))
 
 /* /mob/living/carbon/human/species/human/northern/militia/handle_combat()
-	if(mode == AI_HUNT)
+	if(mode == NPC_AI_HUNT)
 		if(prob(5)) // do not make this big or else they NEVER SHUT UP
 			emote("laugh")
 	. = ..() */
@@ -86,10 +85,7 @@
 	if(prob(50))
 		shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/
 	if(prob(25))
-		if(should_wear_femme_clothes(H))
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
-		else
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	if(prob(50))
 		pants = /obj/item/clothing/under/roguetown/trou
@@ -99,7 +95,7 @@
 		head = /obj/item/clothing/head/roguetown/helmet
 	if(prob(50))
 		neck = /obj/item/clothing/neck/roguetown/coif
-	gloves = /obj/item/clothing/gloves/roguetown/leather
+	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
 	if(prob(25))
 		gloves = /obj/item/clothing/gloves/roguetown/angle
 	H.STASTR = rand(10,11) //GENDER EQUALITY!!
