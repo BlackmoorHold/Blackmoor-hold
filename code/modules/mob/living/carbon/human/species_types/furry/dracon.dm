@@ -5,8 +5,7 @@
 	name = "Drakian"
 	id = "dracon"
 	desc = "<b>Drakian</b><br>\
-	Mighty scaled individuals who claim to be descendants of the dragons of yore.<br>\
-	(+1 Strength)"
+	Mighty scaled individuals who claim to be descendants of the dragons of yore.<br>"
 	species_traits = list(EYECOLOR,LIPS,STUBBLE,MUTCOLORS)
 	possible_ages = ALL_AGES_LIST
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT

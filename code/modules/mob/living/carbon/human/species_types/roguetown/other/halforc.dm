@@ -13,8 +13,7 @@
 	to the Ironmask. True orcs would kill you on sight, seeing you as a mongrel dog, and non-orcish \
 	people cannot decide between regarding you with either mere distrust or outright disgust. Yet \
 	somehow your wandering feet came to Blackmoor, where half-orcs ply muscle and their hardiness \
-	in the rough underbelly or outer reaches of society.<br>\
-	(+1 Strength)"
+	in the rough underbelly or outer reaches of society.<br>"
 
 	skin_tone_wording = "Clan"
 
@@ -43,7 +42,7 @@
 	OFFSET_FACE_F = list(0,1), OFFSET_BELT_F = list(0,1), OFFSET_BACK_F = list(0,1), \
 	OFFSET_NECK_F = list(0,1), OFFSET_MOUTH_F = list(0,1), OFFSET_PANTS_F = list(0,1), \
 	OFFSET_SHIRT_F = list(0,1), OFFSET_ARMOR_F = list(0,1), OFFSET_UNDIES_F = list(0,1))
-	race_bonus = list(STAT_STRENGTH = 1)
+	race_bonus = list()
 	enflamed_icon = "widefire"
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain,
