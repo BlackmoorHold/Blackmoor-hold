@@ -445,3 +445,13 @@
 		/obj/item/grown/log/tree/stick = 2,
 		)
 	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/chainleash
+	name = "chain leash"
+	category = "Tools"
+	result = /obj/item/leash/chain
+	reqs = list(
+		/obj/item/ingot/iron = 1,	)
+	tools = list(/obj/item/rogueweapon/hammer)
+	skillcraft = /datum/skill/craft/blacksmithing
+	craftdiff = 2

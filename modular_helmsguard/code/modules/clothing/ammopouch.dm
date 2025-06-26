@@ -21,7 +21,7 @@
 	sewrepair = TRUE
 
 /obj/item/ammopouch/attackby(obj/A, loc, params)
-	if(istype(A, /obj/item/ammo_casing/caseless/rogue))
+	if(istype(A, /obj/item/ammo_casing/caseless/rogue/bullet))
 		if(bullets.len < max_storage)
 			A.forceMove(src)
 			bullets += A

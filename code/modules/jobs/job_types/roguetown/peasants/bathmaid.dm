@@ -46,7 +46,7 @@
 	..()
 	head = /obj/item/clothing/head/roguetown/armingcap
 	shoes = /obj/item/clothing/shoes/roguetown/sandals
-	neck = /obj/item/clothing/neck/roguetown/collar
+	neck = /obj/item/clothing/neck/roguetown/leathercollar
 	belt =	/obj/item/storage/belt/rogue/leather/cloth/lady
 	beltl = /obj/item/roguekey/nightmaiden
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
@@ -94,7 +94,7 @@
 /datum/outfit/job/roguetown/nightmaiden/concubine/pre_equip(mob/living/carbon/human/H)
 	..()
 	mask = /obj/item/clothing/mask/rogue/exoticsilkmask
-	neck = /obj/item/clothing/neck/roguetown/collar
+	neck = /obj/item/clothing/neck/roguetown/leathercollar
 	belt = /obj/item/storage/belt/rogue/leather/exoticsilkbelt
 	beltl = /obj/item/roguekey/nightmaiden
 	shoes = /obj/item/clothing/shoes/roguetown/anklets

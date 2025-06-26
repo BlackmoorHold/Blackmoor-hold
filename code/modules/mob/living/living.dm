@@ -861,7 +861,7 @@
 		return FALSE
 
 
-/mob/living/carbon/human/can_be_revived()
+/mob/living/carbon/can_be_revived()
 	. = ..()
 	var/obj/item/bodypart/head/H = get_bodypart(BODY_ZONE_HEAD)
 	if(H)
@@ -1021,14 +1021,12 @@
 	if(buckled && last_special <= world.time)
 		resist_buckle()
 
-	//Breaking out of a container (Locker, sleeper, cryo...)
-	else if(isobj(loc))
-		var/obj/C = loc
-		C.container_resist(src)
-
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
+		else if(has_status_effect(/datum/status_effect/leash_pet))
+			if(istype(src, /mob/living/carbon))
+				resist_leash()
 		else if(last_special <= world.time)
 			resist_restraints() //trying to remove cuffs.
 
@@ -2036,3 +2034,6 @@
 	reset_perspective()
 	update_cone_show()
 //	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
+
+/mob/living/proc/resist_leash()
+	return

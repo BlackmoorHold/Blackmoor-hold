@@ -382,6 +382,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PIERCEIMMUNE		"Pierce Immunity"
 #define TRAIT_NODISMEMBER		"Dismember Immunity"
 #define TRAIT_NOFIRE			"nonflammable"
+#define TRAIT_FIRE_HEALING		"fire_healing"
 #define TRAIT_NOGUNS			"no_guns"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_HARDDISMEMBER		"Hard Dismember"

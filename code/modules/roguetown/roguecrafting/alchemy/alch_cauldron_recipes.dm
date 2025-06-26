@@ -108,3 +108,8 @@
 	smells_like = "calming"
 	skill_required = SKILL_LEVEL_EXPERT
 	output_reagents = list(/datum/reagent/buff/fortune = 27)
+
+/datum/alch_cauldron_recipe/aphrodisiac
+	name = "Aphrodisiac Wine"
+	smells_like = "ardent sweetness"
+	output_reagents = list(/datum/reagent/consumable/ethanol/beer/emberwine = 24)

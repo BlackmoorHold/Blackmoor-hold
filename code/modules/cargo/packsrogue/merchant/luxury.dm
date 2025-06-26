@@ -82,6 +82,11 @@
 	cost = 220
 	contains = list(/obj/item/clothing/ring/signet)
 
+/datum/supply_pack/rogue/luxury/emberwine
+	name = "Emberwine"
+	cost = 160
+	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/emberwine)
+
 /datum/supply_pack/rogue/luxury/lovepotion
 	name = "Love Potion"
 	cost = 300
