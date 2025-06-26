@@ -7831,6 +7831,16 @@
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/underdark)
+"cKI" = (
+/obj/structure/rack/rogue,
+/obj/item/powderflask,
+/obj/item/powderflask,
+/obj/item/powderflask,
+/obj/item/ammopouch/bullets,
+/obj/item/ammopouch/bullets,
+/obj/item/ammopouch/bullets,
+/turf/open/floor/rogue/blocks,
+/area/rogue/under/town/basement/keep)
 "cKO" = (
 /obj/structure/fluff/railing/border{
 	dir = 8
@@ -17595,6 +17605,10 @@
 	dir = 10;
 	pixel_y = 1
 	},
+/obj/structure/rack/rogue,
+/obj/item/gun/ballistic/arquebus,
+/obj/item/gun/ballistic/arquebus,
+/obj/item/gun/ballistic/arquebus,
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/town/basement/keep)
 "gaH" = (
@@ -164183,7 +164197,7 @@ bHV
 ojQ
 iad
 bYC
-eWv
+cKI
 eWv
 eWv
 eWv
