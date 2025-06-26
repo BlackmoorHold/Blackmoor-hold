@@ -1,4 +1,3 @@
-
 /*
 	apply_damage(a,b,c)
 	args
@@ -213,6 +212,8 @@
 /mob/living/proc/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
+	if(amount > 0 && HAS_TRAIT(src, TRAIT_FIRE_HEALING)) //fire damage becomes healing
+		amount = -amount
 	fireloss = CLAMP((fireloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
 	if(updating_health)
 		updatehealth()

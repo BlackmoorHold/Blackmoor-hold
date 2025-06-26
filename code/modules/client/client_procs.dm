@@ -43,9 +43,6 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
 
-	// RATWOOD EDIT START
-	if(!maturity_prompt_whitelist && !SSmaturity_guard.age_check(usr, href_list))
-		return 0
 	// RATWOOD EDIT END
 
 	// asset_cache

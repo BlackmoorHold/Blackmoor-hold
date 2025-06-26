@@ -30,7 +30,11 @@
 					/obj/item/bedroll = 1,
 					)
 	H.mind.adjust_skillrank(/datum/skill/combat/knives, 4, TRUE)
+<<<<<<< no-hearthstone-knights
 	H.mind.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
+=======
+	H.mind.adjust_skillrank(/datum/skill/combat/swords, 3, TRUE)
+>>>>>>> main
 	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/crafting, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/carpentry, 3, TRUE)
@@ -42,7 +46,6 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/medicine, 6, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/sewing, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 3, TRUE)
-	ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_EMPATH, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_NOSTINK, TRAIT_GENERIC)
 	H.change_stat("speed", 2)

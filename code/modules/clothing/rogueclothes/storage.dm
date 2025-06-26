@@ -60,7 +60,7 @@
 /obj/item/storage/belt/rogue/leather/plaquesilver
 	name = "plaque belt"
 	icon_state = "silverplaque"
-	sellprice = 30
+	sellprice = 60 // used to be 30 but that's the same as a steel belt...
 	sewrepair = FALSE
 	anvilrepair = /datum/skill/craft/armorsmithing
 
