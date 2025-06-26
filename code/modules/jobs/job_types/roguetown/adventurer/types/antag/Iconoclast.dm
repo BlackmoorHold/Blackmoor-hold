@@ -15,6 +15,7 @@
 		H.set_patron(/datum/patron/inhumen/matthios)
 	H.mind.adjust_skillrank(/datum/skill/combat/knives, 3, TRUE) //if you are gonna be a thief cleric be a proper one.
 	H.mind.adjust_skillrank(/datum/skill/magic/holy, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE) // Whips/Flails so we can use the Gilded Flail if we want.
 	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
