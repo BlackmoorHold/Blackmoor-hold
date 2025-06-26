@@ -12,16 +12,11 @@
 	if (!(istype(H.patron, /datum/patron/inhumen/zizo) || istype(H.patron, /datum/patron/inhumen/matthios) || istype(H.patron, /datum/patron/inhumen/graggar) || istype(H.patron, /datum/patron/inhumen/baotha)))
 		to_chat(H, span_warning("My former deity has abandoned me.. Matthios is my new master."))
 		H.set_patron(/datum/patron/inhumen/matthios)	//We allow other heretics into the cool-kids club, but if you are a tennite/psydonian it sets you to matthiosan.
-	H.mind.adjust_skillrank(/datum/skill/combat/polearms, 4, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/axes, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/swords, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/bows, 2, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/carpentry, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
@@ -44,11 +39,10 @@
 	neck = /obj/item/clothing/neck/roguetown/gorget
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail
 	id = /obj/item/mattcoin
+	//7 points
 	H.change_stat("strength", 2)
 	H.change_stat("endurance", 2)
 	H.change_stat("constitution", 1)
-	H.change_stat("speed", 2)
-	H.change_stat("fortune", 1)
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	H.adjust_blindness(-3)
 	var/weapons = list("Spear & Crossbow","Sword & Buckler")
@@ -60,7 +54,11 @@
 			beltr = /obj/item/quiver/bolts
 			r_hand = /obj/item/rogueweapon/spear/billhook
 			head = /obj/item/clothing/head/roguetown/helmet/kettle
+			H.mind.adjust_skillrank_up_to(/datum/skill/combat/polearms, 4, TRUE)
+			H.mind.adjust_skillrank_up_to(/datum/skill/combat/crossbows, 3, TRUE)
 		if("Sword & Buckler") //Mercenary on the wrong side of the law
 			backl= /obj/item/rogueweapon/shield/buckler
 			beltr = /obj/item/rogueweapon/sword //steel sword like literally every adventurer gets
 			head = /obj/item/clothing/head/roguetown/helmet/sallet
+			H.mind.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
+			H.mind.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, 4, TRUE)

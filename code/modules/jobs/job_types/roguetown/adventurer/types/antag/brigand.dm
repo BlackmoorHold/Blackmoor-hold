@@ -1,6 +1,6 @@
 /datum/advclass/brigand //Strength class, starts with axe or flails and medium armor training
 	name = "Brigand"
-	tutorial = "Cast from society, you use your powerful physical might and endurance to take from those who are weaker from you."
+	tutorial = "Cast from society, you use your powerful physical might to take from those who are weaker from you."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/bandit/brigand
@@ -12,16 +12,10 @@
 	if (!(istype(H.patron, /datum/patron/inhumen/zizo) || istype(H.patron, /datum/patron/inhumen/matthios) || istype(H.patron, /datum/patron/inhumen/graggar) || istype(H.patron, /datum/patron/inhumen/baotha)))
 		to_chat(H, span_warning("My former deity has abandoned me.. Matthios is my new master."))
 		H.set_patron(/datum/patron/inhumen/matthios)	//We allow other heretics into the cool-kids club, but if you are a tennite/psydonian it sets you to matthiosan.
-	H.mind.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/bows, 2, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/carpentry, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
@@ -29,7 +23,6 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/medicine, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/combat/shields, 3, TRUE)
 	belt = /obj/item/storage/belt/rogue/leather
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt/random
@@ -45,12 +38,9 @@
 	head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
 	id = /obj/item/mattcoin
-	H.change_stat("strength", 4) //have you seen this idiot's starting gear and skill spread??
-	H.change_stat("endurance", 2)
-	H.change_stat("constitution", 2)
-	H.change_stat("intelligence", -1)
-	H.change_stat("speed", 1)
-	H.change_stat("fortune", 1)
+	//7 points
+	H.change_stat("strength", 3)
+	H.change_stat("constitution", 1)
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	H.adjust_blindness(-3)
 	var/weapons = list("Battleaxe & Cudgel","Flail & Shield")
@@ -60,6 +50,10 @@
 		if("Battleaxe & Cudgel") //one weapon to hurt people one weapon to kill people
 			backl= /obj/item/rogueweapon/stoneaxe/battle
 			beltr = /obj/item/rogueweapon/mace/cudgel
+			H.mind.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
+			H.mind.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
 		if("Flail & Shield") //plate users beware, you're in for a scare!
 			backl= /obj/item/rogueweapon/shield/wood
 			beltr = /obj/item/rogueweapon/flail
+			H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)
+			H.mind.adjust_skillrank(/datum/skill/combat/shields, 3, TRUE)
