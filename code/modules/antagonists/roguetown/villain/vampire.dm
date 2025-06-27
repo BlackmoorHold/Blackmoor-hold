@@ -28,6 +28,7 @@
 	var/cache_eyes
 	var/cache_hair
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/bat/batform //attached to the datum itself to avoid cloning memes, and other duplicates
+	var/wretch_antag = FALSE
 
 /datum/antagonist/vampire/examine_friendorfoe(datum/antagonist/examined_datum,mob/examiner,mob/examined)
 	if(istype(examined_datum, /datum/antagonist/vampire/lesser))
@@ -149,7 +150,14 @@
 		if(istype(H.loc, /obj/structure/closet/crate/coffin))
 			H.fully_heal()
 
-	vitae = CLAMP(vitae, 0, 1666)
+	if(wretch_antag)
+		if(H.blood_volume > 5000)
+			H.blood_volume = 5000
+		if(vitae > 5000)
+			vitae = 5000
+		vitae = max(vitae - 2, 0)
+	else
+		vitae = CLAMP(vitae, 0, 1666)
 
 	if(vitae > 0)
 		H.blood_volume = BLOOD_VOLUME_MAXIMUM

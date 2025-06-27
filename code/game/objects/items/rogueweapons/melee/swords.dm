@@ -46,7 +46,7 @@
 	blade_class = BCLASS_BLUNT
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 20
 	swingdelay = 0
 	damfactor = 1
 	item_d_type = "blunt"
@@ -931,8 +931,8 @@
 /obj/item/rogueweapon/sword/long/blackflamb
 	name = "blacksteel flamberge"
 	desc = "An uncommon kind of sword with a characteristically undulating style of blade, made with an equally rare metal. The wave in the blade is considered to contribute a flame-like quality to its appearance, turning it into a menacing sight. \"Flaming swords\" are often the protagonists of Otavan epics and other knights' tales."
-	force = 20
-	force_wielded = 32
+	force = 29
+	force_wielded = 35
 	icon_state = "blackflamb"
 	smeltresult = /obj/item/ingot/blacksteel
 	max_integrity = 215

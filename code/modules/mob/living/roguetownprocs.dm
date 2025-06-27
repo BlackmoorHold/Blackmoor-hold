@@ -5,14 +5,14 @@
 		return zone
 	if(zone == BODY_ZONE_CHEST)
 		return zone
-	if(HAS_TRAIT(user, TRAIT_CIVILIZEDBARBARIAN) && (zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG))
-		return zone
 	if(target.grabbedby == user)
 		if(user.grab_state >= GRAB_AGGRESSIVE)
 			return zone
-	if(!(target.mobility_flags & MOBILITY_STAND))
+	if(!(target.mobility_flags & MOBILITY_STAND)) // Fallen enemies will always be hit in the target zone.
 		return zone
-	if( (target.dir == turn(get_dir(target,user), 180)))
+	if( (target.dir == turn(get_dir(target,user), 180))) // Perfect backstabs always land on target. (This makes no sense for facial features, but whatever.)
+		return zone
+	if(!(target.cmode)) // Someone who isn't alert will let you line up a shot. Maybe this should just be a modifier.
 		return zone
 
 	var/chance2hit = 0
@@ -22,6 +22,9 @@
 
 	if(user.mind)
 		chance2hit += (user.mind.get_skill_level(associated_skill) * 8)
+
+	if(HAS_TRAIT(user, TRAIT_CIVILIZEDBARBARIAN) && (zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG) && used_intent.unarmed)
+		chance2hit += 20
 
 	if(used_intent)
 		if(used_intent.blade_class == BCLASS_STAB)
@@ -44,7 +47,7 @@
 		chance2hit -= ((10-user.STAPER)*10)
 
 	if(istype(user.rmb_intent, /datum/rmb_intent/aimed))
-		chance2hit += 20
+		chance2hit += (user.STAPER)*2
 	if(istype(user.rmb_intent, /datum/rmb_intent/swift))
 		chance2hit -= 20
 
@@ -78,7 +81,7 @@
 	if(!(mobility_flags & MOBILITY_STAND))
 		return FALSE
 	if(user.badluck(4))
-		var/list/usedp = list("Critical miss!", "Damn! Critical miss!", "No! Critical miss!", "It can't be! Critical miss!", "Xylix laughs at me! Critical miss!", "Bad luck! Critical miss!", "Curse creation! Critical miss!", "What?! Critical miss!")
+		var/list/usedp = list("Critical miss!", "Damn! Critical miss!", "No! Critical miss!", "It can't be! Critical miss!", "Betrayed by luck! Critical miss!", "Bad luck! Critical miss!", "Curse creation! Critical miss!", "What?! Critical miss!")
 		to_chat(user, span_boldwarning("[pick(usedp)]"))
 		flash_fullscreen("blackflash2")
 		user.aftermiss()
@@ -111,9 +114,11 @@
 		prob2defend = 0
 
 	if(!can_see_cone(user))
-		if(d_intent == INTENT_PARRY)
+		if(user.alpha < 100 && !HAS_TRAIT(src, TRAIT_BLINDFIGHTING))//For attacks from invisibility.
 			return FALSE
-		else
+		if(d_intent == INTENT_PARRY && !HAS_TRAIT(src, TRAIT_BLINDFIGHTING))
+			return FALSE
+		if(d_intent == INTENT_DODGE && !HAS_TRAIT(src, TRAIT_BLINDFIGHTING))
 			prob2defend = max(prob2defend-15,0)
 
 //	if(!cmode) // not currently used, see cmode check above
@@ -496,7 +501,11 @@
 	if(L.rogfat >= L.maxrogfat)
 		return FALSE
 	if(L)
-		if(H?.check_dodge_skill())
+		if(HAS_TRAIT(H, TRAIT_DODGEEXPERT) && (H.wear_armor.armor_class == ARMOR_CLASS_HEAVY || H.wear_shirt.armor_class == ARMOR_CLASS_HEAVY || H.wear_pants.armor_class == ARMOR_CLASS_HEAVY))
+			prob2defend = prob2defend + (L.STASPD * 10)
+		else if(HAS_TRAIT(H, TRAIT_DODGEEXPERT) && (H.wear_armor.armor_class == ARMOR_CLASS_MEDIUM || H.wear_shirt.armor_class == ARMOR_CLASS_MEDIUM || H.wear_pants.armor_class == ARMOR_CLASS_MEDIUM))
+			prob2defend = prob2defend + (L.STASPD * 13)
+		else if(HAS_TRAIT(H, TRAIT_DODGEEXPERT))
 			prob2defend = prob2defend + (L.STASPD * 15)
 		else
 			prob2defend = prob2defend + (L.STASPD * 10)
@@ -513,14 +522,9 @@
 		if(!H?.check_armor_skill() || H?.legcuffed)
 			H.Knockdown(1)
 			return FALSE
-		/* Commented out due to gaping imbalance
-			if(H?.check_dodge_skill())
-				drained = drained - 5  commented out for being too much. It was giving effectively double stamina efficiency compared to everyone else.
-			if(H.mind)
-				drained = drained + max((H.checkwornweight() * 10)-(mind.get_skill_level(/datum/skill/misc/athletics) * 10),0)
-			else
-				drained = drained + (H.checkwornweight() * 10)
-		*/
+		if(HAS_TRAIT(H, TRAIT_DODGEEXPERT))
+			drained = drained - 2
+
 		if(I) //the enemy attacked us with a weapon
 			if(!I.associated_skill) //the enemy weapon doesn't have a skill because its improvised, so penalty to attack
 				prob2defend = prob2defend + 10
@@ -617,6 +621,9 @@
 		prob2defend = clamp(prob2defend, 5, 90)
 		if(client?.prefs.showrolls)
 			to_chat(src, span_info("Roll to dodge... [prob2defend]%"))
+		if(!can_see_cone(user) || user.alpha < 100)
+			if(!HAS_TRAIT(src, TRAIT_BLINDFIGHTING))
+				prob2defend = 5//Have to roll a nat 20 to dodge an attack we can't sense coming.
 		if(!prob(prob2defend))
 			return FALSE
 	dodgecd = TRUE

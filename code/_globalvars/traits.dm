@@ -121,6 +121,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		TRAIT_ARCYNE_T4,
 		TRAIT_NOFATIGUE,
 		TRAIT_PERMAMUTE,
+		TRAIT_BLINDFIGHTING,
 		TRAIT_FIRE_HEALING,
 	),
 	/obj/item/bodypart = list(

@@ -28,7 +28,7 @@
 	blade_class = BCLASS_BLUNT
 	icon_state = "inbash"
 	attack_verb = list("bashes", "strikes")
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 30
 	item_d_type = "blunt"
 
 /datum/intent/lord_electrocute
@@ -347,7 +347,7 @@
 	attack_verb = list("punches", "clocks")
 	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
 	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 30
 	damfactor = 1
 	swingdelay = 0
 	icon_state = "inpunch"
@@ -359,8 +359,8 @@
 	blade_class = BCLASS_SMASH
 	attack_verb = list("smashes")
 	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	damfactor = 1.3
+	penfactor = 60
+	damfactor = 1
 	swingdelay = 6
 	icon_state = "insmash"
 	item_d_type = "blunt"
@@ -569,7 +569,7 @@
 
 /obj/item/rogueweapon/scythe
 	force = 15
-	force_wielded = 25
+	force_wielded = 20
 	possible_item_intents = list(SPEAR_BASH)
 	gripped_intents = list(/datum/intent/spear/cut/scythe, SPEAR_BASH, MACE_STRIKE)
 	name = "scythe"
@@ -588,7 +588,7 @@
 	max_blade_int = 100
 	anvilrepair = /datum/skill/craft/carpentry
 	smeltresult = /obj/item/rogueore/coal
-	associated_skill = /datum/skill/labor/farming
+	associated_skill = /datum/skill/combat/polearms
 	blade_dulling = DULLING_SHAFT_WOOD
 	walking_stick = TRUE
 	wdefense = 6
@@ -625,7 +625,7 @@
 	max_blade_int = 80
 	max_integrity = 400
 	slot_flags = ITEM_SLOT_HIP
-	associated_skill = /datum/skill/labor/mining
+	associated_skill = /datum/skill/combat/axes
 	anvilrepair = /datum/skill/craft/carpentry
 	smeltresult = /obj/item/ingot/iron
 	wdefense = 1

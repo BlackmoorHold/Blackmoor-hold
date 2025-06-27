@@ -118,7 +118,7 @@
 	block2add = FOV_BEHIND
 	bloody_icon = 'icons/effects/blood64.dmi'
 	smeltresult = /obj/item/ingot/steel
-	max_integrity = 1000
+	max_integrity = 500
 	experimental_inhand = FALSE
 	experimental_onhip = FALSE
 
@@ -136,7 +136,7 @@
 	icon_state = "dwarfhand"
 	item_state = "dwarfhand"
 	armor = ARMOR_GRUDGEBEARER
-	max_integrity = 1000
+	max_integrity = 500
 
 /obj/item/clothing/gloves/roguetown/plate/dwarven/ComponentInitialize()
 	. = ..()
@@ -152,7 +152,7 @@
 	icon_state = "dwarfshoe"
 	item_state = "dwarfshoe"
 	armor = ARMOR_GRUDGEBEARER
-	max_integrity = 1000
+	max_integrity = 500
 
 /obj/item/clothing/shoes/roguetown/boots/armor/dwarven/ComponentInitialize()
 	. = ..()

@@ -246,6 +246,8 @@
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return FALSE
+	if(the_target.alpha <= 100) //if target has less than or exactly 100 alpha, does not attack.
+		return FALSE
 	if(search_objects < 2)
 		if(isliving(the_target))
 			var/mob/living/L = the_target
