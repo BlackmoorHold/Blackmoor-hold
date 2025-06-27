@@ -196,6 +196,7 @@
 	if(!lying_attack_check(user, I))
 		return
 	affecting = get_bodypart(check_zone(useder)) //precise attacks, on yourself or someone you are grabbing
+	user.mob_timers[MT_SNEAKATTACK] = world.time //Stops you from sneaking after hitting someone else.
 	if(!affecting) //missing limb
 		to_chat(user, span_warning("Unfortunately, there's nothing there."))
 		return FALSE
@@ -205,6 +206,17 @@
 	if(statforce)
 		next_attack_msg.Cut()
 		affecting.bodypart_attacked_by(user.used_intent.blade_class, statforce, crit_message = TRUE)
+		if(!can_see_cone(user) || user.alpha < 15)//Dreamkeep change -- Attacks from
+			if(user.mind && !HAS_TRAIT(src, TRAIT_BLINDFIGHTING) && !user.has_status_effect(/datum/status_effect/debuff/stealthcd))
+				var/sneakmult = 2 + (user.mind.get_skill_level(/datum/skill/misc/sneaking))
+				user.used_intent.penfactor = 100
+				statforce *= sneakmult
+				user.apply_status_effect(/datum/status_effect/debuff/stealthcd)
+				to_chat(src, span_userdanger("SNEAK ATTACK!!! MY ARMOR IS BYPASSED FOR MASSIVE DAMAGE!"))
+				to_chat(user, span_userdanger("SNEAK ATTACK!!! THEIR ARMOR IS BYPASSED FOR MASSIVE DAMAGE!"))
+				user.mind.adjust_experience(/datum/skill/misc/sneaking, user.STAINT * 5, FALSE)
+			else
+				user.used_intent.penfactor = initial(user.used_intent.penfactor)//Sanity check to make sure intent penfactor gets reset when the attack isn't a sneak attack.
 		apply_damage(statforce, I.damtype, affecting)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
 			if(prob(statforce))

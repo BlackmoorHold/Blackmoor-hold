@@ -15,6 +15,7 @@
 	var/transforming
 	var/untransforming
 	var/wolfname = "Verewolf"
+	var/wretch_antag = FALSE
 
 /datum/antagonist/werewolf/lesser
 	name = "Lesser Verewolf"

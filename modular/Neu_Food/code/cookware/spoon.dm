@@ -9,14 +9,17 @@
 /obj/item/kitchen/spoon/aalloy
 	name = "decrepit spoon"
 	icon_state = "aspoon"
+	sellprice = 3
 
 /obj/item/kitchen/spoon/iron
 	name = "iron spoon"
 	icon_state = "spoon_iron"
+	sellprice = 6
 
 /obj/item/kitchen/spoon/tin
 	name = "pewter spoon"
 	icon_state = "spoon_iron"
+	sellprice = 4
 
 /obj/item/kitchen/spoon/gold
 	name = "gold spoon"

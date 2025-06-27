@@ -133,6 +133,8 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Nightswain",
 	"Docker",
 	"Prisoner",
+	"Prisoner (Blackmoor)",
+	"Prisoner (Bog)",
 	"Beggar",
 	"Adventurer",
 	"Pilgrim",

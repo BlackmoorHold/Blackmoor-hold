@@ -10,14 +10,17 @@
 /obj/item/kitchen/fork/aalloy
 	name = "decrepit fork"
 	icon_state = "afork"
+	sellprice = 3
 
 /obj/item/kitchen/fork/iron
 	name = "iron fork"
 	icon_state = "fork_iron"
+	sellprice = 6
 
 /obj/item/kitchen/fork/tin
 	name = "pewter fork"
 	icon_state = "fork_iron"
+	sellprice = 4
 
 /obj/item/kitchen/fork/gold
 	name = "gold fork"

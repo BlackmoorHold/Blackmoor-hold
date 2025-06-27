@@ -334,7 +334,7 @@
 			if(!(HAS_TRAIT(L, TRAIT_AZURENATIVE) || (HAS_TRAIT(L, TRAIT_WOODWALKER)) && L.m_intent != MOVE_INTENT_RUN))
 				playsound(src,'sound/items/seedextract.ogg', 100, FALSE)
 			qdel(src)
-			if (L.alpha == 0 && L.rogue_sneaking) // not anymore you're not
+			if (L.alpha <= 100) // not anymore you're not
 				L.update_sneak_invis(TRUE)
 			if(!HAS_TRAIT(L, TRAIT_WOODWALKER))
 				L.consider_ambush()

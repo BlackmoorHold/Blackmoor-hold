@@ -39,9 +39,9 @@
 	H.mind.adjust_skillrank(/datum/skill/craft/traps, 4, TRUE)
 	//these people live in the forest so let's give them some peasant skills
 	H.mind.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/craft/tanning, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/craft/tanning, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/labor/butchering, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/labor/butchering, 3, TRUE)
 	H.cmode_music = 'sound/music/combat_poacher.ogg'
 	var/weapons = list("Dagger","Axe", "Cudgel", "My Bow Is Enough")
 	var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons

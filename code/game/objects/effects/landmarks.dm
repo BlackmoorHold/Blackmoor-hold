@@ -345,12 +345,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/prisonerr
-	name = "Prisoner (Blackmoor Hold)"
+	name = "Prisoner (Blackmoor)"
 	icon_state = "arrow"
+	jobspawn_override = list("Prisoner (Blackmoor)")
+	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/prisonerb
 	name = "Prisoner (Bog)"
 	icon_state = "arrow"
+	jobspawn_override = list("Prisoner (Bog)")
+	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/hostage
 	name = "Hostage"

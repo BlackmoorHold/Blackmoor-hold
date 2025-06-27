@@ -100,6 +100,7 @@ What it does:
 	name = "decrepit platter"
 	desc = "A decrepit old platter. Aeon's grasp is upon its form."
 	icon_state = "aplatter"
+	sellprice = 4
 
 /obj/item/cooking/platter/copper
 	name = "copper platter"

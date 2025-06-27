@@ -12,6 +12,9 @@
 	if(werewolf_infection_timer || !ishuman(owner) || !prob(werewolf_infection_probability))
 		return
 	var/mob/living/carbon/human/human_owner = owner
+	var/datum/antagonist/werewolf/wolfy = human_owner.mind?.has_antag_datum(/datum/antagonist/werewolf)
+	if(wolfy && wolfy.wretch_antag)
+		return // wretch werewolves can't infect
 	if(!human_owner.can_werewolf())
 		return
 	if(human_owner.stat >= DEAD) //forget it
