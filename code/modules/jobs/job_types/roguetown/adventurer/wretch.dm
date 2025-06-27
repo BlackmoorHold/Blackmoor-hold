@@ -45,6 +45,8 @@
 	switch(affliction)
 		if("Vampire (-1 to all stats)")
 			var/datum/antagonist/vampire/lesser/antag = H.mind.add_antag_datum(/datum/antagonist/vampire/lesser)
+			if(antag) 
+				antag.wretch_antag = TRUE
 			if(antag)
 				// Add all vampire traits to wretch vampires
 				ADD_TRAIT(H, TRAIT_STRONGBITE, TRAIT_GENERIC)
@@ -62,6 +64,16 @@
 			H.change_stat("fortune", -1)
 		if("Werewolf (-1 to all stats)")
 			var/datum/antagonist/werewolf/lesser/antag = H.mind.add_antag_datum(/datum/antagonist/werewolf/lesser)
+			if(antag) antag.wretch_antag = TRUE
+			to_chat(H, span_danger("The beast within yearns to be free. Your lycanthropic curse has made you a danger to all."))
+			// Apply -1 to all stats
+			H.change_stat("strength", -1)
+			H.change_stat("perception", -1)
+			H.change_stat("intelligence", -1)
+			H.change_stat("constitution", -1)
+			H.change_stat("endurance", -1)
+			H.change_stat("speed", -1)
+			H.change_stat("fortune", -1)
 			if(antag)
 				to_chat(H, span_danger("The beast within yearns to be free. Your lycanthropic curse has made you a danger to all."))
 				// Apply -1 to all stats
@@ -103,6 +115,7 @@
 			H.change_stat("constitution", 1)
 			H.change_stat("intelligence", 1)
 		if("Mortally Righteous Cause")
+			bounty_total = rand(130, 200)
 			bounty_total = rand(666, 666)
 			to_chat(H, span_notice("You are mortally righteous, and your zeal has made you a pariah. Your cause is just, but the world sees you as a threat."))
 			// Apply -1 to all stats

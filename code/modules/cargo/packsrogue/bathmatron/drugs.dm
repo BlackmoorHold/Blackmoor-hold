@@ -43,3 +43,8 @@
 	name = "Starsugar"
 	cost = 50
 	contains = list(/obj/item/reagent_containers/powder/starsugar)
+
+/datum/supply_pack/rogue/drugs/emberwine
+	name = "Baothian Emberwine"
+	cost = 160
+	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/emberwine)

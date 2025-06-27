@@ -8,6 +8,10 @@
 	var/use_language = FALSE
 
 /obj/effect/proc_holder/spell/self/howl/cast(mob/user = usr)
+	var/datum/antagonist/werewolf/wolfy = user.mind?.has_antag_datum(/datum/antagonist/werewolf)
+	if(wolfy && wolfy.wretch_antag)
+		to_chat(user, span_warning("Your curse is too weak to call the pack. You are a loner."))
+		return
 	..()
 	var/message = input("Howl at the hidden moon...", "MOONCURSED") as text|null
 	if(!message) return

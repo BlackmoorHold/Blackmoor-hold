@@ -23,6 +23,7 @@
 	var/last_ejaculation_time = 0
 	var/last_moan = 0
 	var/last_pain = 0
+	var/aphrodisiac = 1
 
 /datum/sex_controller/New(mob/living/carbon/human/owner)
 	user = owner
@@ -343,6 +344,26 @@
 	return TRUE
 
 /datum/sex_controller/proc/handle_passive_ejaculation()
+	var/mob/living/carbon/human/M = user
+	if(aphrodisiac > 1.5)
+		if(prob(5)) //Yeah.
+			try_do_moan(3, 0, 1, 0)
+		if(arousal < 70)
+			adjust_arousal(0.2)
+		if(M.handcuffed)
+			if(prob(8))
+				var/chaffepain = pick(10,10,10,10,20,20,30)
+				try_do_moan(3, chaffepain, 1, 0)
+				damage_from_pain(chaffepain)
+				try_do_pain_effect(chaffepain)
+				last_moan = 0
+				M.visible_message(("<span class='love_mid'>[M] squirms uncomfortably in [M.p_their()] restraints.</span>"), \
+					("<span class='love_extreme'>I feel [M.handcuffed] rub uncomfortably against my skin.</span>"))
+			if(arousal < ACTIVE_EJAC_THRESHOLD)
+				adjust_arousal(0.25)
+			else
+				if(prob(3))
+					ejaculate()
 	if(arousal < PASSIVE_EJAC_THRESHOLD)
 		return
 	if(is_spent())
@@ -452,9 +473,13 @@
 			do_until_finished = !do_until_finished
 		if("set_arousal")
 			var/amount = input(user, "Value above 120 will immediately cause orgasm!", "Set Arousal", arousal) as num
-			set_arousal(amount)
+			if(aphrodisiac > 1 && amount > 0)
+				set_arousal(arousal + (amount * aphrodisiac))
+			else
+				set_arousal(arousal + amount)
 		if("freeze_arousal")
-			arousal_frozen = !arousal_frozen
+			if(aphrodisiac == 1)
+				arousal_frozen = !arousal_frozen
 	show_ui()
 
 /datum/sex_controller/proc/try_stop_current_action()

@@ -397,3 +397,37 @@
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
 		C.remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+
+//helmsguard dreamkeep port
+//STEALTH COOLDOWN
+
+/datum/status_effect/debuff/stealthcd
+	id = "stealth_cd"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/stealthcd
+	duration = 12 SECONDS
+
+/atom/movable/screen/alert/status_effect/debuff/stealthcd
+	name = "Stealth Broken"
+	desc = "I've either been found or recently dealt a sneak attack and can't sneak again for a short while"
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/mob/screen_alert.dmi'
+	icon_state = "stealthcd"
+
+/datum/status_effect/debuff/stealthcd/on_apply()
+	if(owner.mind)
+		duration = duration - ((owner.mind.get_skill_level(/datum/skill/misc/sneaking)) SECONDS * 2)
+	if(owner.m_intent == MOVE_INTENT_SNEAK)
+		playsound(owner.loc, 'modular_stonehedge/sound/mgsalert.ogg', 50, FALSE)
+		owner.toggle_rogmove_intent(MOVE_INTENT_WALK)
+		owner.update_sneak_invis()
+	return ..()
+
+/atom/movable/screen/alert/status_effect/emberwine
+	name = "Aphrodesiac"
+	desc = "The warmth is spreading through my body..."
+	icon_state = "emberwine"
+
+/datum/status_effect/debuff/emberwine
+	id = "emberwine"
+	effectedstats = list("strength" = -1, "endurance" = -2, "speed" = -2, "intelligence" = -3)
+	duration = 1 MINUTES
+	alert_type = /atom/movable/screen/alert/status_effect/emberwine
