@@ -475,3 +475,11 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Donator Kit - Padded silky dress"
 	path = /obj/item/enchantingkit/zydras
 	ckeywhitelist = list("1ceres")
+
+/datum/loadout_item/surgcollar
+	name = "Surgeon's Collar"
+	path = /obj/item/clothing/neck/roguetown/collar/surgcollar
+
+/datum/loadout_item/feldcollar
+	name = "Worker's collarr"
+	path = /obj/item/clothing/neck/roguetown/collar/feldcollar

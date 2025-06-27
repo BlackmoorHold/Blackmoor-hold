@@ -542,8 +542,8 @@
 	body_parts_covered = NECK|FACE
 
 /obj/item/clothing/neck/roguetown/collar/surgcollar
-	name = "surgcollar"
-	desc = "A specialized collar designed for medical practitioners, with reinforced padding."
+	name = "surgeon's collar"
+	desc = "A utilitarian collar for surgeons."
 	icon_state = "surgcollar"
 	item_state = "surgcollar"
 	resistance_flags = FIRE_PROOF
