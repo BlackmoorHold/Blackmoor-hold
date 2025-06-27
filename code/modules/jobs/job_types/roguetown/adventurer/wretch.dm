@@ -45,7 +45,7 @@
 	else
 		GLOB.excommunicated_players += H.real_name
 	// Felinid said we should gate it at 100 or so on at the lowest, so that wretch cannot ezmode it.
-	var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities")
+	var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities", "Mortally Righteous Cause (mild, -1 to all stats)")
 	var/bounty_total = rand(350, 500) // Just in case
 	switch(bounty_severity)
 		if("Misdeed")
@@ -54,6 +54,17 @@
 			bounty_total = rand(200, 350)
 		if("Horrific atrocities")
 			bounty_total = rand(350, 500) // Let's not make it TOO profitable
+		if("Mortally Righteous Cause (mild, -1 to all stats)")
+			bounty_total = rand(600, 600)
+			to_chat(H, span_notice("You are mortally righteous, and your zeal has made you a pariah. Your cause is just, but the world sees you as a threat."))
+			// Apply -1 to all stats
+			H.change_stat("strength", -1)
+			H.change_stat("perception", -1)
+			H.change_stat("intelligence", -1)
+			H.change_stat("constitution", -1)
+			H.change_stat("endurance", -1)
+			H.change_stat("speed", -1)
+			H.change_stat("fortune", -1)
 	var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 	if (!my_crime)
 		my_crime = "crimes against the Crown"
