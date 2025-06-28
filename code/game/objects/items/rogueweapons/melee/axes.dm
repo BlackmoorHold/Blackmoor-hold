@@ -27,7 +27,12 @@
 	swingdelay = 10
 	clickcd = 14
 	item_d_type = "slash"
-	intdamage_factor = 1.05 // It's axe force
+	intdamage_factor = 1.05 // It's an axe.
+
+/datum/intent/axe/chop
+	clickcd = 16 // One-handed chops are logically slower.
+	swingdelay = 12 // One-handed chops are logically slower.
+	penfactor = 32
 
 /datum/intent/axe/chop/scythe
 	reach = 2
