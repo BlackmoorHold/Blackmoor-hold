@@ -27,7 +27,7 @@
 	var/warnie = ""
 	var/pointer = 'icons/effects/mousemice/human_attack.dmi'
 	var/clickcd = CLICK_CD_MELEE //the cd invoked clicking on stuff with this intent
-	var/recovery = 0		//RTD unable to move for this duration after an attack without becoming off balance
+	var/recovery = 0		//RTD (Probably attacker) unable to move for this duration after an attack without becoming off balance. (Problem this was never coded fully, so it does literally nothing)
 	var/list/charge_invocation //list of stuff to say while charging
 	var/no_early_release = FALSE //we can't shoot off early
 	var/movement_interrupt = FALSE //we cancel charging when changing mob direction, for concentration spells
@@ -39,13 +39,14 @@
 	var/penfactor = 0 //see armor_penetration
 	var/intdamage_factor = 1 // Whether the intent itself has integrity damage modifier. Used for rend.
 	var/item_d_type = "blunt" // changes the item's attack type ("blunt" - area-pressure attack, "slash" - line-pressure attack, "stab" - point-pressure attack)
-	var/charging_slowdown = 0
+	var/charging_slowdown = 0 // Used fow slowing down character movement during charge up, the higher the number the slower the movement.
 	var/warnoffset = 0
 	var/swingdelay = 0
 	var/no_attack = FALSE //causes a return in /attack() but still allows to be used in attackby(
 	var/reach = 1 //In tiles, how far this weapon can reach; 1 for adjacent, which is default
 	var/miss_text //THESE ARE FOR UNARMED MISSING ATTACKS
 	var/miss_sound //THESE ARE FOR UNARMED MISSING ATTACKS
+//[On-purpose due to lack of code]	var/accuracy = 0 // In case someone wants to make specific intents have their own accuracy.
 	var/allow_offhand = TRUE	//Do I need my offhand free while using this intent?
 	var/peel_divisor = 0		//How many consecutive peel hits this intent requires to peel a piece of coverage? May be overriden by armor thresholds if they're higher.
 	var/glow_intensity = null	//How much glow this intent has. Used for spells
@@ -360,7 +361,7 @@
 	damfactor = 1.1
 	penfactor = 50
 
-/datum/intent/pick //now like icepick intent, we really went in a circle huh
+/datum/intent/pick //now like icepick intent, we really went in a circle huh (Currently unused until it gets balanced)
 	name = "pick"
 	icon_state = "inpick"
 	attack_verb = list("picks","impales")

@@ -11,6 +11,36 @@
 	swingdelay = 0
 	icon_state = "instrike"
 	item_d_type = "blunt"
+	intdamage_factor = 1.1
+
+/datum/intent/mace/strike/directstrike
+	name = "direct strike"
+	desc = "A firmly gripped direct strike that is more damaging and armor penetrating in-exchange of being unable to make rapid consecutive hits."
+	clickcd = 17
+	penfactor = 25
+	damfactor = 1.2
+	intdamage_factor = 1.2
+
+/datum/intent/mace/strike/directstrike/onehanded
+	name = "one-handed direct strike"
+	desc = "Slightly slower, a firmly gripped direct strike that is a tad more damaging and armor penetrating in-exchange of being unable to make rapid consecutive hits."
+	clickcd = 19
+	penfactor = 23
+	intdamage_factor = 1.1
+
+/datum/intent/mace/strike/flowstrikes
+	name = "flowing strikes"
+	desc = "Loose grip and wrist motions that allow smoother strikes across which in turn open up rapid consecutive hits."
+	clickcd = 10
+	swingdelay = 4
+	intdamage_factor = 1.1
+
+/datum/intent/mace/strike/flowstrikes/onehanded
+	name = "one-handed flowing strikes"
+	desc = "Slightly slower loose grip and wrist motions that allow smoother strikes across which in turn open up rapid consecutive hits."
+	clickcd = 12
+	penfactor = 18
+	intdamage_factor = 1
 
 /datum/intent/mace/smash
 	name = "smash"
@@ -18,12 +48,19 @@
 	attack_verb = list("smashes")
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	penfactor = 60
-	damfactor = 1
+	damfactor = 1.3
 	swingdelay = 10
 	clickcd = 14
 	icon_state = "insmash"
 	item_d_type = "blunt"
+	intdamage_factor = 1.2
 
+/datum/intent/mace/smash/onehanded // This intent was added to add variety, even if it's pretty bad.
+	name = "one-handed smash"
+	clickcd = 20
+	swingdelay = 12
+	penfactor = 55
+	intdamage_factor = 1.1
 
 /datum/intent/mace/rangedthrust
 	name = "thrust"
@@ -45,8 +82,8 @@
 /obj/item/rogueweapon/mace
 	force = 20
 	force_wielded = 25
-	possible_item_intents = list(/datum/intent/mace/strike)
-	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/effect/daze)
+	possible_item_intents = list(/datum/intent/mace/strike/directstrike/onehanded, /datum/intent/mace/smash/onehanded, /datum/intent/mace/strike/flowstrikes/onehanded)
+	gripped_intents = list(/datum/intent/mace/strike/directstrike, /datum/intent/mace/smash, /datum/intent/mace/strike/flowstrikes, /datum/intent/effect/daze)
 	name = "mace"
 	desc = "Helps anyone fall asleep."
 	icon_state = "mace"
@@ -55,7 +92,6 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	sharpness = IS_BLUNT
-	//dropshrink = 0.75
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
@@ -111,7 +147,7 @@
 	wdefense = 3
 
 /obj/item/rogueweapon/mace/steel
-	force = 25
+	force = 26
 	force_wielded = 32
 	name = "steel mace"
 	desc = "This steel mace is objectively superior to an iron one."
@@ -156,9 +192,8 @@
 	force = 15
 	force_wielded = 18
 	name = "wooden club"
-	desc = "A primitive cudgel carved of a stout piece of treefall."
+	desc = "A primitive club carved of a stout piece of treefall."
 	icon_state = "club1"
-	//dropshrink = 0.75
 	wbalance = WBALANCE_NORMAL
 	wdefense = 1
 	possible_item_intents = list(/datum/intent/mace/strike/wood)
@@ -186,18 +221,18 @@
 
 /obj/item/rogueweapon/mace/cudgel
 	name = "cudgel"
-	desc = "A stubby little club for brigands or thieves. Attempting parries with this is a bad idea."
+	desc = "A stubby little cudgel for brigands or thieves. Attempting parries with this is a bad idea."
 	force = 25
 	icon_state = "cudgel"
 	force_wielded = 25
 	possible_item_intents = list(/datum/intent/mace/strike)
-	gripped_intents = list(/datum/intent/mace/smash, /datum/intent/mace/strike)
-	smeltresult = /obj/item/ash
+	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash)
+	smeltresult = /obj/item/ingot/iron
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
 	wbalance = WBALANCE_NORMAL
 	minstr = 7
-	wdefense = 1
+	wdefense = 0.5
 	resistance_flags = FLAMMABLE
 	blade_dulling = DULLING_SHAFT_WOOD
 	grid_width = 32
@@ -218,7 +253,7 @@
 	force = 30
 	icon_state = "justice"
 	force_wielded = 30
-	gripped_intents = list(/datum/intent/mace/strike,/datum/intent/mace/smash)
+	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash)
 	smeltresult = /obj/item/ingot/steel
 	wlength = WLENGTH_SHORT
 	w_class = WEIGHT_CLASS_NORMAL
@@ -242,7 +277,6 @@
 	force = 5
 	force_wielded = 8
 	icon_state = "wsword"
-	//dropshrink = 0.75
 	possible_item_intents = list(/datum/intent/mace/strike/wood)
 	gripped_intents = list(/datum/intent/mace/strike/wood, /datum/intent/mace/smash/wood)
 	smeltresult = /obj/item/ash
@@ -310,18 +344,17 @@
 /obj/item/rogueweapon/mace/goden
 	force = 15
 	force_wielded = 30
-	possible_item_intents = list(/datum/intent/mace/strike)
+	possible_item_intents = list(/datum/intent/mace/strike/directstrike/onehanded, /datum/intent/mace/smash/onehanded)
 	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/mace/rangedthrust, /datum/intent/effect/daze)
 	name = "Goedendag"
 	desc = "Good morning."
 	icon_state = "goedendag"
 	icon = 'icons/roguetown/weapons/64.dmi'
 	sharpness = IS_BLUNT
-	//dropshrink = 0.75
 	wlength = WLENGTH_LONG
 	w_class = WEIGHT_CLASS_BULKY
 	associated_skill = /datum/skill/combat/maces
-	smeltresult = /obj/item/ash
+	smeltresult = /obj/item/ingot/iron
 	swingsound = BLUNTWOOSH_MED
 	minstr = 10
 	wdefense = 3
@@ -358,7 +391,7 @@
 	name = "grand mace"
 	desc = "Good morning, sire."
 	icon_state = "polemace"
-	force = 15
+	force = 17
 	force_wielded = 35
 	smeltresult = /obj/item/ingot/steel
 	blade_dulling = DULLING_SHAFT_METAL
@@ -475,13 +508,13 @@
 /datum/intent/mace/warhammer/pick
 	name = "pick"
 	icon_state = "inpick"
-	blade_class = BCLASS_PICK
+	blade_class = BCLASS_STAB
 	attack_verb = list("picks", "impales")
 	animname = "stab"
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
-	misscost = 1
+	misscost = 5
 	swingdelay = 15
 	clickcd = 15
-	penfactor = 80
+	penfactor = 85
 	damfactor = 0.9
 	item_d_type = "stab"

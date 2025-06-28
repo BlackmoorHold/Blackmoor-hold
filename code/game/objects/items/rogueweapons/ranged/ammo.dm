@@ -512,14 +512,14 @@
 //Only ammo casing, no 'projectiles'. You throw the casing, as weird as it is.
 /obj/item/ammo_casing/caseless/rogue/javelin
 	force = 14
-	throw_speed = 3		//1 lower than throwing knives, it hits harder + embeds more.
+	throw_speed = 1		//0.5 lower than throwing knives, it hits harder + embeds more.(It really shouldn't be fast as 3)
 	name = "iron javelin"
 	desc = "A tool used for centuries, as early as recorded history. This one is tipped with a iron head; standard among militiamen and irregulars alike."
 	icon = 'icons/roguetown/weapons/ammo.dmi'
 	icon_state = "ijavelin"
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_BULKY
-	armor_penetration = 40					//Redfined because.. it's not a weapon, it's an 'arrow' basically.
+	armor_penetration = 25					//Redfined because.. it's not a weapon, it's an 'arrow' basically.
 	max_integrity = 50						//Breaks semi-easy, stops constant re-use. 
 	wdefense = 3							//Worse than a spear
 	thrown_bclass = BCLASS_STAB				//Knives are slash, lets try out stab and see if it's too strong in terms of wounding.
@@ -529,8 +529,9 @@
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/iron
 	associated_skill = /datum/skill/combat/polearms
-	heavy_metal = FALSE						//Stops spin animation, maybe.
-	thrown_damage_flag = "piercing"			//Checks peircing protection.
+	heavy_metal = FALSE						//Stops spin animation.
+	thrown_damage_flag = "piercing"			//Checks piercing protection.
+	intdamage_factor = 1.1 // They were designed to damage armor as units got close.
 
 /obj/item/ammo_casing/caseless/rogue/javelin/aalloy
 	name = "decrepit javelin"
@@ -542,13 +543,12 @@
 
 /obj/item/ammo_casing/caseless/rogue/javelin/steel
 	force = 16
-	armor_penetration = 50
+	armor_penetration = 27
 	name = "steel javelin"
 	desc = "A tool used for centuries, as early as recorded history. This one is tipped with a steel head; perfect for piercing armor!"
 	icon_state = "javelin"
 	max_integrity = 100						//In-line with other stabbing weapons.
-	throwforce = 28							//Equal to steel knife BUT this has peircing damage type so..
-	thrown_bclass = BCLASS_PICK				//Bypasses crit protection better than stabbing. Makes it better against heavy-targets.
+	throwforce = 27							//Equal to steel knife BUT this has peircing damage type so..
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 45, "embedded_fall_chance" = 10) //Better than steel throwing knife by 10%
 	smeltresult = /obj/item/ingot/steel
 
@@ -563,9 +563,8 @@
 	desc = "A tool used for centuries, as early as recorded history. This one appears to be tipped with a silver head. Decorative, perhaps.. or for some sort of specialized hunter."
 	icon_state = "sjavelin"
 	is_silver = TRUE
-	throwforce = 25							//Less than steel because it's.. silver. Good at killing vampires/WW's still.
-	armor_penetration = 60
-	thrown_bclass = BCLASS_PICK				//Bypasses crit protection better than stabbing. Makes it better against heavy-targets.
+	throwforce = 22							//Less than steel because it's.. silver. Good at killing vampires/WW's still.
+	armor_penetration = 20
 	smeltresult = /obj/item/ingot/silver
 
 //Snowflake code to make sure the silver-bane is applied on hit to targeted mob. Thanks to Aurorablade for getting this code to work.
