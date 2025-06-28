@@ -40,9 +40,9 @@
 		if(I.wlength == WLENGTH_SHORT)
 			chance2hit += 10
 	
-	if(istype(I, /obj/item/rogueweapon/sword))
-		var/obj/item/rogueweapon/sword/S = I
-		chance2hit += S.accuracy_bonus_sword
+	if(istype(I, /obj/item/rogueweapon/sword)) // Path type of the weapon one wishes to update.
+		var/obj/item/rogueweapon/sword/S = I   // Giving it a var, apply it on the weapon in question you wish for the path to start, look up arming sword for example.
+		chance2hit += S.accuracy_bonus_sword   // Custom naming to apply, for example, after the var/ is defined in the earliest weapon, just add the same without the var/
 
 	if(user.STAPER > 10)
 		chance2hit += (min((user.STAPER-10)*6, 40))
