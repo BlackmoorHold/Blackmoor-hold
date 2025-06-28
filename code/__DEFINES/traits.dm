@@ -103,15 +103,14 @@
 // PATRON GOD TRAITS Curses
 
 #define TRAIT_CURSE "Curse" //source
-#define TRAIT_ASTRATA_CURSE "Astrata's Curse"
-#define TRAIT_NOC_CURSE "Noc's Curse"
-#define TRAIT_RAVOX_CURSE "Ravox's Curse"
-#define TRAIT_NECRA_CURSE "Necra's Curse"
-#define TRAIT_PESTRA_CURSE "Pestra's Curse"
-#define TRAIT_XYLIX_CURSE "Xylix's Curse"
-#define TRAIT_ABYSSOR_CURSE "Abyssors's Curse"
-#define TRAIT_MALUM_CURSE "Malum's Curse"
-#define TRAIT_EORA_CURSE "Eora's Curse"
+#define TRAIT_ASTRATA_CURSE "Astrata's Curse" // being under the sun burns you
+#define TRAIT_NOC_CURSE "Noc's Curse" // being under the moon gives poison damage
+#define TRAIT_RAVOX_CURSE "Ravox's Curse" // Cannot turn combat mode on
+#define TRAIT_NECRA_CURSE "Necra's Curse" //cannot be revived 
+#define TRAIT_PESTRA_CURSE "Pestra's Curse" //randomly causes vomiting, unconsciousness, blurred vision, or rotting of a random body part every 30–60 seconds.
+#define TRAIT_XYLIX_CURSE "Xylix's Curse" //-3 luck forgive me 
+#define TRAIT_ABYSSOR_CURSE "Abyssors's Curse" //cannot step into the water 
+#define TRAIT_MALUM_CURSE "Malum's Curse" //cannot craft
 
 // ASCENDANT CULTIST TRAITS (all of them recognize each other)
 #define TRAIT_COMMIE "Blessing of Matthios" //recognized by bandits as an ally

@@ -284,10 +284,6 @@ GLOBAL_LIST_EMPTY(heretical_players)
 
     return TRUE
 
-
-/mob/living/carbon/human
-    var/last_curse_time = 0
-
 /mob/living/carbon/human/proc/churchpriestcurse()
     set name = "Curse Someone"
     set category = "Priest"
@@ -295,7 +291,7 @@ GLOBAL_LIST_EMPTY(heretical_players)
     if (stat)
         return
 
-    if (world.time < last_curse_time + 12000) // 1200 seconds (20 minutes) in deciseconds
+    if (world.time < last_curse_time + 12000) // 1200 seconds = 20 minutes
         to_chat(src, span_warning("You must wait before invoking divine punishment again."))
         return
 
@@ -344,9 +340,6 @@ GLOBAL_LIST_EMPTY(heretical_players)
             return
 
     to_chat(src, span_warning("No soul has such name."))
-
-
-
 
 /obj/effect/proc_holder/spell/self/convertrole/templar
 	name = "Recruit Templar"

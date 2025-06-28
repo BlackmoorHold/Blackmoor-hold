@@ -1,5 +1,6 @@
 /mob/living/carbon/human
     var/list/curses = list()
+    var/last_curse_time = 0
 
 /mob/living/carbon/human/proc/handle_curses()
     for(var/curse in curses)
@@ -93,14 +94,83 @@
 /datum/curse/eora
     name = "Eora's Curse"
     description = "I am unable to show any kind of affection or love, whether carnal or platonic."
-    trait = TRAIT_EORA_CURSE
+    trait = TRAIT_LIMPDICK
 
 /datum/curse/abyssor
     name = "Abyssor's Curse"
-    description = "I can no longer distinguish reality from delusion."
+    description = "I hear the ocean whisper in my mind. Fear of drowning has left me... but so has reason."
     trait = TRAIT_ABYSSOR_CURSE
 
 /datum/curse/malum
     name = "Malum's Curse"
-    description = "Dark thoughts consume me. I see evil everywhere."
+    description = "My thoughts race with endless designs I cannot build. The tools tremble in my hands."
     trait = TRAIT_MALUM_CURSE
+
+
+//ASStrata's Curse
+
+datum/curse/astrata/on_life(mob/living/carbon/human/owner)
+	. = ..()
+	if (!owner || owner.stat == DEAD)
+		return
+
+	if (!HAS_TRAIT(owner, TRAIT_ASTRATA_CURSE))
+		return
+
+	if (world.time % 5)
+		if (GLOB.tod != "night") // 
+			if (isturf(owner.loc))
+				var/turf/T = owner.loc
+				if (T.can_see_sky())
+					if (T.get_lumcount() > 0.15) // minecraft light meme
+						owner.take_overall_damage(rand(2, 5))
+						owner.visible_message(
+							span_warning("[owner] sizzles painfully under Astrata's holy light!"),
+							span_danger("The sun burns my cursed flesh!")
+						)
+						owner.freak_out()
+						owner.playsound_local(T, 'sound/magic/churn.ogg', 80, FALSE, pressure_affected = FALSE)
+
+
+
+//NOC's Curse 
+
+/datum/curse/noc/on_life(mob/living/carbon/human/owner)
+	. = ..()
+	if (!owner || owner.stat == DEAD)
+		return
+
+	if (!HAS_TRAIT(owner, TRAIT_NOC_CURSE))
+		return
+
+	if (isturf(owner.loc))
+		var/turf/T = owner.loc
+		if (T.get_lumcount() < 0.2) // too dark
+			owner.take_toxin_damage(rand(1, 3))
+			owner.visible_message(
+				span_warning("[owner] writhes in pain from Noc's shadowy curse!"),
+				span_danger("The darkness... it's burning inside!")
+			)
+
+
+//Pestra's Curse
+
+/datum/curse/pestra/on_life(mob/living/carbon/human/owner)
+	. = ..()		
+	if(owner.mob_timers["pestra_curse"])
+		if(world.time < owner.mob_timers["pestra_curse"] + rand(30,60)SECONDS)
+			return
+	owner.mob_timers["pestra_curse"] = world.time
+	var/effect = rand(1, 4)
+	switch(effect)
+		if(1)
+			owner.vomit()
+		if(2)
+			owner.Unconscious(20)
+		if(3)
+			owner.blur_eyes(10)
+		if(4)
+			var/obj/item/bodypart/BP = pick(owner.bodyparts)
+			BP.rotted = TRUE
+			owner.playsound_local(get_turf(owner), 'sound/foley/butcher.ogg', 80, FALSE, pressure_affected = FALSE)
+			owner.regenerate_icons()						
