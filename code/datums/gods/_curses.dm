@@ -123,7 +123,8 @@ datum/curse/astrata/on_life(mob/living/carbon/human/owner)
 				var/turf/T = owner.loc
 				if (T.can_see_sky())
 					if (T.get_lumcount() > 0.15) // minecraft light meme
-						owner.take_overall_damage(rand(2, 5))
+						owner.adjust_fire_stacks(5)
+						owner.IgniteMob()
 						owner.visible_message(
 							span_warning("[owner] sizzles painfully under Astrata's holy light!"),
 							span_danger("The sun burns my cursed flesh!")
@@ -146,7 +147,7 @@ datum/curse/astrata/on_life(mob/living/carbon/human/owner)
 	if (isturf(owner.loc))
 		var/turf/T = owner.loc
 		if (T.get_lumcount() < 0.2) // too dark
-			owner.take_toxin_damage(rand(1, 3))
+			owner.adjustToxLoss(10, 0)
 			owner.visible_message(
 				span_warning("[owner] writhes in pain from Noc's shadowy curse!"),
 				span_danger("The darkness... it's burning inside!")

@@ -110,7 +110,7 @@
 #define TRAIT_PESTRA_CURSE "Pestra's Curse" //randomly causes vomiting, unconsciousness, blurred vision, or rotting of a random body part every 30–60 seconds.
 #define TRAIT_XYLIX_CURSE "Xylix's Curse" //-3 luck forgive me 
 #define TRAIT_ABYSSOR_CURSE "Abyssors's Curse" //cannot step into the water 
-#define TRAIT_MALUM_CURSE "Malum's Curse" //cannot craft
+#define TRAIT_MALUM_CURSE "Malum's Curse" //cannot craft or use smith hammer
 
 // ASCENDANT CULTIST TRAITS (all of them recognize each other)
 #define TRAIT_COMMIE "Blessing of Matthios" //recognized by bandits as an ally
