@@ -1,6 +1,5 @@
 /mob/living/carbon/human
     var/list/curses = list()
-    var/last_curse_time = 0
 
 /mob/living/carbon/human/proc/handle_curses()
     for(var/curse in curses)
@@ -51,13 +50,13 @@
     ADD_TRAIT(owner, trait, TRAIT_CURSE)
     to_chat(owner, span_userdanger("Something is wrong... I feel cursed."))
     to_chat(owner, span_danger(description))
-    owner.playsound_local(get_turf(owner), 'sound/misc/cursed.ogg', 80, FALSE, pressure_affected = FALSE)
+    owner.playsound_local(get_turf(owner), 'sound/misc/excomm.ogg', 80, FALSE, pressure_affected = FALSE)
     return
 
 /datum/curse/proc/on_loss(mob/living/carbon/human/owner)
     REMOVE_TRAIT(owner, trait, TRAIT_CURSE)
     to_chat(owner, span_userdanger("Something has changed... I feel relieved."))
-    owner.playsound_local(get_turf(owner), 'sound/misc/curse_lifted.ogg', 80, FALSE, pressure_affected = FALSE)
+    owner.playsound_local(get_turf(owner), 'sound/misc/bell.ogg', 80, FALSE, pressure_affected = FALSE)
     qdel(src)
     return
 

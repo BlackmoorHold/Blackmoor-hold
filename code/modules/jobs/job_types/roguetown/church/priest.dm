@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	ADD_TRAIT(H, TRAIT_RITUALIST, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_GRAVEROBBER, TRAIT_GENERIC)
 	if(H.mind)
-		H.cmode_music = 'sound/music/combat_holy.ogg' 
+		H.cmode_music = 'sound/music/combat_holy.ogg'
 		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 5, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 5, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/polearms, 5, TRUE)
@@ -81,10 +81,10 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)	//Starts off maxed out.
 
 	H.verbs |= /mob/living/carbon/human/proc/coronate_lord
-	H.verbs |= /mob/living/carbon/human/proc/churchexcommunicate //your button against clergy 
+	H.verbs |= /mob/living/carbon/human/proc/churchexcommunicate //your button against clergy
 	H.verbs |= /mob/living/carbon/human/proc/churchannouncement
-	H.verbs |= /mob/living/carbon/human/proc/churchpriestcurse //snowflake priests button. Will not sacrifice them 
-	H.verbs |= /mob/living/carbon/human/proc/churcheapostasy //punish the lamb reward the wolf 
+	H.verbs |= /mob/living/carbon/human/proc/churchpriestcurse //snowflake priests button. Will not sacrifice them
+	H.verbs |= /mob/living/carbon/human/proc/churcheapostasy //punish the lamb reward the wolf
 	H.verbs |= /mob/living/carbon/human/proc/completesermon
 //	ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)		- You are literally disinherited. Begone......
 

@@ -588,6 +588,7 @@
 #include "code\datums\elements\snail_crawl.dm"
 #include "code\datums\elements\tipped_item.dm"
 #include "code\datums\event_groups\_base.dm"
+#include "code\datums\gods\_curses.dm"
 #include "code\datums\gods\_faith.dm"
 #include "code\datums\gods\_patron.dm"
 #include "code\datums\gods\faiths\atheism.dm"
