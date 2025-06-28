@@ -40,10 +40,9 @@
 		if(I.wlength == WLENGTH_SHORT)
 			chance2hit += 10
 	
-	chance2hit += ((user.STAPER-10)*5)
-		if(istype(I, /obj/item/rogueweapon/sword))
-			var/obj/item/rogueweapon/sword/S = I
-			chance2hit += S.accuracy_bonus_sword
+	if(istype(I, /obj/item/rogueweapon/sword))
+		var/obj/item/rogueweapon/sword/S = I
+		chance2hit += S.accuracy_bonus_sword
 
 	if(user.STAPER > 10)
 		chance2hit += (min((user.STAPER-10)*6, 40))
