@@ -50,9 +50,9 @@
 	clickcd = 15
 
 /datum/intent/spear/cut/bardiche
-    damfactor = 1.2
+    swingdelay = 2
+	damfactor = 1.2
     chargetime = 0
-	swingdelay = 2
 	clickcd = 14
 
 /datum/intent/spear/cut/glaive
@@ -1104,3 +1104,6 @@
 	name = "one-handed lance"
 	chargetime = 6 SECONDS
 	charging_slowdown = 5 // This forces the use of a mount.
+
+// It would be neat if sharp pointy polearms had alt-grip with brace intent that took time to cast and deploy in the facing direction that would stab anyone for double damage automatically if they walked or ran into the forward tile (unless prone) from the opposite direction and block anyone from the other two if not proned.
+// It would be neat if we had arc stab, a more cumbersome, charge up, and harder to recover intent that would let to stab over mobs that are facing the same or flank direction like our character.
