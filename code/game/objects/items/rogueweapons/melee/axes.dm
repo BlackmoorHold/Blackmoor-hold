@@ -29,7 +29,7 @@
 	item_d_type = "slash"
 	intdamage_factor = 1.05 // It's an axe.
 
-/datum/intent/axe/chop
+/datum/intent/axe/chop/onehanded
 	clickcd = 16 // One-handed chops are logically slower.
 	swingdelay = 12 // One-handed chops are logically slower.
 	penfactor = 32
