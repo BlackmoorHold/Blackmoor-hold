@@ -50,10 +50,10 @@
 	clickcd = 15
 
 /datum/intent/spear/cut/bardiche
-    swingdelay = 2
-	damfactor = 1.2
-    chargetime = 0
 	clickcd = 14
+	swingdelay = 2
+	damfactor = 1.2
+	chargetime = 0
 
 /datum/intent/spear/cut/glaive
 	damfactor = 1.1
