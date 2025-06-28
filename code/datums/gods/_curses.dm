@@ -109,7 +109,7 @@
 
 //ASStrata's Curse
 
-datum/curse/astrata/on_life(mob/living/carbon/human/owner)
+/datum/curse/astrata/on_life(mob/living/carbon/human/owner)
 	. = ..()
 	if (!owner || owner.stat == DEAD)
 		return
