@@ -603,16 +603,24 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(sleepy_mod > 0)
 			if(eyesclosed)
 				var/armor_blocked = FALSE
+				var/nude_blocked = FALSE
+				if(ishuman(src))
+					var/mob/living/carbon/human/human_mob = src
+					if(HAS_TRAIT(src, TRAIT_NUDE_SLEEPER))
+						if(human_mob.wear_shirt || human_mob.wear_pants || human_mob.wear_armor)
+							to_chat(src, span_warning("I need to be nude to be comfortable..."))
+							fallingas = TRUE
+							nude_blocked = TRUE
 				if(ishuman(src) && stat == CONSCIOUS)
 					var/mob/living/carbon/human/H = src
 					if(H.head && H.head.armor?.blunt > 70)
 						armor_blocked = TRUE
 					if(H.wear_armor && (H.wear_armor.armor_class in list(ARMOR_CLASS_HEAVY, ARMOR_CLASS_MEDIUM)))
 						armor_blocked = TRUE
-					if(armor_blocked && !fallingas)
+					if(armor_blocked && !fallingas && !nude_blocked)
 						to_chat(src, span_warning("I can't sleep like this. My armor is burdening me."))
 						fallingas = TRUE
-				if(!armor_blocked)
+				if(!armor_blocked && !nude_blocked)
 					if(!fallingas)
 						to_chat(src, span_warning("I'll fall asleep soon..."))
 					fallingas++

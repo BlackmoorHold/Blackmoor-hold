@@ -23,6 +23,7 @@
 	var/advjob_examine = TRUE
 
 /datum/migrant_role/proc/after_spawn(mob/living/carbon/human/character)
+	SSquirks.AssignQuirks(character, character.client, TRUE)
 	return
 
 // /datum/migrant_role/pilgrim

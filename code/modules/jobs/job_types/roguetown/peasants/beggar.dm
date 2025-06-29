@@ -58,11 +58,11 @@
 		r_hand = /obj/item/rogueweapon/woodstaff/wise // dog beating staff
 		l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/special // dog butchering knife
 		if(H.mind)
-			H.mind.adjust_skillrank(/datum/skill/misc/sneaking, rand(2,5), TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/stealing, 5, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/climbing, rand(2,5), TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE) //very good reading he is wise
-			H.mind.adjust_skillrank(/datum/skill/combat/polearms, rand(2,5), TRUE) // dog beating staff
+			H.mind.adjust_skillrank_up_to(/datum/skill/misc/sneaking, rand(2,5), TRUE)
+			H.mind.adjust_skillrank_up_to(/datum/skill/misc/stealing, 5, TRUE)
+			H.mind.adjust_skillrank_up_to(/datum/skill/misc/climbing, rand(2,5), TRUE)
+			H.mind.adjust_skillrank_up_to(/datum/skill/misc/reading, 4, TRUE) //very good reading he is wise
+			H.mind.adjust_skillrank_up_to(/datum/skill/combat/polearms, rand(2,5), TRUE) // dog beating staff
 			H.STASTR = rand(1, 20)
 			H.STAINT = rand(5, 20)
 			H.STALUC = rand(1, 20)
@@ -105,10 +105,10 @@
 		if(prob(50))
 			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
 	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, rand(1,5), TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/climbing, rand(1,5), TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, pick (1,2,3,4,5), TRUE) // thug lyfe
+		H.mind.adjust_skillrank_up_to(/datum/skill/misc/sneaking, rand(1,5), TRUE)
+		H.mind.adjust_skillrank_up_to(/datum/skill/misc/stealing, 3, TRUE)
+		H.mind.adjust_skillrank_up_to(/datum/skill/misc/climbing, rand(1,5), TRUE)
+		H.mind.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, pick (1,2,3,4,5), TRUE) // thug lyfe
 		H.STALUC = rand(1, 20)
 	if(prob(5))
 		r_hand = /obj/item/rogueweapon/mace/woodclub

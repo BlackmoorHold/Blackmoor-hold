@@ -50,6 +50,7 @@
 	overlay_state = "diagnose"
 	range = 1
 	associated_skill = /datum/skill/misc/medicine
+	sound = null //mundane diagnose shouldnt make a weird sound.
 	miracle = FALSE
 	devotion_cost = 0 //Doctors are not clerics
 
