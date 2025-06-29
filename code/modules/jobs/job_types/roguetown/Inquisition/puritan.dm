@@ -36,7 +36,7 @@
 		H.become_blind("advsetup")
 
 
-////Classic Inquisitor with a much more underground twist. Use listening devices, sneak into places to gather evidence, track down suspicious individuals. Has relatively the same utility stats as Confessor, but fulfills a different niche in terms of their combative job as the head honcho. 
+////Classic Inquisitor with a much more underground twist. Use listening devices, sneak into places to gather evidence, track down suspicious individuals. Has relatively the same utility stats as Confessor, but fulfills a different niche in terms of their combative job as the head honcho.
 
 /datum/advclass/puritan/inspector
 	name = "Inquisitor"
@@ -89,10 +89,10 @@
 	gloves = /obj/item/clothing/gloves/roguetown/otavan/inqgloves
 	beltl = /obj/item/rogueweapon/sword/rapier
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat
-	backpack_contents = list(/obj/item/storage/keyring/puritan = 1, /obj/item/lockpickring/mundane = 1, /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger, /obj/item/grapplinghook = 1, /obj/item/storage/belt/rogue/pouch/coins/rich = 1) //these will be renamed to show that Psydon is dead after the next knife update
+	backpack_contents = list(/obj/item/storage/keyring/puritan = 1, /obj/item/lockpickring/mundane = 1, /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger/preblessed, /obj/item/grapplinghook = 1, /obj/item/storage/belt/rogue/pouch/coins/rich = 1) //these will be renamed to show that Psydon is dead after the next knife update
 
 
-///The dirty, violent side of the Inquisition. Meant for confrontational, conflict-driven situations as opposed to simply sneaking around and asking questions. Templar with none of the miracles, but with all the muscles and more. 
+///The dirty, violent side of the Inquisition. Meant for confrontational, conflict-driven situations as opposed to simply sneaking around and asking questions. Templar with none of the miracles, but with all the muscles and more.
 
 /datum/advclass/puritan/ordinator
 	name = "Ordinator"
@@ -147,7 +147,7 @@
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm
 	gloves = /obj/item/clothing/gloves/roguetown/otavan/inqgloves
 	beltl = /obj/item/rogueweapon/sword/long/psysword
-	backpack_contents = list(/obj/item/storage/keyring/puritan = 1, /obj/item/lockpickring/mundane = 1, /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger, /obj/item/grapplinghook = 1, /obj/item/storage/belt/rogue/pouch/coins/rich = 1)
+	backpack_contents = list(/obj/item/storage/keyring/puritan = 1, /obj/item/lockpickring/mundane = 1, /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger/preblessed, /obj/item/grapplinghook = 1, /obj/item/storage/belt/rogue/pouch/coins/rich = 1)
 
 /obj/item/clothing/gloves/roguetown/chain/blk
 		color = CLOTHING_GREY
@@ -178,13 +178,13 @@
 	if (!H.restrained())
 		to_chat(src, span_warning ("My victim needs to be restrained in order to do this!"))
 		return
-	if(!istype(S, /obj/item/clothing/neck/roguetown/psicross/silver))
-		to_chat(src, span_warning("I need to be holding a silver psycross to extract this divination!"))
+	if(!istype(S, /obj/item/clothing/neck/roguetown/psicross))
+		to_chat(src, span_warning("I need to be holding an amulet to extract this divination!"))
 		return
 	for(var/obj/structure/fluff/psycross/N in oview(5, src))
 		found = N
 	if(!found)
-		to_chat(src, span_warning("I need a large psycross structure nearby to extract this divination!"))
+		to_chat(src, span_warning("I need a pantheon cross nearby to extract this divination!"))
 	if(!H.stat)
 		SEND_SIGNAL(src, COMSIG_TORTURE_PERFORMED, H)
 		var/static/list/torture_lines = list(
@@ -195,7 +195,7 @@
 			"TELL ME!",
 		)
 
-		src.visible_message(span_warning("[src] shoves the silver psycross in [H]'s face!"))
+		src.visible_message(span_warning("[src] shoves the amulet in [H]'s face!"))
 		say(pick(torture_lines), spans = list("torture"))
 		H.emote("agony", forced = TRUE)
 		H.add_stress(/datum/stressevent/tortured)
@@ -203,7 +203,7 @@
 		if(!(do_mob(src, H, 10 SECONDS)))
 			return
 
-		src.visible_message(span_warning("[src]'s silver psycross abruptly catches flame, burning away in an instant!"))
+		src.visible_message(span_warning("[src]'s amulet abruptly catches flame, burning away in an instant!"))
 		H.confess_sins("antag")
 		qdel(S)
 		return
@@ -226,31 +226,31 @@
 	if (!H.restrained())
 		to_chat(src, span_warning ("My victim needs to be restrained in order to do this!"))
 		return
-	if(!istype(S, /obj/item/clothing/neck/roguetown/psicross/silver))
-		to_chat(src, span_warning("I need to be holding a silver psycross to extract this divination!"))
+	if(!istype(S, /obj/item/clothing/neck/roguetown/psicross))
+		to_chat(src, span_warning("I need to be holding an amulet to extract this divination!"))
 		return
 	for(var/obj/structure/fluff/psycross/N in oview(5, src))
 		found = N
 	if(!found)
-		to_chat(src, span_warning("I need a large psycross structure nearby to extract this divination!"))
+		to_chat(src, span_warning("I need a pantheon cross nearby to extract this divination!"))
 		return
 	if(!H.stat)
 		SEND_SIGNAL(src, COMSIG_TORTURE_PERFORMED, H)
 		var/static/list/faith_lines = list(
-			"DO YOU DENY THE ALLFATHER?",
+			"DO YOU DENY THE TEN?",
 			"WHO IS YOUR GOD?",
 			"ARE YOU FAITHFUL?",
 			"WHO IS YOUR SHEPHERD?",
 		)
 
-		src.visible_message(span_warning("[src] shoves the silver psycross in [H]'s face!"))
+		src.visible_message(span_warning("[src] shoves the amulet in [H]'s face!"))
 		say(pick(faith_lines), spans = list("torture"))
 		H.emote("agony", forced = TRUE)
 
 		if(!(do_mob(src, H, 10 SECONDS)))
 			return
 
-		src.visible_message(span_warning("[src]'s silver psycross abruptly catches flame, burning away in an instant!"))
+		src.visible_message(span_warning("[src]'s amulet abruptly catches flame, burning away in an instant!"))
 		H.confess_sins("patron")
 		H.add_stress(/datum/stressevent/tortured)
 		qdel(S)

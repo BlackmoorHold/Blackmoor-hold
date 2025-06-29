@@ -653,15 +653,12 @@
 	slot_flags = ITEM_SLOT_ARMOR
 	armor_class = ARMOR_CLASS_HEAVY
 	armor = ARMOR_CUIRASS
-	name = "Silver hauberk"
+	name = "silver hauberk"
 	desc = "An ornate steel cuirass with tassets, worn atop thick chainmaille. While it falters against arrows and bolts, \
 			these interlinked layers are superb at warding off the blows of inhumen claws and axes."
 	icon_state = "ornatehauberk"
 	item_state = "ornatehauberk"
 	max_integrity = 350
-
-
-
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/bikini
 	name = "chainmail corslet"	// corslet, from the old French 'cors' or bodice, with the diminutive 'let', used to describe lightweight military armor since 1500. Chosen here to replace 'bikini', an extreme anachronism.
@@ -732,7 +729,7 @@
 	icon_state = "ornatecuirass"
 	desc = "An ornate steel cuirass with tassets, favored by both the Holy Inquisition and the Order of the Silver cross. \
 			Made to endure."
-	
+
 	max_integrity = 300
 
 /obj/item/clothing/suit/roguetown/armor/plate/half/iron
@@ -843,7 +840,7 @@
 	..()
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/ornate
-	name = "Silver half-plate"
+	name = "silver half-plate"
 	desc = "A sturdily made fluted half-plate armour-set, complete with pauldrons and shoulder-guards. \
 			Favored by both the Holy Inquisition and the Order of Silver cross. It smells of the madness of an enduring God."
 	icon_state = "ornatehalfplate"
@@ -891,7 +888,7 @@
 	max_integrity = 600
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate
-	name = "Silver plate"
+	name = "silver plate"
 	desc = "A sturdily made fluted full-plate. Heavy-duty, and made to deflect blows from blades and arrows. \
 			Favored by both the Holy Inquisition and the Order of Silver. It smells of the madness of an enduring Gods."
 	icon_state = "ornateplate"
@@ -927,7 +924,7 @@
 	name = "gilded fullplate"
 	desc = "Often, you have heard that told,"
 	icon_state = "matthiosarmor"
-	max_integrity = 700	
+	max_integrity = 700
 
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/matthios/Initialize()

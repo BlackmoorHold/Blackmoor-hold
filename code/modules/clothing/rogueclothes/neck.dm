@@ -333,7 +333,7 @@
 		user.remove_stress(/datum/stressevent/psicross_worn)
 		REMOVE_TRAIT(user, TRAIT_SILVER_BLESSED, MAGIC_TRAIT)
 		REMOVE_TRAIT(user,TRAIT_ZOMBIE_IMMUNE, MAGIC_TRAIT)
-	
+
 
 /obj/item/clothing/neck/roguetown/psicross/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	..()
@@ -344,7 +344,7 @@
 	if(slot == SLOT_NECK)
 		mob_overlay_icon = initial(mob_overlay_icon)
 		sleeved = initial(sleeved)
-	
+
 	return TRUE
 
 /obj/item/clothing/neck/roguetown/psicross/aalloy
@@ -651,3 +651,29 @@
 	item_state = "surgcollar"
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
 	dropshrink = 0.5
+
+/obj/item/clothing/neck/roguetown/binding
+	name = "mana binding collar"
+	desc = "A collar to prevent a mage from using their foul magiks."
+	icon_state = "cursed_collar"
+	item_state = "cursed_collar"
+	resistance_flags = FIRE_PROOF
+	w_class = WEIGHT_CLASS_SMALL
+	allow_self_unequip = FALSE	//Can not remove these without help
+	equip_delay_self = 60
+	equip_delay_other = 60
+	strip_delay = 300
+	leashable = TRUE
+
+/obj/item/clothing/neck/roguetown/binding/equipped(mob/living/user, slot)
+	..()
+	if(slot == SLOT_NECK)
+		ADD_TRAIT(user, TRAIT_SPELLCOCKBLOCK, "bindingcollar")
+		to_chat(user, span_notice("My connection to the arcyne is torn!"))
+	return
+
+/obj/item/clothing/neck/roguetown/binding/dropped(mob/living/carbon/human/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SPELLCOCKBLOCK, "bindingcollar")
+	to_chat(user, span_notice("My connection to the arcyne is restored!"))
+	return

@@ -71,7 +71,7 @@
 	if(tag)
 		switch(tag)
 			if("gen")
-				return list("shrink" = 0.4,	
+				return list("shrink" = 0.4,
 "sx" = -6,
 "sy" = -3,
 "nx" = 13,
@@ -264,6 +264,9 @@
 
 /obj/item/storage/keyring/puritan
 	keys = list(/obj/item/roguekey/puritan, /obj/item/roguekey/inquisition, /obj/item/roguekey/church)
+
+/obj/item/storage/keyring/ortho
+	keys = list(/obj/item/roguekey/inquisition, /obj/item/roguekey/church)
 
 /obj/item/storage/keyring/nightman
 	keys = list(/obj/item/roguekey/nightman, /obj/item/roguekey/nightmaiden)
