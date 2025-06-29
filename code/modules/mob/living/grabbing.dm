@@ -304,7 +304,7 @@
 
 /obj/item/grabbing/proc/twistlimb(mob/living/user) //implies limb_grabbed and sublimb are things
 	var/mob/living/carbon/C = grabbed
-	var/armor_block = C.run_armor_check(limb_grabbed, "slash")
+	var/armor_block = C.run_armor_check(limb_grabbed, "slash", armor_penetration = 20)
 	var/damage = user.get_punch_dmg()
 	playsound(C.loc, "genblunt", 100, FALSE, -1)
 	C.next_attack_msg.Cut()
@@ -418,7 +418,7 @@
 
 /obj/item/grabbing/proc/smashlimb(atom/A, mob/living/user) //implies limb_grabbed and sublimb are things
 	var/mob/living/carbon/C = grabbed
-	var/armor_block = C.run_armor_check(limb_grabbed, d_type, armor_penetration = BLUNT_DEFAULT_PENFACTOR)
+	var/armor_block = C.run_armor_check(limb_grabbed, d_type, armor_penetration = 20)
 	var/damage = user.get_punch_dmg()
 	var/unarmed_skill = user.mind?.get_skill_level(/datum/skill/combat/unarmed)
 	damage *= (1 + (unarmed_skill / 10))	//1.X multiplier where X is the unarmed skill.
