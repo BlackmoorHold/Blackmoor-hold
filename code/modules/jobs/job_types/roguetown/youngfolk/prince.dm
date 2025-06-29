@@ -108,6 +108,7 @@
 		H.change_stat("speed", 1)
 		H.change_stat("fortune", 1)
 		ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
+		ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 
 /datum/advclass/heir/bookworm
 	name = "Introverted Bookworm"
