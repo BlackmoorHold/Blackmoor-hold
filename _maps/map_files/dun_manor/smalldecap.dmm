@@ -3182,7 +3182,7 @@
 /area/rogue/outdoors/mountains/decap/stepbelow)
 "Pz" = (
 /obj/structure/table/church/m,
-/obj/item/clothing/neck/roguetown/skullamulet,
+/obj/item/clothing/neck/roguetown/psicross/skullamulet,
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/cave/goblinfort)
 "PA" = (

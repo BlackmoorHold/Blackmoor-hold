@@ -402,7 +402,7 @@
 /obj/item/clothing/under/roguetown/platelegs/zizo
 	max_integrity = 600
 	name = "darksteel garments"
-	desc = "Leg garments worn by true anointed of the Dame of Progress. In Her name."
+	desc = "Leg garments worn by true anointed of the Dame of Progress. In His name."
 	icon_state = "zizocloth"
 	armor = ARMOR_ASCENDANT
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)

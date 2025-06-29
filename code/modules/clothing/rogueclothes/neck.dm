@@ -318,6 +318,23 @@
 	grid_width = 32
 	grid_height = 32
 
+/obj/item/clothing/neck/roguetown/psicross/equipped(mob/living/carbon/human/user, slot) //Psydonians now get warm fuzzies when they equip their psycross.
+	. = ..()
+	if(slot == SLOT_NECK || slot == SLOT_WRISTS || slot == SLOT_BELT_R || slot == SLOT_BELT_L)
+		if(istype(user.patron, /datum/patron/old_god))
+			user.add_stress(/datum/stressevent/psicross_worn)
+			ADD_TRAIT(user, TRAIT_SILVER_BLESSED, MAGIC_TRAIT)
+			ADD_TRAIT(user, TRAIT_ZOMBIE_IMMUNE, MAGIC_TRAIT)
+
+
+/obj/item/clothing/neck/roguetown/psicross/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(istype(user.patron, /datum/patron/old_god))
+		user.remove_stress(/datum/stressevent/psicross_worn)
+		REMOVE_TRAIT(user, TRAIT_SILVER_BLESSED, MAGIC_TRAIT)
+		REMOVE_TRAIT(user,TRAIT_ZOMBIE_IMMUNE, MAGIC_TRAIT)
+	
+
 /obj/item/clothing/neck/roguetown/psicross/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	..()
 
@@ -548,7 +565,7 @@
 	if(world.time > (current_time + 30 SECONDS))
 		return
 
-/obj/item/clothing/neck/roguetown/skullamulet
+/obj/item/clothing/neck/roguetown/psicross/skullamulet
 	name = "Skull Amulet"
 	desc = "Gold shaped into the form of a skull and strung into an amulet."
 	icon_state = "skullamulet"
@@ -581,8 +598,8 @@
 	item_state = "catbellcollar"
 	resistance_flags = FIRE_PROOF
 	dropshrink = 0.5
-	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
-	body_parts_covered = NECK|FACE
+	slot_flags = ITEM_SLOT_NECK
+	body_parts_covered = NECK
 	leashable = TRUE
 
 /obj/item/clothing/neck/roguetown/cowbellcollar
@@ -593,8 +610,8 @@
 	item_state = "cowbellcollar"
 	resistance_flags = FIRE_PROOF
 	dropshrink = 0.5
-	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
-	body_parts_covered = NECK|FACE
+	slot_flags = ITEM_SLOT_NECK
+	body_parts_covered = NECK
 	leashable = TRUE
 
 /obj/item/clothing/neck/roguetown/luckcharm
@@ -620,13 +637,17 @@
 	return
 
 /obj/item/clothing/neck/roguetown/feldcollar
-	name = "feldsher's collar"
-	desc = "A simple cloth collar, typically worn by medical staff."
+	name = "feldcollar"
+	desc = "A sturdy collar made of leather, commonly worn by field workers."
 	icon_state = "feldcollar"
-	leashable = FALSE
+	item_state = "feldcollar"
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
+	dropshrink = 0.5
 
 /obj/item/clothing/neck/roguetown/surcollar
 	name = "surgeon's collar"
-	desc = "A utilitarian collar for surgeons, not meant for leashing."
-	icon_state = "surcollar"
-	leashable = FALSE
+	desc = "A utilitarian collar for surgeons."
+	icon_state = "surgcollar"
+	item_state = "surgcollar"
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
+	dropshrink = 0.5

@@ -233,6 +233,12 @@
 					caused_wound?.werewolf_infect_attempt()
 					if(prob(30))
 						user.werewolf_feed(bite_victim, 10)
+
+			/*
+				ABOMINATION FEASTING VIA BITE
+			*/
+			if(istype(user.dna.species, /datum/species/abomination))
+				user.abomination_feed(bite_victim, 10)
 			
 			/*
 				ZOMBIE INFECTION VIA BITE

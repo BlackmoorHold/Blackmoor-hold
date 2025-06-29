@@ -134,5 +134,5 @@
 		/obj/item/clothing/neck/roguetown/psicross/pearl = 3,
 		/obj/item/clothing/neck/roguetown/psicross/bpearl = 2,
 		/obj/item/clothing/neck/roguetown/ornateamulet = 3,
-		/obj/item/clothing/neck/roguetown/skullamulet = 3,
+		/obj/item/clothing/neck/roguetown/psicross/skullamulet = 3,
 	)

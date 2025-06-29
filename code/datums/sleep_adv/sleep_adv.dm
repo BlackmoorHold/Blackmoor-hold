@@ -269,7 +269,7 @@
 		to_chat(mind.current, span_smallnotice("I feel like I can change my spells again."))
 	if(mind.has_rituos)
 		mind.has_rituos = FALSE
-		to_chat(mind.current, span_smallnotice("The toil of invoking Her Lesser Work has fled my feeble form. I can continue my transfiguration..."))
+		to_chat(mind.current, span_smallnotice("The toil of invoking His Lesser Work has fled my feeble form. I can continue my transfiguration..."))
 	if (mind.rituos_spell)
 		to_chat(mind.current, span_warning("My glimpse of [mind.rituos_spell.name] flees my slumbering mind..."))
 		mind.RemoveSpell(mind.rituos_spell)

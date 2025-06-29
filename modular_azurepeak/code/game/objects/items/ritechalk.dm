@@ -94,7 +94,7 @@
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
 				new /obj/structure/ritualcircle/abyssor(step_turf)
 		if("Rune of ZIZO")
-			to_chat(user,span_cultsmall("I begin inscribing the rune of Her Knowledge..."))
+			to_chat(user,span_cultsmall("I begin inscribing the rune of His Destruction..."))
 			if(do_after(user, 30, src))
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
 				new /obj/structure/ritualcircle/zizo(step_turf)

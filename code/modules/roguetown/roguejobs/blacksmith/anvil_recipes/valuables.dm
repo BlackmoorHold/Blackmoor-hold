@@ -72,7 +72,7 @@
 /datum/anvil_recipe/valuables/skullamulet
 	name = "Skull Amulet"
 	req_bar = /obj/item/ingot/gold
-	created_item = /obj/item/clothing/neck/roguetown/skullamulet
+	created_item = /obj/item/clothing/neck/roguetown/psicross/skullamulet
 
 //Gold Rings
 /datum/anvil_recipe/valuables/emeringg

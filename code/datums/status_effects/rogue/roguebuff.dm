@@ -924,3 +924,84 @@
 	name = "Ready to Clash"
 	desc = span_notice("I am on guard, and ready to clash. If I am hit, I will successfully defend. Attacking will make me lose my focus.")
 	icon_state = "clash"
+
+/atom/movable/screen/alert/status_effect/buff/solar_embrace
+	name = "Solar Embrace"
+	desc = "Astrata's divine fire flows through me, making flames heal instead of harm."
+	icon_state = "buff"
+
+/datum/status_effect/buff/solar_embrace
+	id = "solar_embrace"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/solar_embrace
+	duration = 1.5 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/buff/solar_embrace/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_FIRE_HEALING, MAGIC_TRAIT)
+	to_chat(owner, span_notice("I feel Astrata's divine fire coursing through my veins. Flames will now heal me instead of harm me."))
+
+/datum/status_effect/buff/solar_embrace/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_FIRE_HEALING, MAGIC_TRAIT)
+	to_chat(owner, span_warning("Astrata's divine fire fades from my body. Flames will harm me once more."))
+
+/datum/status_effect/buff/solar_embrace/proc/heal_most_damaged_limb(amount)
+	if(!ishuman(owner))
+		return
+	
+	var/mob/living/carbon/human/H = owner
+	var/obj/item/bodypart/most_damaged = null
+	var/max_damage = 0
+	
+	// Find the most damaged limb
+	for(var/obj/item/bodypart/BP in H.bodyparts)
+		var/total_damage = BP.brute_dam + BP.burn_dam
+		if(total_damage > max_damage)
+			max_damage = total_damage
+			most_damaged = BP
+	
+	if(most_damaged && max_damage > 0)
+		var/amount_to_heal = amount
+		// Prioritize healing burn damage first
+		var/burn_healed = min(amount_to_heal, most_damaged.burn_dam)
+		if(burn_healed > 0)
+			most_damaged.heal_damage(0, burn_healed, 0, BODYPART_ORGANIC, FALSE)
+			amount_to_heal -= burn_healed
+		
+		// Heal brute damage with any remaining healing
+		if(amount_to_heal > 0)
+			var/brute_healed = min(amount_to_heal, most_damaged.brute_dam)
+			if(brute_healed > 0)
+				most_damaged.heal_damage(brute_healed, 0, 0, BODYPART_ORGANIC, FALSE)
+
+		H.updatehealth()
+		H.update_damage_overlays()
+		to_chat(H, span_green("Astrata's divine fire heals my [most_damaged.name]!"))
+		playsound(H, 'sound/magic/heal.ogg', 50, FALSE, -1)
+		var/obj/effect/temp_visual/heal/H_effect = new /obj/effect/temp_visual/heal_rogue(get_turf(H))
+		H_effect.color = "#FFA500" // Orange color for fire healing
+
+/atom/movable/screen/alert/status_effect/buff/divine_conflagration
+	name = "Divine Conflagration"
+	desc = "Astrata's purifying fire burns through me!"
+	icon_state = "buff"
+
+/datum/status_effect/buff/divine_conflagration
+	id = "divine_conflagration"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/divine_conflagration
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/buff/divine_conflagration/on_apply()
+	. = ..()
+	to_chat(owner, span_danger("Astrata's divine fire engulfs me! I am being purified by Her holy flames!"))
+	owner.adjust_fire_stacks(50) // Very high fire stacks
+	owner.IgniteMob()
+	playsound(owner, 'sound/combat/hits/burn (1).ogg', 100, FALSE, -1)
+	owner.flash_fullscreen("redflash3")
+	owner.emote("firescream")
+
+/datum/status_effect/buff/divine_conflagration/on_remove()
+	. = ..()
+	to_chat(owner, span_warning("Astrata's purifying fire fades away..."))

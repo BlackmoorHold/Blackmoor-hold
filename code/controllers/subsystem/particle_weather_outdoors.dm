@@ -6,32 +6,32 @@
 /datum/time_of_day/dawn
 	name = "Dawn"
 	color = list("#394579", "#49385d", "#3a1537")
-	start = 8 HOURS //8:00:00 AM
+	start = 4 HOURS // 4:00:00 AM
 
 /datum/time_of_day/sunrise
 	name = "Sunrise"
 	color = "#F598AB"
-	start = 9.5 HOURS  //9:30:00 AM
+	start = 6 HOURS  // 6:00:00 AM
 
 /datum/time_of_day/daytime
 	name = "Daytime"
-	color = list("#dbbfbf", "#ddd7bd", "#add1b0", "#a4c0ca", "#ae9dc6", "#d09fbf")
-	start = 10 HOURS //10:00:00 AM
+	color = list("#dbbfbf", "#ddd7bd", "#7a7a77", "#8b8f91", "#ae9dc6", "#d09fbf")
+	start = 7 HOURS // 7:00:00 AM
 
 /datum/time_of_day/sunset
 	name = "Sunset"
 	color = "#ff8a63"
-	start = 15 HOURS //3:00:00 PM
+	start = 18 HOURS // 6:00:00 PM
 
 /datum/time_of_day/dusk
 	name = "Dusk"
-	color = list("#c26f56", "#c05271", "#b84933")
-	start = 15.5 HOURS //3:30:00 PM
+	color = list("#394579", "#49385d", "#302824")
+	start = 20 HOURS // 6:00:00 PM
 
 /datum/time_of_day/midnight
-	name = "Midnight"
-	color = list("#100a18", "#0c0412", "#0f0012")
-	start = 16 HOURS //4:00:00 PM
+	name = "Midnight" // When to switch to moonlight.
+	color = list("#122325", "#122325", "#122325")	// There is a bug where it cycles through all these possible colors throughout midnight.
+	start = 22 HOURS // 10:00:00 PM		Midnight was at 4 PM. That's why this game is so frskin' dark all the time! Night lighting is now 8 hours, dusk-midnight-dawn. - Nikov
 
 GLOBAL_VAR_INIT(GLOBAL_LIGHT_RANGE, 3)
 GLOBAL_LIST_EMPTY(SUNLIGHT_QUEUE_WORK)   /* turfs to be stateChecked */
@@ -93,7 +93,7 @@ SUBSYSTEM_DEF(outdoor_effects)
 		return TRUE
 	return FALSE
 
-/datum/controller/subsystem/outdoor_effects/proc/get_time_of_day()
+/datum/controller/subsystem/outdoor_effects/proc/get_time_of_day()		// Somewhere in here it makes midnight lights flicker. Look into it.
 
 	//Set our current color as last_color so newly initialized sunlight screens have a color
 	if(current_step_datum)

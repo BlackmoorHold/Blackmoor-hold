@@ -502,6 +502,9 @@
 	if (L.alpha == 0 && L.rogue_sneaking)
 		return FALSE
 
+	if(L.alpha <= 100) //if mostly invisible dont see it, surely this wont go wrong.
+		return FALSE
+
 	if(!is_in_zweb(src.z,L.z))
 		return FALSE
 
@@ -528,6 +531,7 @@
 			if(world.time >= next_seek)
 				NPC_THINK("Seeking for targets...")
 				next_seek = world.time + 3 SECONDS
+
 				// If we search for targets above, we need to do this twice.
 				// Yes, this is kind of terrible, but it works(?). If it's enabled we do it a second time with is_checking_above = TRUE.
 				for(var/is_checking_above in FALSE to find_targets_above)
@@ -550,8 +554,9 @@
 			// basic behavior chain: targeting > fleeing > picking up a weapon > attacking
 			// VALIDATE TARGET
 			if(target)
+
 				if(!should_target(target))
-					if (target.alpha == 0 && target.rogue_sneaking) // attempt one detect since we were just fighting them and have lost them
+					if (target.alpha <= 100) // attempt one detect since we were just fighting them and have lost them
 						if (npc_detect_sneak(target))
 							retaliate(target)
 					else
@@ -834,8 +839,10 @@
 		wander = TRUE
 	if(L == src)
 		return
+
 	if(mode != NPC_AI_OFF)
 		if(L.alpha == 0 && L.rogue_sneaking)
+
 			// we just got hit by something hidden so try and find them
 			if (prob(5))
 				visible_message(span_notice("[src] begins searching around frantically..."))
@@ -897,6 +904,7 @@
 		target.mob_timers[MT_FOUNDSNEAK] = world.time
 		to_chat(target, span_danger("[src] sees me! I'm found!"))
 		target.update_sneak_invis(TRUE)
+		target.apply_status_effect(/datum/status_effect/debuff/stealthcd)
 		return TRUE
 	else
 		return FALSE
