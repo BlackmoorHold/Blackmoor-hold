@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	allowed_races = RACES_ALL_KINDS	//Duke selects his hand.
-	allowed_patrons = NON_PSYDON_PATRONS
+	allowed_patrons = ALL_PATRONS
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
 	outfit = /datum/outfit/job/roguetown/hand
