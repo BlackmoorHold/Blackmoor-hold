@@ -87,6 +87,11 @@
 		H.verbs |= /mob/living/carbon/human/proc/vamp_regenerate
 		// Give wretch vampires their vampiric appearance
 		wretch_vamp_look()
+		// Ensure wretch vampires cannot create thralls 
+		H.verbs -= /mob/living/carbon/human/proc/punish_spawn
+		H.verbs -= /mob/living/carbon/human/proc/demand_submission
+		// Prevent wretch vampires from being converted to vampire lords
+		H.verbs -= /mob/living/carbon/human/proc/vampire_telepathy
 	if(!is_lesser)
 		owner.current.verbs |= /mob/living/carbon/human/proc/blood_strength
 		owner.current.verbs |= /mob/living/carbon/human/proc/blood_celerity
