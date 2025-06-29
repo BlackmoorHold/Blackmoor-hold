@@ -329,10 +329,11 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "</td>"
 
 			dat += "</table>"
-
+/*
 			dat += "<center><h2>Quirk Setup</h2>"
 			dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br></center>"
 			dat += "<center><b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
+*/
 
 			// Encapsulating table
 			dat += "<table width = '100%'>"
