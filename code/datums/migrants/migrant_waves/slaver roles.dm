@@ -20,7 +20,7 @@
 	backl = /obj/item/storage/backpack/rogue/backpack
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	beltr = /obj/item/rogueweapon/whip/antique
-	backpack_contents = list(/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 2, /obj/item/rope/chain = 1, /obj/item/flint = 1, /obj/item/clothing/neck/roguetown/collar/bell_collar = 2)
+	backpack_contents = list(/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 2, /obj/item/rope/chain = 1, /obj/item/flint = 1, /obj/item/clothing/neck/roguetown/collar/bell_collar = 2, /obj/item/leash = 1)
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 5, TRUE)
@@ -70,7 +70,7 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/sword/sabre/shamshir
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor 
-	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/idagger = 1)
+	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/idagger = 1, /obj/item/leash = 1)
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 3, TRUE)
@@ -121,7 +121,7 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltr = /obj/item/rogueweapon/whip
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor 
-	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/idagger = 1)
+	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/idagger = 1, /obj/item/leash = 1)
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)
@@ -173,7 +173,7 @@
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor 
 	beltr = /obj/item/quiver/bolts
-	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/combat = 1, /obj/item/needle = 1)
+	backpack_contents = list(/obj/item/rope/chain = 1, /obj/item/rogueweapon/huntingknife/combat = 1, /obj/item/needle = 1, /obj/item/leash = 1)
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 3, TRUE)

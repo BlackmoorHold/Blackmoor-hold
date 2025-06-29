@@ -317,6 +317,23 @@
 	grid_width = 32
 	grid_height = 32
 
+/obj/item/clothing/neck/roguetown/psicross/equipped(mob/living/carbon/human/user, slot) //Psydonians now get warm fuzzies when they equip their psycross.
+	. = ..()
+	if(slot == SLOT_NECK || slot == SLOT_WRISTS || slot == SLOT_BELT_R || slot == SLOT_BELT_L)
+		if(istype(user.patron, /datum/patron/old_god))
+			user.add_stress(/datum/stressevent/psicross_worn)
+			ADD_TRAIT(user, TRAIT_SILVER_BLESSED, MAGIC_TRAIT)
+			ADD_TRAIT(user, TRAIT_ZOMBIE_IMMUNE, MAGIC_TRAIT)
+
+
+/obj/item/clothing/neck/roguetown/psicross/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(istype(user.patron, /datum/patron/old_god))
+		user.remove_stress(/datum/stressevent/psicross_worn)
+		REMOVE_TRAIT(user, TRAIT_SILVER_BLESSED, MAGIC_TRAIT)
+		REMOVE_TRAIT(user,TRAIT_ZOMBIE_IMMUNE, MAGIC_TRAIT)
+
+
 /obj/item/clothing/neck/roguetown/psicross/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	..()
 
@@ -326,7 +343,7 @@
 	if(slot == SLOT_NECK)
 		mob_overlay_icon = initial(mob_overlay_icon)
 		sleeved = initial(sleeved)
-	
+
 	return TRUE
 
 /obj/item/clothing/neck/roguetown/psicross/aalloy
@@ -547,7 +564,7 @@
 	if(world.time > (current_time + 30 SECONDS))
 		return
 
-/obj/item/clothing/neck/roguetown/skullamulet
+/obj/item/clothing/neck/roguetown/psicross/skullamulet
 	name = "Skull Amulet"
 	desc = "Gold shaped into the form of a skull and strung into an amulet."
 	icon_state = "skullamulet"
@@ -562,42 +579,39 @@
 	icon_state = "psybracelet"
 	item_state = null
 
-/obj/item/clothing/neck/roguetown/collar
-	name = "collar"
+/obj/item/clothing/neck/roguetown/leathercollar
+	name = "leather collar"
 	desc = "A band of leather which signifies bondage to another."
-	icon_state = "collar"
-	item_state = "collar"
+	icon = 'modular/icons/obj/items/leashes_collars.dmi'
+	icon_state = "leathercollar"
+	item_state = "leathercollar"
 	resistance_flags = FIRE_PROOF
 	dropshrink = 0.5
+	leashable = TRUE
 
-/obj/item/clothing/neck/roguetown/collar/bell_collar
-	name = "bell collar"
-	desc = "A band of leather with a bell that protects the local zads from the local catfolk."
-	icon_state = "bell_collar"
-
-/obj/item/clothing/neck/roguetown/collar/bell_collar/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_JINGLE_BELLS)
-
-/obj/item/clothing/neck/roguetown/collar/feldcollar
-	name = "feldcollar"
-	desc = "A sturdy collar made of leather, commonly worn by field workers."
-	icon_state = "feldcollar"
-	item_state = "feldcollar"
+/obj/item/clothing/neck/roguetown/catbellcollar
+	name = "catbell collar"
+	desc = "A leather collar with a small jingly catbell."
+	icon = 'modular/icons/obj/items/leashes_collars.dmi'
+	icon_state = "catbellcollar"
+	item_state = "catbellcollar"
 	resistance_flags = FIRE_PROOF
 	dropshrink = 0.5
-	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
-	body_parts_covered = NECK|FACE
+	slot_flags = ITEM_SLOT_NECK
+	body_parts_covered = NECK
+	leashable = TRUE
 
-/obj/item/clothing/neck/roguetown/collar/surgcollar
-	name = "surgcollar"
-	desc = "A specialized collar designed for medical practitioners, with reinforced padding."
-	icon_state = "surgcollar"
-	item_state = "surgcollar"
+/obj/item/clothing/neck/roguetown/cowbellcollar
+	name = "cowbell collar"
+	desc = "A leather collar with a small jingly cowbell."
+	icon = 'modular/icons/obj/items/leashes_collars.dmi'
+	icon_state = "cowbellcollar"
+	item_state = "cowbellcollar"
 	resistance_flags = FIRE_PROOF
 	dropshrink = 0.5
-	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
-	body_parts_covered = NECK|FACE
+	slot_flags = ITEM_SLOT_NECK
+	body_parts_covered = NECK
+	leashable = TRUE
 
 /obj/item/clothing/neck/roguetown/luckcharm
 	name = "luck charm"
@@ -619,4 +633,46 @@
 	if(goodluckactivated == TRUE)
 		user.change_stat("fortune", -1) //how much luck stat taken away when unequipped
 		goodluckactivated = FALSE
+	return
+
+/obj/item/clothing/neck/roguetown/feldcollar
+	name = "feldcollar"
+	desc = "A sturdy collar made of leather, commonly worn by field workers."
+	icon_state = "feldcollar"
+	item_state = "feldcollar"
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
+	dropshrink = 0.5
+
+/obj/item/clothing/neck/roguetown/surcollar
+	name = "surgeon's collar"
+	desc = "A utilitarian collar for surgeons."
+	icon_state = "surgcollar"
+	item_state = "surgcollar"
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_MASK
+	dropshrink = 0.5
+
+/obj/item/clothing/neck/roguetown/binding
+	name = "mana binding collar"
+	desc = "A collar to prevent a mage from using their foul magiks."
+	icon_state = "cursed_collar"
+	item_state = "cursed_collar"
+	resistance_flags = FIRE_PROOF
+	w_class = WEIGHT_CLASS_SMALL
+	allow_self_unequip = FALSE	//Can not remove these without help
+	equip_delay_self = 60
+	equip_delay_other = 60
+	strip_delay = 300
+	leashable = TRUE
+
+/obj/item/clothing/neck/roguetown/binding/equipped(mob/living/user, slot)
+	..()
+	if(slot == SLOT_NECK)
+		ADD_TRAIT(user, TRAIT_SPELLCOCKBLOCK, "bindingcollar")
+		to_chat(user, span_notice("My connection to the arcyne is torn!"))
+	return
+
+/obj/item/clothing/neck/roguetown/binding/dropped(mob/living/carbon/human/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SPELLCOCKBLOCK, "bindingcollar")
+	to_chat(user, span_notice("My connection to the arcyne is restored!"))
 	return

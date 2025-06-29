@@ -653,15 +653,12 @@
 	slot_flags = ITEM_SLOT_ARMOR
 	armor_class = ARMOR_CLASS_HEAVY
 	armor = ARMOR_CUIRASS
-	name = "Silver hauberk"
+	name = "silver hauberk"
 	desc = "An ornate steel cuirass with tassets, worn atop thick chainmaille. While it falters against arrows and bolts, \
 			these interlinked layers are superb at warding off the blows of inhumen claws and axes."
 	icon_state = "ornatehauberk"
 	item_state = "ornatehauberk"
 	max_integrity = 350
-
-
-
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/bikini
 	name = "chainmail corslet"	// corslet, from the old French 'cors' or bodice, with the diminutive 'let', used to describe lightweight military armor since 1500. Chosen here to replace 'bikini', an extreme anachronism.
@@ -674,6 +671,7 @@
 	armor_class = ARMOR_CLASS_LIGHT //placed in the medium category to keep it with its parent obj
 
 /obj/item/clothing/suit/roguetown/armor/plate/bikini
+	slot_flags = ITEM_SLOT_ARMOR
 	name = "half-plate corslet"
 	desc = "A high breastplate and hip armor allowing flexibility and great protection, save for the stomach."
 	body_parts_covered = CHEST|GROIN
@@ -683,6 +681,8 @@
 	max_integrity = 300	// Identical to steel cuirasss. Same steel price.
 	allowed_sex = list(FEMALE)
 	armor_class = ARMOR_CLASS_MEDIUM
+	anvilrepair = /datum/skill/craft/armorsmithing
+	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
 
 /obj/item/clothing/suit/roguetown/armor/plate/half
@@ -729,7 +729,7 @@
 	icon_state = "ornatecuirass"
 	desc = "An ornate steel cuirass with tassets, favored by both the Holy Inquisition and the Order of the Silver cross. \
 			Made to endure."
-	
+
 	max_integrity = 300
 
 /obj/item/clothing/suit/roguetown/armor/plate/half/iron
@@ -775,7 +775,7 @@
 /obj/item/clothing/suit/roguetown/armor/plate
 	slot_flags = ITEM_SLOT_ARMOR
 	name = "steel half-plate"
-	desc = "\'Adventurer-fit\' plate armor with pauldrons. The poor fitting leaves many small gaps for daggers and bolts to pierce something vital, so a gambeson is recommended."
+	desc = {"'Adventurer-fit' plate armor with pauldrons. The poor fitting leaves many small gaps for daggers and bolts to pierce something vital, so a gambeson is recommended."}
 	body_parts_covered = COVERAGE_TORSO
 	icon_state = "halfplate"
 	item_state = "halfplate"
@@ -840,7 +840,7 @@
 	..()
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/ornate
-	name = "Silver half-plate"
+	name = "silver half-plate"
 	desc = "A sturdily made fluted half-plate armour-set, complete with pauldrons and shoulder-guards. \
 			Favored by both the Holy Inquisition and the Order of Silver cross. It smells of the madness of an enduring God."
 	icon_state = "ornatehalfplate"
@@ -888,7 +888,7 @@
 	max_integrity = 600
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate
-	name = "Silver plate"
+	name = "silver plate"
 	desc = "A sturdily made fluted full-plate. Heavy-duty, and made to deflect blows from blades and arrows. \
 			Favored by both the Holy Inquisition and the Order of Silver. It smells of the madness of an enduring Gods."
 	icon_state = "ornateplate"
@@ -924,7 +924,7 @@
 	name = "gilded fullplate"
 	desc = "Often, you have heard that told,"
 	icon_state = "matthiosarmor"
-	max_integrity = 700	
+	max_integrity = 700
 
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/matthios/Initialize()
@@ -939,7 +939,7 @@
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/zizo
 	name = "darksteel fullplate"
-	desc = "Full plate. Called forth from the edge of what should be known. In Her name."
+	desc = "Full plate. Called forth from the edge of what should be known. In His name."
 	icon_state = "zizoplate"
 	max_integrity = 700
 	peel_threshold = 5	//-Any- weapon will require 5 peel hits to peel coverage off of this armor.
@@ -956,6 +956,7 @@
 
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/bikini
+	slot_flags = ITEM_SLOT_ARMOR
 	name = "full-plate corslet"
 	desc = "Breastplate, pauldrons, couters, cuisses... did you forget something?"
 	icon_state = "platekini"
@@ -965,6 +966,8 @@
 	unequip_delay_self = 8 SECONDS
 	equip_delay_other = 3 SECONDS
 	strip_delay = 6 SECONDS
+	anvilrepair = /datum/skill/craft/armorsmithing
+	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 3
 
 /obj/item/clothing/suit/roguetown/armor/heartfelt/lord

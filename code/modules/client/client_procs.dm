@@ -43,9 +43,6 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
 
-	// RATWOOD EDIT START
-	if(!maturity_prompt_whitelist && !SSmaturity_guard.age_check(usr, href_list))
-		return 0
 	// RATWOOD EDIT END
 
 	// asset_cache
@@ -253,7 +250,7 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	// Centered container with left-aligned content
 	data += "<div style='text-align: center;'>"
 	data += "<div style='display: inline-block; text-align: left; margin-left: auto; margin-right: auto;'>"
-	
+
 	var/stat_is_object = GLOB.featured_stats[current_featured]["object_stat"]
 	var/has_entries = length(GLOB.featured_stats[current_featured]["entries"])
 
@@ -264,7 +261,7 @@ GLOBAL_LIST_EMPTY(respawncounts)
 			data += format_top_ten(current_featured)
 	else
 		data += "<div style='margin-top: 20px;'>[stat_is_object ? "None" : "Nobody"]</div>"
-	
+
 	data += "</div>"
 	data += "</div>"
 	data += "</div>"
@@ -365,7 +362,7 @@ GLOBAL_LIST_EMPTY(respawncounts)
 			data += "[x]"
 	else
 		data += "<font color='#93cac7'><span class='bold'>No confessions!</span></font>"
-	
+
 	// Cuckolds section
 	if(GLOB.cuckolds.len)
 		data += "<br><font color='#ae00c5'><span class='bold'>Cuckolds were:</span></font> "
@@ -1594,7 +1591,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
 		winset(src, null, "browser-options=find")
 		// byondstorage,devtools <- other options
-		
+
 /client/proc/give_award(achievement_type, mob/user)
 	return	player_details.achievements.unlock(achievement_type, mob/user)
 

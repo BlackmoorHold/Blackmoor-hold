@@ -11,6 +11,8 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 	return .
 
 /proc/roll_random_special(client/player)
+	log_admin("[player?.ckey] has maliciously accessed roll_random_special, very likely href exploit.")
+	message_admins("[player?.ckey] has maliciously accessed roll_random_special, very likely href exploit.")
 	var/list/eligible_weight = list()
 	for(var/trait_type in GLOB.special_traits)
 		var/datum/special_trait/special = SPECIAL_TRAIT(trait_type)

@@ -104,6 +104,7 @@
 
 /datum/species/elf/wood/get_skin_list()
 	return list(
+		"Ghost" = SKIN_COLOR_GHOST,
 		"Grenzel Woods" = SKIN_COLOR_GRENZEL_WOODS,
 		"Dandelion Creek" = SKIN_COLOR_DANDELION_CREEK,
 		"Roseveil" = SKIN_COLOR_ROSEVEIL,

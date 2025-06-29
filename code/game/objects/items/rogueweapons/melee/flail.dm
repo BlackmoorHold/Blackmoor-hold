@@ -31,7 +31,7 @@
 	attack_verb = list("strikes", "hits")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 40
 	icon_state = "instrike"
 	item_d_type = "blunt"
 
@@ -45,7 +45,7 @@
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
 	recovery = 15
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 20
 	reach = 2
 	icon_state = "instrike"
 	item_d_type = "blunt"
@@ -55,7 +55,7 @@
 	chargetime = 5
 	chargedrain = 2
 	no_early_release = TRUE
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 60
 	recovery = 10
 	damfactor = 1.6
 	chargedloop = /datum/looping_sound/flailswing
@@ -81,8 +81,8 @@
 	chargedrain = 2
 	no_early_release = TRUE
 	recovery = 30
-	damfactor = 1.5
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	damfactor = 1
+	penfactor = 60
 	reach = 2
 	chargedloop = /datum/looping_sound/flailswing
 	keep_looping = TRUE
@@ -130,13 +130,17 @@
 	icon_state = "necraflail"
 
 /obj/item/rogueweapon/flail/sflail/psyflail
-	name = "psydon's flail"
+	name = "ornate flail"
 	desc = "An ornate flail, plated in a ceremonial veneer of silver. Its flanged head can crumple even the toughest of darksteel-maille."
 	icon_state = "psyflail"
 
 /obj/item/rogueweapon/flail/sflail/psyflail/ComponentInitialize()
 	. = ..()							//+3 force, +50 int, +1 def, make silver
 	AddComponent(/datum/component/psyblessed, FALSE, 3, FALSE, 50, 1, TRUE)
+
+/obj/item/rogueweapon/flail/sflail/psyflail/preblessed/ComponentInitialize()
+	. = ..()							//Pre-blessed, +3 force, +50 int, +1 def, make silver
+	AddComponent(/datum/component/psyblessed, TRUE, 3, FALSE, 50, 1, TRUE)
 
 /datum/intent/whip/lash
 	name = "lash"
@@ -145,7 +149,7 @@
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
 	recovery = 7
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 40
 	damfactor = 1.1
 	reach = 2
 	icon_state = "inlash"
@@ -170,7 +174,7 @@
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
 	recovery = 10
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = 20
 	reach = 2
 	icon_state = "inpunish"
 	item_d_type = "blunt"
@@ -243,16 +247,28 @@
 	name = "Daybreak"
 	desc = "Holding the blessed silver evokes a memory of the Grand Otavan Cathedral, a testament to humenity's faith. There, upon the ceiling, was painted a scene-most-beautiful: of a robed, long dead Psydon standing before the Archdevil, parting the nite's sky with a crack from His fiery whip. Just as He had done prior, so too must you bring daelight to the darkness."
 	icon_state = "psywhip"
-	is_silver = TRUE
+
+/obj/item/rogueweapon/whip/antique/psywhip/ComponentInitialize()
+	. = ..()					//+1 force, +50 int, +1 def, make silver
+	AddComponent(/datum/component/psyblessed, FALSE, 1, FALSE, 50, 1, TRUE)
+
+//Not that you can obtain the unblessed version, given it can't be smithed like the rest. But just in case.
+/obj/item/rogueweapon/whip/antique/psywhip/preblessed/ComponentInitialize()
+	. = ..()					//Pre-blessed, +1 force, +50 int, +1 def, make silver
+	AddComponent(/datum/component/psyblessed, TRUE, 1, FALSE, 50, 1, TRUE)
 
 /obj/item/rogueweapon/whip/psywhip_lesser
-	name = "holy whip"
+	name = "ornate whip"
 	desc = "An ornate whip, plated in a ceremonial veneer of silver. Crack the leather and watch as the apostates clammer aside."
 	icon_state = "psywhip_lesser"
 
 /obj/item/rogueweapon/whip/psywhip_lesser/ComponentInitialize()
 	. = ..()					//+3 force, +50 int, +1 def, make silver
 	AddComponent(/datum/component/psyblessed, FALSE, 3, FALSE, 50, 1, TRUE)
+
+/obj/item/rogueweapon/whip/psywhip_lesser/preblessed/ComponentInitialize()
+	. = ..()					//Pre-blessed, +3 force, +50 int, +1 def, make silver
+	AddComponent(/datum/component/psyblessed, TRUE, 3, FALSE, 50, 1, TRUE)
 
 /obj/item/rogueweapon/flail/peasantwarflail
 	force = 10

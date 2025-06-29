@@ -111,3 +111,31 @@
 	"...the perched archers ruthlessly repel the peasant rebellion. Hope for fairness is almost forlorn, until with a soft crack, a hailing of iron bullets clatter against the foe's helmets...",
 	"...your arm tires from the toils of practice. Swinging rapidly has left your arm numb. With weary eyes, you glance aside to witness a hunter practice their craft with a brief overhand toss. Absorbing the technique, you mimic it, and effortlessly cast a powerful stone square onto the target..."
 	)
+
+
+/datum/skill/combat/proc/get_firearm_accident_chance_modifier(level) //supposed to calculate firearms incident changes, not sure if this one is working correctly
+	switch(level)
+		if(SKILL_LEVEL_NONE)
+			return 80
+		if(SKILL_LEVEL_NOVICE)
+			return 60
+		if(SKILL_LEVEL_APPRENTICE)
+			return 40
+		if(SKILL_LEVEL_JOURNEYMAN)
+			return 20
+		if(SKILL_LEVEL_EXPERT)
+			return 10
+		if(SKILL_LEVEL_MASTER)
+			return 5
+		if(SKILL_LEVEL_LEGENDARY)
+			return 0
+
+
+/datum/skill/combat/firearms
+	name = "Firearms"
+	desc = "Alongside perception, increases the speed you ready a firearm and have it ready to shoot. Does not influence damage or chance to hit."
+	dreams = list(
+	"...steady aim, steady breath. You can still feel the heat of the gun barrel on your palm...",
+	"...make ready, aim, fire. The gunpowder ignites and the bullet flies true. You can feel the recoil in your shoulder, but you are unyielding...",
+	"...this is my gun, there's many like it, but this one is mine. My gun is my best friend. It is my life. I must master it as I must master my life. Without me, my gun is useless. Without my gun, I am useless..."
+	)

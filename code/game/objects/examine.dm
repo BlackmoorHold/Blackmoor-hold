@@ -4,10 +4,16 @@
 /datum/examine_effect/proc/get_examine_line(mob/user)
 	return
 
+/obj/item/proc/has_status_effect(type)
+	return FALSE
+
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
 
 	. += integrity_check()
+
+	if(has_status_effect(/datum/status_effect/leash_pet))
+		. += "<A href='?src=[REF(src)];'><span class='warning'>A leash is hooked to a collar!</span></A>"
 
 	var/real_value = get_real_price()
 	if(real_value > 0)

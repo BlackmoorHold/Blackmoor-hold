@@ -247,6 +247,7 @@
 	held_items[/obj/item/reagent_containers/powder/moondust] = list("PRICE" = rand(13,25),"NAME" = "moondust")
 	held_items[/obj/item/clothing/mask/cigarette/rollie/cannabis] = list("PRICE" = rand(12,18),"NAME" = "swampweed zig")
 	held_items[/obj/item/clothing/mask/cigarette/rollie/nicotine] = list("PRICE" = rand(5,10),"NAME" = "zig")
+	held_items[/obj/item/reagent_containers/glass/bottle/rogue/emberwine] = list("PRICE" = rand(100,140),"NAME" = "unlabeled emberwine")
 /*	held_items[/obj/item/reagent_containers/glass/bottle/rogue/wine] = list("PRICE" = rand(35,77),"NAME" = "vino")
 	held_items[/obj/item/rogueweapon/huntingknife/idagger] = list("PRICE" = rand(20,33),"NAME" = "kinfe")
 	held_items[/obj/item/clothing/cloak/half] = list("PRICE" = rand(103,110),"NAME" = "black halfcloak")

@@ -72,12 +72,13 @@
 	dildo_material = "steel"
 	sellprice = 10
 
-/obj/item/dildo/silver
-	color = "#C6D5E1"
-	dildo_material = "silver"
-	sellprice = 30
-
 /obj/item/dildo/gold
 	color = "#A0A075"
 	dildo_material = "golden"
+	sellprice = 30
+
+/obj/item/dildo/silver
+	color = "#C6D5E1"
+	dildo_material = "silver"
 	sellprice = 50
+

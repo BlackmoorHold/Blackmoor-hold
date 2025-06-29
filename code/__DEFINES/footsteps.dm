@@ -19,6 +19,7 @@
 #define FOOTSTEP_CARPET_BAREFOOT "carpetbarefoot"
 //misc footstep sounds
 #define FOOTSTEP_GENERIC_HEAVY "heavy"
+#define FOOTSTEP_GENERIC_MOIST "moist"
 
 //footstep mob defines
 #define FOOTSTEP_MOB_CLAW 1
@@ -27,6 +28,7 @@
 #define FOOTSTEP_MOB_SHOE 4
 #define FOOTSTEP_MOB_HUMAN 5 //Warning: Only works on /mob/living/carbon/human
 #define FOOTSTEP_MOB_SLIME 6
+#define FOOTSTEP_MOB_MOIST 7
 
 /*
 
@@ -172,5 +174,18 @@ GLOBAL_LIST_INIT(heavyfootstep, list(
 		'sound/foley/footsteps/FTMUD (3).ogg',
 		'sound/foley/footsteps/FTMUD (4).ogg',
 		'sound/foley/footsteps/FTMUD (5).ogg'), 100, 0),
+))
+
+GLOBAL_LIST_INIT(moistfootstep, list(
+	FOOTSTEP_GENERIC_MOIST = list(list(
+		'sound/foley/footsteps/FTMOIST.ogg'), 100, 0),
+	FOOTSTEP_WATER = list(list(
+		'sound/foley/footsteps/FTMOIST.ogg'), 100, 0),
+	FOOTSTEP_SHALLOW = list(list(
+		'sound/foley/footsteps/FTMOIST.ogg'), 100, 0),
+	FOOTSTEP_LAVA = list(list(
+		'sound/blank.ogg'), 100, 0),
+	FOOTSTEP_MUD = list(list(
+		'sound/foley/footsteps/FTMOIST.ogg'), 100, 0),
 ))
 

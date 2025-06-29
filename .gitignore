@@ -1,4 +1,4 @@
-###Files and folders specified here will never be tracked.
+/config/ezdb.txt###Files and folders specified here will never be tracked.
 
 #Ignore everything in datafolder and subdirectories
 /data/**/*
@@ -213,7 +213,6 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 #dmdoc default folder
 /dmdoc
 
-# ezdb
 /db/
 
 # Ignore everything in the config folder, but NOT the example or music jukeboxes.

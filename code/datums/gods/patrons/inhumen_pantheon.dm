@@ -10,9 +10,10 @@
 
 /datum/patron/inhumen/zizo
 	name = "Zizo"
-	domain = "Progress, Undeath, Hubris, Left Hand Magicks"
-	desc = "A once-mortal snow elf turned god. Her hubris in thinking she could harvest lux from the planet itself led to the elimination of her entire race. Her works are still used to this dae in some cases."
-	worshippers = "Necromancers, Researchers, Warlocks, and the Undead"
+	domain = "The Ending and the Promise of a New World"
+	desc = "O, what could not be said of the Truthspeaker and Herald of the Godhena? His followers are unshakable in their devotion to the grand Purpose of it All. We remember Her promise well. To destroy the afterlife, destroy the Enigma, destroy mortality, tame what remains, remake four beautiful seasons, create new shells for our souls to inhabit whose hearts shall never know sorrow.\n\
+			The entire firmament of our world shall be remade! Rot in death, you who doubt the Promise!"
+	worshippers = "Necromancers, Dark elves, nihilists, and the Broken"
 	mob_traits = list(TRAIT_CABAL)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/lesser_heal 					= CLERIC_T0,
@@ -23,7 +24,9 @@
 	confess_lines = list(
 		"PRAISE ZIZO!",
 		"LONG LIVE ZIZO!",
+		"ZIZO IS EMPEROR!",
 		"ZIZO IS QUEEN!",
+		"I AM ZIZO'S TOOL!!"
 	)
 	storyteller = /datum/storyteller/zizo
 

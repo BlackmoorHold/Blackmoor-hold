@@ -816,15 +816,19 @@
 	density = TRUE
 
 /obj/structure/fluff/statue/psy
+	name = "silver statue"
+	desc = "A statue of impure alloy. A mixture of silver-and-steel, cast in the image of Psydon himself. \
+	A lifetime of work for a long forgotten craftsman."
 	icon_state = "psy"
 	icon = 'icons/roguetown/misc/96x96.dmi'
 	pixel_x = -32
 
 /obj/structure/fluff/statue/psybloody
+	name = "silver statue"
+	desc = "He weeps, for He knows what you must endure in His name."
 	icon_state = "psy_bloody"
 	icon = 'icons/roguetown/misc/96x96.dmi'
 	pixel_x = -32
-
 
 /obj/structure/fluff/statue/small
 	icon = 'icons/roguetown/misc/structure.dmi'
@@ -933,7 +937,28 @@
 		/obj/item/ingot/silver,
 		/obj/item/ingot/blacksteel,
 		/obj/item/clothing/neck/roguetown/psicross,
+		/obj/item/storage/belt/rogue/leather/plaquesilver,
+		/obj/item/dildo,
+		/obj/item/kitchen/fork,
+		/obj/item/kitchen/spoon,
+		/obj/item/cooking/platter,
+		/obj/item/clothing/mask/rogue/spectacles,
+		/obj/item/clothing/mask/rogue/lordmask,
+		/obj/item/clothing/mask/rogue/facemask/psydonmask,
+		/obj/item/clothing/mask/rogue/facemask/goldmask,
+		/obj/item/clothing/head/roguetown/helmet/heavy/bucket/gold,
+		/obj/item/clothing/head/roguetown/circlet,
+		/obj/item/clothing/shoes/roguetown/anklets,
+		/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate,
+		/obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate,
+		/obj/item/clothing/suit/roguetown/armor/plate/half/fluted/ornate,
+		/obj/item/clothing/suit/roguetown/armor/plate/fluted/ornate,
+		/obj/item/rogueweapon/sword/decorated,
+		/obj/item/rogueweapon/sword/long/oathkeeper,
+		/obj/item/rogueweapon/sword/rapier/dec,
 		/obj/item/reagent_containers/glass/cup,
+		/obj/item/candle/candlestick,
+		/obj/item/candle,
 		/obj/item/roguestatue,
 		/obj/item/riddleofsteel,
 		/obj/item/listenstone,

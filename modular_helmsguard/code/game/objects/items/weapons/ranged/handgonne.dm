@@ -151,9 +151,9 @@
 
 /obj/item/gun/ballistic/handgonne/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 
-	var/accident_chance = 0
+//	var/accident_chance = 0
 	var/firearm_skill = (user?.mind ? user.mind.get_skill_level(/datum/skill/combat/firearms) : 1)
-	var/turf/knockback = get_ranged_target_turf(user, turn(user.dir, 180), rand(1,2))
+//	var/turf/knockback = get_ranged_target_turf(user, turn(user.dir, 180), rand(1,2))
 	spread = (spread_num - firearm_skill)
 	if(user.client)
 		if(user.client.chargedprog >= 100)

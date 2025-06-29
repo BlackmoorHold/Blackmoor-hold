@@ -41,10 +41,10 @@
 			backl = /obj/item/storage/backpack/rogue/satchel
 			belt = /obj/item/storage/belt/rogue/leather/rope
 			beltr = /obj/item/flashlight/flare/torch/lantern
-			beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 			backpack_contents = list(
-				/obj/item/flashlight/flare/torch = 1, 
+				/obj/item/flashlight/flare/torch = 1,
 				/obj/item/recipe_book/survival = 1,
+				/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 				)
 			var/datum/devotion/C = new /datum/devotion(H, H.patron)
 			C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = FALSE, devotion_limit = CLERIC_REQ_1)	//Capped to T1 miracles.
@@ -102,10 +102,10 @@
 			pants = /obj/item/clothing/under/roguetown/chainlegs
 			shoes = /obj/item/clothing/shoes/roguetown/boots
 			gloves = /obj/item/clothing/gloves/roguetown/chain
-			beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 			backpack_contents = list(
-				/obj/item/flashlight/flare/torch = 1, 
+				/obj/item/flashlight/flare/torch = 1,
 				/obj/item/recipe_book/survival = 1,
+				/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 			)
 			H.mind.adjust_skillrank(/datum/skill/combat/shields, 3, TRUE)
 			H.mind.adjust_skillrank(/datum/skill/combat/maces, 2, TRUE)
@@ -191,10 +191,9 @@
 			shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 			belt = /obj/item/storage/belt/rogue/leather/knifebelt/iron
 			beltr = /obj/item/rogueweapon/huntingknife/idagger/steel/special
-			beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 			var/datum/devotion/C = new /datum/devotion(H, H.patron)
 			C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = FALSE, devotion_limit = CLERIC_REQ_1)	//Capped to T1 miracles.
-			backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/recipe_book/survival = 1)
+			backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/recipe_book/survival = 1, /obj/item/storage/belt/rogue/pouch/coins/poor = 1)
 			H.mind.adjust_skillrank(/datum/skill/misc/music, 4, TRUE)
 			H.mind.adjust_skillrank(/datum/skill/magic/holy, 2, TRUE)
 			H.mind.adjust_skillrank(/datum/skill/combat/knives, 3, TRUE)
@@ -307,7 +306,7 @@
 					cloak = /obj/item/clothing/suit/roguetown/shirt/robe/eora
 					head = /obj/item/clothing/head/roguetown/eoramask
 				if(/datum/patron/inhumen/zizo)
-					cloak = /obj/item/clothing/suit/roguetown/shirt/robe 
+					cloak = /obj/item/clothing/suit/roguetown/shirt/robe
 					head = /obj/item/clothing/head/roguetown/roguehood
 					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
 				else
@@ -318,6 +317,7 @@
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
 			neck = /obj/item/clothing/neck/roguetown/psicross
+			beltl = /obj/item/roguekey/psydonite
 		if(/datum/patron/divine/astrata)
 			neck = /obj/item/clothing/neck/roguetown/psicross/astrata
 		if(/datum/patron/divine/noc)

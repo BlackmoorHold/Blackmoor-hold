@@ -386,12 +386,16 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/natural/feather
 
 /datum/loadout_item/collar
-	name = "Collar"
-	path = /obj/item/clothing/neck/roguetown/collar
+	name = "Leather Collar"
+	path = /obj/item/clothing/neck/roguetown/leathercollar
 
-/datum/loadout_item/bell_collar
-	name = "Bell Collar"
-	path = /obj/item/clothing/neck/roguetown/collar/bell_collar
+/datum/loadout_item/catbell_collar
+	name = "Catbell Collar"
+	path = /obj/item/clothing/neck/roguetown/catbellcollar
+
+/datum/loadout_item/cowbell_collar
+	name = "Cowbell Collar"
+	path = /obj/item/clothing/neck/roguetown/cowbellcollar
 
 /datum/loadout_item/cursed_collar
 	name = "Cursed Collar"
@@ -457,6 +461,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Noble's Chaperon"
 	path = /obj/item/clothing/head/roguetown/chaperon/noble
 
+/datum/loadout_item/feldcollar
+	name = "Feldcollar"
+	path = /obj/item/clothing/neck/roguetown/feldcollar
+
+/datum/loadout_item/surcollar
+	name = "Surgeon's Collar"
+	path = /obj/item/clothing/neck/roguetown/surcollar
+
 //Donator Section
 //All these items are stored in the donator_fluff.dm in the azure modular folder for simplicity.
 //All should be subtypes of existing weapons/clothes/armor/gear, whatever, to avoid balance issues I guess. Idk, I'm not your boss.
@@ -495,3 +507,15 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Donator Kit - Padded silky dress"
 	path = /obj/item/enchantingkit/zydras
 	ckeywhitelist = list("1ceres")
+
+/datum/loadout_item/rope_leash
+	name = "Rope Leash"
+	path = /obj/item/leash
+
+/datum/loadout_item/leather_leash
+	name = "Leather Leash"
+	path = /obj/item/leash/leather
+
+/datum/loadout_item/chain_leash
+	name = "Chain Leash"
+	path = /obj/item/leash/chain
