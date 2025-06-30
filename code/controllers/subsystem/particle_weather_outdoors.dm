@@ -6,32 +6,32 @@
 /datum/time_of_day/dawn
 	name = "Dawn"
 	color = list("#394579", "#49385d", "#3a1537")
-	start = 4 HOURS // 4:00:00 AM
+	start = 8 HOURS //8:00:00 AM
 
 /datum/time_of_day/sunrise
 	name = "Sunrise"
 	color = "#F598AB"
-	start = 6 HOURS  // 6:00:00 AM
+	start = 9.5 HOURS  //9:30:00 AM
 
 /datum/time_of_day/daytime
 	name = "Daytime"
 	color = list("#dbbfbf", "#ddd7bd", "#7a7a77", "#8b8f91", "#ae9dc6", "#d09fbf")
-	start = 7 HOURS // 7:00:00 AM
+	start = 10 HOURS //10:00:00 AM
 
 /datum/time_of_day/sunset
 	name = "Sunset"
 	color = "#ff8a63"
-	start = 18 HOURS // 6:00:00 PM
+	start = 15 HOURS //3:00:00 PM
 
 /datum/time_of_day/dusk
 	name = "Dusk"
 	color = list("#394579", "#49385d", "#302824")
-	start = 20 HOURS // 6:00:00 PM
+	start = 15.5 HOURS //3:30:00 PM
 
 /datum/time_of_day/midnight
 	name = "Midnight" // When to switch to moonlight.
 	color = list("#122325", "#122325", "#122325")	// There is a bug where it cycles through all these possible colors throughout midnight.
-	start = 22 HOURS // 10:00:00 PM		Midnight was at 4 PM. That's why this game is so frskin' dark all the time! Night lighting is now 8 hours, dusk-midnight-dawn. - Nikov
+	start = 16 HOURS //4:00:00 PM	Midnight was at 10:00:00PM. That's why the Antags and Rogues were so freakin' cucked all the time! They didn't have time to antag before being clearly visible in the daylight and being forced to hide and do nothing for half of the dae.
 
 GLOBAL_VAR_INIT(GLOBAL_LIGHT_RANGE, 3)
 GLOBAL_LIST_EMPTY(SUNLIGHT_QUEUE_WORK)   /* turfs to be stateChecked */
