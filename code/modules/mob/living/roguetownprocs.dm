@@ -496,17 +496,36 @@
 		H = src
 	if(ishuman(user))
 		UH = user
-		I = UH.used_intent.masteritem
+		if(UH.used_intent)
+			I = UH.used_intent.masteritem
 	var/prob2defend = U.defprob
 	if(L.rogfat >= L.maxrogfat)
 		return FALSE
+	var/has_heavy = FALSE
+	var/has_medium = FALSE
 	if(L)
-		if(HAS_TRAIT(H, TRAIT_DODGEEXPERT) && (H.wear_armor.armor_class == ARMOR_CLASS_HEAVY || H.wear_shirt.armor_class == ARMOR_CLASS_HEAVY || H.wear_pants.armor_class == ARMOR_CLASS_HEAVY))
-			prob2defend = prob2defend + (L.STASPD * 10)
-		else if(HAS_TRAIT(H, TRAIT_DODGEEXPERT) && (H.wear_armor.armor_class == ARMOR_CLASS_MEDIUM || H.wear_shirt.armor_class == ARMOR_CLASS_MEDIUM || H.wear_pants.armor_class == ARMOR_CLASS_MEDIUM))
-			prob2defend = prob2defend + (L.STASPD * 13)
-		else if(HAS_TRAIT(H, TRAIT_DODGEEXPERT))
-			prob2defend = prob2defend + (L.STASPD * 15)
+		if(H && HAS_TRAIT(H, TRAIT_DODGEEXPERT))
+			if(H.wear_armor && H.wear_armor.armor_class == ARMOR_CLASS_HEAVY)
+				has_heavy = TRUE
+			if(H.wear_shirt && H.wear_shirt.armor_class == ARMOR_CLASS_HEAVY)
+				has_heavy = TRUE
+			if(H.wear_pants && H.wear_pants.armor_class == ARMOR_CLASS_HEAVY)
+				has_heavy = TRUE
+			
+			if(!has_heavy)
+				if(H.wear_armor && H.wear_armor.armor_class == ARMOR_CLASS_MEDIUM)
+					has_medium = TRUE
+				if(H.wear_shirt && H.wear_shirt.armor_class == ARMOR_CLASS_MEDIUM)
+					has_medium = TRUE
+				if(H.wear_pants && H.wear_pants.armor_class == ARMOR_CLASS_MEDIUM)
+					has_medium = TRUE
+			
+			if(has_heavy)
+				prob2defend = prob2defend + (L.STASPD * 10)
+			else if(has_medium)
+				prob2defend = prob2defend + (L.STASPD * 13)
+			else
+				prob2defend = prob2defend + (L.STASPD * 15)
 		else
 			prob2defend = prob2defend + (L.STASPD * 10)
 	if(U)
