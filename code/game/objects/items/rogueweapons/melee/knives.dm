@@ -434,10 +434,10 @@
 	desc = "Paradoxical; why is it called a blade when it is meant for tossing? Or is it the act of cutting post-toss that makes it a blade? ...Are arrows tossblades, too?"
 	item_state = "bone_dagger"
 	force = 10
-	throwforce = 22
-	throw_speed = 4
+	throwforce = 15
+	throw_speed = 1.5
 	max_integrity = 50
-	armor_penetration = 30
+	armor_penetration = 0
 	wdefense = 1
 	icon_state = "throw_knifei"
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 25, "embedded_fall_chance" = 10)
@@ -460,15 +460,14 @@
 	desc = "A decrepit old tossblade. You ought to throw cutlery instead."
 	icon_state = "throw_knifea"
 	force = 7
-	throwforce = 16
+	throwforce = 13
 
 /obj/item/rogueweapon/huntingknife/throwingknife/steel
 	name = "steel tossblade"
 	desc = "There are rumors of some sea-marauders loading these into metal tubes with explosive powder to launch then fast and far. Probably won't catch on."
 	item_state = "bone_dagger"
-	throwforce = 28
 	max_integrity = 100
-	armor_penetration = 40
+	armor_penetration = 10
 	icon_state = "throw_knifes"
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 30, "embedded_fall_chance" = 5)
 	sellprice = 2
