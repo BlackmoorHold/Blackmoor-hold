@@ -132,7 +132,7 @@
 
 
 
-//NOC's Curse 
+//NOC's Curse
 
 /datum/curse/noc/on_life(mob/living/carbon/human/owner)
 	. = ..()
@@ -155,7 +155,7 @@
 //Pestra's Curse
 
 /datum/curse/pestra/on_life(mob/living/carbon/human/owner)
-	. = ..()		
+	. = ..()
 	if(owner.mob_timers["pestra_curse"])
 		if(world.time < owner.mob_timers["pestra_curse"] + rand(30,60)SECONDS)
 			return
@@ -167,5 +167,4 @@
 		if(2)
 			owner.Unconscious(20)
 		if(3)
-			owner.blur_eyes(10)					
-з
+			owner.blur_eyes(10)
