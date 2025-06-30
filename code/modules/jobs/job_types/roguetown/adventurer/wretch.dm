@@ -45,28 +45,46 @@
 	switch(affliction)
 		if("Vampire (-1 to all stats)")
 			var/datum/antagonist/vampire/lesser/antag = H.mind.add_antag_datum(/datum/antagonist/vampire/lesser)
-			if(antag) antag.wretch_antag = TRUE
-			to_chat(H, span_danger("The thirst for blood burns within you, but you are merely one of many cursed with vampirism."))
-			// Apply -1 to all stats
-			H.change_stat("strength", -1)
-			H.change_stat("perception", -1)
-			H.change_stat("intelligence", -1)
-			H.change_stat("constitution", -1)
-			H.change_stat("endurance", -1)
-			H.change_stat("speed", -1)
-			H.change_stat("fortune", -1)
+			if(antag)
+				var/mob/living/carbon/human/Hh = H
+				if(istype(Hh))
+					antag.cache_skin = Hh.skin_tone
+					antag.cache_eyes = Hh.eye_color
+					antag.cache_hair = Hh.hair_color
+				antag.wretch_antag = TRUE
+				antag.vitae = 5000 // Ensure vitae pool is set for wretch vampires
+				antag.owner = H.mind
+				H.verbs |= /mob/living/carbon/human/proc/disguise_button
+				H.verbs |= /mob/living/carbon/human/proc/vamp_regenerate
+				to_chat(H, span_danger("The thirst for blood burns within you, but you are merely one of many cursed with vampirism."))
+				// Add all vampire traits to wretch vampires
+				ADD_TRAIT(H, TRAIT_STRONGBITE, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_NOHUNGER, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_NOBREATH, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_NOPAIN, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_NOROGSTAM, TRAIT_GENERIC)
+				// Apply -1 to all stats
+				H.change_stat("strength", -1)
+				H.change_stat("perception", -1)
+				H.change_stat("intelligence", -1)
+				H.change_stat("constitution", -1)
+				H.change_stat("endurance", -1)
+				H.change_stat("speed", -1)
+				H.change_stat("fortune", -1)
 		if("Werewolf (-1 to all stats)")
 			var/datum/antagonist/werewolf/lesser/antag = H.mind.add_antag_datum(/datum/antagonist/werewolf/lesser)
-			if(antag) antag.wretch_antag = TRUE
-			to_chat(H, span_danger("The beast within yearns to be free. Your lycanthropic curse has made you a danger to all."))
-			// Apply -1 to all stats
-			H.change_stat("strength", -1)
-			H.change_stat("perception", -1)
-			H.change_stat("intelligence", -1)
-			H.change_stat("constitution", -1)
-			H.change_stat("endurance", -1)
-			H.change_stat("speed", -1)
-			H.change_stat("fortune", -1)
+			if(antag)
+				antag.wretch_antag = TRUE
+				antag.owner = H.mind
+				to_chat(H, span_danger("The beast within yearns to be free. Your lycanthropic curse has made you a danger to all."))
+				// Apply -1 to all stats
+				H.change_stat("strength", -1)
+				H.change_stat("perception", -1)
+				H.change_stat("intelligence", -1)
+				H.change_stat("constitution", -1)
+				H.change_stat("endurance", -1)
+				H.change_stat("speed", -1)
+				H.change_stat("fortune", -1)
 		if("None (+1 to all stats)")
 			// Apply +1 to all stats
 			H.change_stat("strength", 1)

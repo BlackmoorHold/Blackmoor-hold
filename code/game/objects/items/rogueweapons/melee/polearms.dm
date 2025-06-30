@@ -296,14 +296,18 @@
 
 
 /obj/item/rogueweapon/spear/psyspear
-	name = "Silver spear"
-	desc = "An ornate spear, plated in a ceremonial veneer of silver. The barbs pierce your palm, and - for just a moment - you see red. Never forget that you are why the ten wept."
+	name = "ornate spear"
+	desc = "An ornate spear, plated in a ceremonial veneer of silver. The barbs pierce your palm, and - for just a moment - you see red. Never forget that you are why the Ten wept."
 	icon_state = "psyspear"
 	resistance_flags = FIRE_PROOF	//It's meant to be smacked by a "lamptern", and is special enough to warrant overriding the spear weakness
 
 /obj/item/rogueweapon/spear/psyspear/ComponentInitialize()
 	. = ..()								//+3 force, +50 blade int, +50 int, +1 def, make silver
 	AddComponent(/datum/component/psyblessed, FALSE, 3, 50, 50, 1, TRUE)
+
+/obj/item/rogueweapon/spear/psyspear/preblessed/ComponentInitialize()
+	. = ..()								//Pre-blessed, +3 force, +50 blade int, +50 int, +1 def, make silver
+	AddComponent(/datum/component/psyblessed, TRUE, 3, 50, 50, 1, TRUE)
 
 /obj/item/rogueweapon/spear/getonmobprop(tag)
 	. = ..()
@@ -504,9 +508,9 @@
 									new A(user.loc)
 									to_chat(user, "<span class='warning'>Pull 'em in!</span>")
 									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE) // Level up!
-									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)	
+									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)
 							else
-								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")								
+								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")
 						if(target.type in salwt)
 							var/A = pickweight(seafishloot)
 							var/ow = 30 + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
@@ -524,9 +528,9 @@
 									new A(user.loc)
 									to_chat(user, "<span class='warning'>Pull 'em in!</span>")
 									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE) // Level up!
-									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)	
+									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)
 							else
-								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")							
+								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")
 						if(target.type in mud)
 							var/A = pickweight(mudfishloot)
 							var/ow = 30 + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
@@ -697,6 +701,10 @@
 	icon_state = "psyhalberd"
 
 /obj/item/rogueweapon/halberd/psyhalberd/ComponentInitialize()
+	. = ..()				//+5 force, +100 blade int, +100 int, +2 def, make silver.
+	AddComponent(/datum/component/psyblessed, FALSE, 5, 100, 100, 2, TRUE)
+
+/obj/item/rogueweapon/halberd/psyhalberd/preblessed/ComponentInitialize()
 	. = ..()				//Pre-blessed, +5 force, +100 blade int, +100 int, +2 def, make silver.
 	AddComponent(/datum/component/psyblessed, TRUE, 5, 100, 100, 2, TRUE)
 
@@ -717,9 +725,9 @@
 		switch(tag)
 			if("gen")
 				return list("shrink" = 0.6,"sx" = -7,"sy" = 2,"nx" = 7,"ny" = 3,"wx" = -2,"wy" = 1,"ex" = 1,"ey" = 1,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -38,"sturn" = 37,"wturn" = 30,"eturn" = -30,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
-			if("wielded") 
+			if("wielded")
 				return list("shrink" = 0.6,"sx" = 3,"sy" = 4,"nx" = -1,"ny" = 4,"wx" = -8,"wy" = 3,"ex" = 7,"ey" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 15,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
-			if("onback") 
+			if("onback")
 				return list("shrink" = 0.5,"sx" = -1,"sy" = 2,"nx" = 0,"ny" = 2,"wx" = 2,"wy" = 1,"ex" = 0,"ey" = 1,"nturn" = 0,"sturn" = 0,"wturn" = 70,"eturn" = 15,"nflip" = 1,"sflip" = 1,"wflip" = 1,"eflip" = 1,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
 
 
@@ -895,6 +903,10 @@
 	icon_state = "psygsword"
 
 /obj/item/rogueweapon/greatsword/psygsword/ComponentInitialize()
+	. = ..()					//+100 Blade int, +100 int, +2 def, make it silver
+	AddComponent(/datum/component/psyblessed, FALSE, 5, 100, 100, 2, TRUE)
+
+/obj/item/rogueweapon/greatsword/psygsword/preblessed/ComponentInitialize()
 	. = ..()					//Pre-blessed, +100 Blade int, +100 int, +2 def, make it silver
 	AddComponent(/datum/component/psyblessed, TRUE, 5, 100, 100, 2, TRUE)
 
@@ -1077,7 +1089,7 @@
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	icon_state = "lance"
 	force = 5 // This isn't meant to be used one-handed. (You can't parry on a horse anyway)
-	force_wielded = 20 // Lower damage because a 3 tiles thrust without full charge time still deals base damage. 
+	force_wielded = 20 
 	wdefense = 2 // If you have to parry with this unwieldy thing to begin with, oofh, besides you can't parry on horseback anyhow.
 	max_integrity = 200
 	max_blade_int = 200 // Better sharpness.

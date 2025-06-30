@@ -489,6 +489,12 @@
 	icon_state = "rustkey"
 	lockid = "inhumen"
 
+/obj/item/roguekey/psydonite
+	name = "ancient key"
+	desc = "An ancient key. A faint, almost impossible to distinguish sound echoes from within."
+	icon_state = "birdkey"
+	lockid = "psydonite"
+
 /obj/item/roguekey/hand
 	name = "hand's key"
 	desc = "This regal key belongs to the Grand Duke's Right Hand."

@@ -18,11 +18,30 @@
 					owner.current.playsound_local(get_turf(owner.current), 'sound/music/wolfintro.ogg', 80, FALSE, pressure_affected = FALSE)
 					H.flash_fullscreen("redflash3")
 					transforming = world.time // timer
-
+					
+					
 	// Begin transformation
 	else if(transforming)
 		if (world.time >= transforming + 35 SECONDS) // Stage 3
-			H.werewolf_transform()
+			 //checks if the person has genitals, for sprites.
+			var/obj/item/organ/penis/penis = H.getorganslot(ORGAN_SLOT_PENIS)
+			var/obj/item/organ/breasts/breasts = H.getorganslot(ORGAN_SLOT_BREASTS)
+			var/obj/item/organ/vagina/vagina = H.getorganslot(ORGAN_SLOT_VAGINA)
+			if(penis && !breasts && !vagina) //basic male
+				wwgenitals = "gen_M"
+			else if(!penis && breasts && vagina) //basic female
+				wwgenitals = "gen_F"
+			else if (penis && breasts && !vagina) //dicked female without vagina
+				wwgenitals = "gen_G"
+			else if (penis && vagina) //dicked female with vagina
+				wwgenitals = "gen_H"
+			else if (!penis && ! breasts && vagina) //andromorph
+				wwgenitals = "gen_A"
+			else //you got no tools, sorry
+				wwgenitals = "gen_N"
+			if(breasts)
+				wwbreastsize = breasts.breast_size
+			H.werewolf_transform(wwgenitals, wwbreastsize)
 			transforming = FALSE
 			transformed = TRUE // Mark as transformed
 
@@ -61,7 +80,7 @@
 /mob/living/carbon/human/species/werewolf/death(gibbed, nocutscene = FALSE)
 	werewolf_untransform(TRUE, gibbed)
 
-/mob/living/carbon/human/proc/werewolf_transform()
+/mob/living/carbon/human/proc/werewolf_transform(wwgenitals, wwbreastsize)
 	if(!mind)
 		log_runtime("NO MIND ON [src.name] WHEN TRANSFORMING")
 	Paralyze(1, ignore_canstun = TRUE)
@@ -77,6 +96,12 @@
 //	stop_cmusic()
 
 	src.fully_heal(FALSE)
+	
+	// Regenerate limbs for wretch werewolves
+	var/datum/antagonist/werewolf/wolf_antag = mind.has_antag_datum(/datum/antagonist/werewolf)
+	if(wolf_antag && wolf_antag.wretch_antag)
+		regenerate_limbs()
+		to_chat(src, span_notice("My lost limbs regenerate as I transform!"))
 	
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
 	if(eyes)
@@ -153,6 +178,64 @@
 	ADD_TRAIT(W, TRAIT_PIERCEIMMUNE, TRAIT_GENERIC)
 	ADD_TRAIT(W, TRAIT_SPELLCOCKBLOCK, TRAIT_GENERIC)
 	ADD_TRAIT(W, TRAIT_LONGSTRIDER, TRAIT_GENERIC)
+
+
+	if(wwgenitals == "gen_M") //basic male
+		var/obj/item/organ/penis/penis = W.getorganslot(ORGAN_SLOT_PENIS)
+		penis = new /obj/item/organ/penis/knotted/big
+		penis.Insert(W, TRUE)
+
+		var/obj/item/organ/testicles/testicles = W.getorganslot(ORGAN_SLOT_TESTICLES)
+		testicles = new /obj/item/organ/testicles
+		testicles.Insert(W, TRUE)
+
+	else if(wwgenitals == "gen_F") //basic female
+		var/obj/item/organ/vagina/vagina = W.getorganslot(ORGAN_SLOT_VAGINA)
+		vagina = new /obj/item/organ/vagina
+		vagina.Insert(W, TRUE)
+
+		var/obj/item/organ/breasts/breasts = W.getorganslot(ORGAN_SLOT_BREASTS)
+		breasts = new /obj/item/organ/breasts
+		breasts.breast_size = wwbreastsize
+		breasts.Insert(W, TRUE)
+
+	else if(wwgenitals == "gen_G") //dicked female without vagina
+		var/obj/item/organ/breasts/breasts = W.getorganslot(ORGAN_SLOT_BREASTS)
+		breasts = new /obj/item/organ/breasts
+		breasts.breast_size = wwbreastsize
+		breasts.Insert(W, TRUE)
+
+		var/obj/item/organ/penis/penis = W.getorganslot(ORGAN_SLOT_PENIS)
+		penis = new /obj/item/organ/penis/knotted/big
+		penis.Insert(W, TRUE)
+
+		var/obj/item/organ/testicles/testicles = W.getorganslot(ORGAN_SLOT_TESTICLES)
+		testicles = new /obj/item/organ/testicles
+		testicles.Insert(W, TRUE)
+
+	else if(wwgenitals == "gen_H") //dicked female with vagina
+		var/obj/item/organ/vagina/vagina = W.getorganslot(ORGAN_SLOT_VAGINA)
+		vagina = new /obj/item/organ/vagina
+		vagina.Insert(W, TRUE)
+
+		var/obj/item/organ/breasts/breasts = W.getorganslot(ORGAN_SLOT_BREASTS)
+		breasts = new /obj/item/organ/breasts
+		breasts.breast_size = wwbreastsize
+		breasts.Insert(W, TRUE)
+
+		var/obj/item/organ/penis/penis = W.getorganslot(ORGAN_SLOT_PENIS)
+		penis = new /obj/item/organ/penis/knotted/big
+		penis.Insert(W, TRUE)
+
+		var/obj/item/organ/testicles/testicles = W.getorganslot(ORGAN_SLOT_TESTICLES)
+		testicles = new /obj/item/organ/testicles
+		testicles.Insert(W, TRUE)
+
+	else if(wwgenitals == "gen_A") //andromorph
+		var/obj/item/organ/vagina/vagina = W.getorganslot(ORGAN_SLOT_VAGINA)
+		vagina = new /obj/item/organ/vagina
+		vagina.Insert(W, TRUE)
+	
 
 	invisibility = oldinv
 

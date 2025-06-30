@@ -11,7 +11,7 @@
 #define ARMOR_CLOTHING list("blunt" = 0, "slash" = 10, "stab" = 20, "piercing" = 0, "fire" = 0, "acid" = 0)
 #define ARMOR_PADDED_GOOD list("blunt" = 80, "slash" = 40, "stab" = 40, "piercing" = 40, "fire" = 0, "acid" = 0)
 #define ARMOR_PADDED list("blunt" = 60, "slash" = 30, "stab" = 30, "piercing" = 20, "fire" = 0, "acid" = 0)
-#define ARMOR_PADDED_BAD list("blunt" = 40, "slash" = 20, "stab" = 20, "piercing" = 20, "fire" = 0, "acid" = 0)
+#define ARMOR_PADDED_BAD list("blunt" = 40, "slash" = 20, "stab" = 20, "piercing" = 20, "fire" = 0, "acid" = 0)	
 
 #define ARMOR_LEATHER list("blunt" = 60, "slash" = 40, "stab" = 40, "piercing" = 20, "fire" = 0, "acid" = 0)
 #define ARMOR_LEATHER_GOOD list("blunt" = 80, "slash" = 50, "stab" = 50, "piercing" = 30, "fire" = 0, "acid" = 0)
@@ -132,32 +132,36 @@
     /datum/species/dwarf/mountain,\
 
 #define RACES_NEUTRAL \
-    /datum/species/construct/metal,\
     /datum/species/aasimar,\
+	/datum/species/construct/metal,\
 
 #define RACES_SHUNNED \
     /datum/species/vulpkanin,\
     /datum/species/lupian,\
-    /datum/species/anthromorphsmall,\
-    /datum/species/kobold,\
     /datum/species/moth,\
     /datum/species/anthromorph,\
     /datum/species/tabaxi,\
     /datum/species/lizardfolk,\
     /datum/species/dracon,\
     /datum/species/akula,\
+	/datum/species/kobold,\
+	/datum/species/anthromorphsmall,\
 
 #define RACES_DESPISED \
-    /datum/species/goblinp,\
     /datum/species/halforc,\
     /datum/species/tieberian,\
     /datum/species/elf/dark,\
+	/datum/species/goblinp,\
 
 #define RACES_CONSTRUCT \
 	/datum/species/construct/metal,\
 
-#define RACES_AASIMAR \
-	/datum/species/aasimar,\
+#define RACES_VERMIN \
+	/datum/species/kobold,\
+	/datum/species/anthromorphsmall,\
+
+#define RACES_GOBLIN \
+	/datum/species/goblinp,\
 
 #define RACES_RESPECTED_UP list(RACES_RESPECTED)
 
@@ -169,11 +173,10 @@
 
 #define RACES_DESPIED_UP list(RACES_RESPECTED, RACES_TOLERATED, RACES_NEUTRAL, RACES_SHUNNED, RACES_DESPISED)
 
-#define RACES_ALL_KINDS list(RACES_DESPISED, RACES_SHUNNED, RACES_NEUTRAL, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT)
+#define RACES_ALL_KINDS list(RACES_DESPISED, RACES_SHUNNED, RACES_NEUTRAL, RACES_TOLERATED, RACES_RESPECTED)
 
-#define RACES_NO_CONSTRUCT list(RACES_DESPISED, RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_AASIMAR)
-
-#define RACES_NEUTRAL_UP_NO_CONSTRUCT list(RACES_RESPECTED, RACES_TOLERATED, RACES_AASIMAR)
+// if you decide to exclude a race from a role, either use these classifications
+// or make a new sub-list and put it in a disallowed race list per role
 
 #define NOBLE_RACES_TYPES list(\
 	/datum/species/human/northern,\

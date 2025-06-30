@@ -27,10 +27,10 @@
 /obj/projectile/magic/aoe/fireball/rogue
 	name = "fireball"
 	exp_heavy = 0
-	exp_light = 0
-	exp_flash = 0
+	exp_light = 1
+	exp_flash = 2
 	exp_fire = 1
-	damage = 10
+	damage = 35
 	damage_type = BURN
 	accuracy = 40 // Base accuracy is lower for burn projectiles because they bypass armor
 	nodamage = FALSE
@@ -42,9 +42,13 @@
 /obj/projectile/magic/aoe/fireball/rogue/on_hit(target)
 	. = ..()
 	if(ismob(target))
-		var/mob/M = target
+		var/mob/living/M = target
 		if(M.anti_magic_check())
 			visible_message(span_warning("[src] fizzles on contact with [target]!"))
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK
+		else
+			M.adjust_fire_stacks(5) //Compensates for it losing instant death capabilities
+			M.IgniteMob()
+

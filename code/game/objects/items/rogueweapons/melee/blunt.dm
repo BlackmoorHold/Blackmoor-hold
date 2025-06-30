@@ -112,7 +112,7 @@
 /obj/item/rogueweapon/mace/equipped(mob/user, slot, initial = FALSE)
 	pickup_sound = pick("modular_helmsguard/sound/sheath_sounds/draw_blunt.ogg", "modular_helmsguard/sound/sheath_sounds/draw_mace.ogg", "modular_helmsguard/sound/sheath_sounds/draw_blunt2.ogg")
 	. = ..()
-	
+
 /obj/item/rogueweapon/mace/getonmobprop(tag)
 	. = ..()
 	if(tag)
@@ -424,7 +424,7 @@
 
 
 /obj/item/rogueweapon/mace/goden/psymace
-	name = "Silver mace"
+	name = "ornate mace"
 	desc = "An ornate mace, plated in a ceremonial veneer of silver. Even the unholy aren't immune to discombobulation."
 	icon_state = "psymace"
 	force = 25
@@ -437,6 +437,10 @@
 /obj/item/rogueweapon/mace/goden/psymace/ComponentInitialize()
 	. = ..()								//+3 force, +50 int, +1 def, make silver
 	AddComponent(/datum/component/psyblessed, FALSE, 3, FALSE, 50, 1, TRUE)
+
+/obj/item/rogueweapon/mace/goden/psymace/preblessed/ComponentInitialize()
+	. = ..()								//Pre-blessed, +3 force, +50 int, +1 def, make silver
+	AddComponent(/datum/component/psyblessed, TRUE, 3, FALSE, 50, 1, TRUE)
 
 /obj/item/rogueweapon/mace/spiked
 	icon_state = "spiked_club"

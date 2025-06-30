@@ -816,15 +816,19 @@
 	density = TRUE
 
 /obj/structure/fluff/statue/psy
+	name = "silver statue"
+	desc = "A statue of impure alloy. A mixture of silver-and-steel, cast in the image of Psydon himself. \
+	A lifetime of work for a long forgotten craftsman."
 	icon_state = "psy"
 	icon = 'icons/roguetown/misc/96x96.dmi'
 	pixel_x = -32
 
 /obj/structure/fluff/statue/psybloody
+	name = "silver statue"
+	desc = "He weeps, for He knows what you must endure in His name."
 	icon_state = "psy_bloody"
 	icon = 'icons/roguetown/misc/96x96.dmi'
 	pixel_x = -32
-
 
 /obj/structure/fluff/statue/small
 	icon = 'icons/roguetown/misc/structure.dmi'

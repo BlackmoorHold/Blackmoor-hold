@@ -1862,7 +1862,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		burn_damage = burn_damage * heatmod * H.physiology.heat_mod
 		if (H.stat < UNCONSCIOUS && (prob(burn_damage) * 10) / 4) //40% for level 3 damage on humans
 			H.emote("pain")
-		H.apply_damage(burn_damage, BURN, spread_damage = TRUE)
+		H.apply_damage(CLAMP(burn_damage, 0, 25), BURN, spread_damage = TRUE) //Azure buffing fireball then forgetting to cap burn damage, classic L
 
 	else if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "hot")

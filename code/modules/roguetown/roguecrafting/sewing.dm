@@ -1130,20 +1130,22 @@ datum/crafting_recipe/roguetown/sewing/Purdress
 				/obj/item/natural/fibers = 4)
 	craftdiff = 2
 
-/datum/crafting_recipe/roguetown/sewing/surgcollar
-	name = "surgeon's collar (1 fibers, 1 cloth)"
-	result = list(/obj/item/clothing/neck/roguetown/collar/surgcollar)
-	reqs = list(/obj/item/natural/cloth = 1, /obj/item/natural/fibers = 1)
-	craftdiff = 1
-
-/datum/crafting_recipe/roguetown/sewing/feldcollar
-	name = "feldsher's collar (1 fibers, 1 cloth)"
-	result = list(/obj/item/clothing/neck/roguetown/collar/feldcollar)
-	reqs = list(/obj/item/natural/cloth = 1, /obj/item/natural/fibers = 1)
-	craftdiff = 1
-  
 /datum/crafting_recipe/roguetown/hunting/lleash
 	name = "leather leash"
 	result = /obj/item/leash/leather
 	reqs = list(/obj/item/natural/hide/cured = 1)
 	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/sewing/feldcollar
+	name = "feldcollar (1 fibers, 1 cloth)"
+	result = list(/obj/item/clothing/neck/roguetown/feldcollar)
+	reqs = list(/obj/item/natural/cloth = 1, /obj/item/natural/fibers = 1)
+	tools = list(/obj/item/needle)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/sewing/surcollar
+	name = "surgeon's collar (1 fibers, 1 cloth)"
+	result = list(/obj/item/clothing/neck/roguetown/surcollar)
+	reqs = list(/obj/item/natural/cloth = 1, /obj/item/natural/fibers = 1)
+	tools = list(/obj/item/needle)
+	craftdiff = 1
