@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/obj/effect/proc_holder/spell/invoked/p
 		/obj/effect/proc_holder/spell/invoked/forcewall,
 		/obj/effect/proc_holder/spell/invoked/ensnare,
 		/obj/effect/proc_holder/spell/self/message,
+		/obj/effect/proc_holder/spell/self/recall,
 		/obj/effect/proc_holder/spell/invoked/repulse,
 		/obj/effect/proc_holder/spell/invoked/blade_burst,
 		/obj/effect/proc_holder/spell/targeted/touch/nondetection,
