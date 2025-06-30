@@ -78,6 +78,10 @@
 		if(target == user)
 			revert_cast()
 			return FALSE
+		if(HAS_TRAIT(target, TRAIT_NECRA_CURSE))
+			to_chat(user, span_warning("[target] cannot be returned. Mark of Necra prevents it."))
+			revert_cast()
+			return FALSE
 		if(target.stat < DEAD)
 			to_chat(user, span_warning("Nothing happens."))
 			revert_cast()
