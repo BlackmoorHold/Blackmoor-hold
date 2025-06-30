@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(heretical_players)
                     else if (istype(H.patron, /datum/patron/inhumen))
                         H.add_stress(/datum/stressevent/gazeuponme)
                         H.apply_status_effect(/datum/status_effect/buff/gazeuponme)
-                        to_chat(H, span_notice("Your inhuman patron embraces your rejection from the faith."))
+                        to_chat(H, span_notice("Your inhuman patron embraces your rejection from the Ten."))
                     else
                         continue
 
@@ -219,79 +219,94 @@ GLOBAL_LIST_EMPTY(heretical_players)
 
     var/inputty = input("Put an apostasy on someone, removing their ability to use miracles... (apostasy them again to remove it)", "Sinner Name") as text|null
 
-    if (inputty)
-        if (!istype(get_area(src), /area/rogue/indoors/town/church/chapel))
-            to_chat(src, span_warning("I need to do this from the Church's chapel."))
-            return FALSE
+    if (!inputty)
+        return
 
-        if (inputty in GLOB.apostasy_players)
-            GLOB.apostasy_players -= inputty
-            priority_announce("[real_name] has forgiven [inputty]. Their patron hears their prayer once more!", title = "Hail the Ten!", sound = 'sound/misc/bell.ogg')
+    if (!istype(get_area(src), /area/rogue/indoors/town/church/chapel))
+        to_chat(src, span_warning("I need to do this from the Church's chapel."))
+        return FALSE
 
-            for (var/mob/living/carbon/human/H in GLOB.player_list)
-                if (H.real_name == inputty && istype(H.patron, /datum/patron/divine))
+    if (inputty in GLOB.apostasy_players)
+        GLOB.apostasy_players -= inputty
+        priority_announce("[real_name] has forgiven [inputty]. Their patron hears their prayer once more!", title = "Hail the Ten!", sound = 'sound/misc/bell.ogg')
+
+        for (var/mob/living/carbon/human/H in GLOB.player_list)
+            if (H.real_name == inputty)
+                if (istype(H.patron, /datum/patron/divine) && H.devotion)
                     H.devotion.recommunicate()
                     H.remove_status_effect(/datum/status_effect/debuff/apostasy)
                     H.remove_stress(/datum/stressevent/apostasy)
 
-            return
+        return
+    var/found = FALSE
 
-        var/found = FALSE
+    for (var/mob/living/carbon/human/H in GLOB.player_list)
+        if (H.real_name == inputty)
+            found = TRUE
+            GLOB.apostasy_players += inputty
 
-        for (var/mob/living/carbon/human/H in GLOB.player_list)
-            if (H.real_name == inputty && istype(H.patron, /datum/patron/divine))
-                found = TRUE
+            if (istype(H.patron, /datum/patron/divine) && H.devotion)
                 H.devotion.excommunicate()
                 H.apply_status_effect(/datum/status_effect/debuff/apostasy)
                 H.add_stress(/datum/stressevent/apostasy)
+                to_chat(H, span_warning("A holy silence falls upon you. Your Patron cannot hear you anymore..."))
+            else
+                to_chat(H, span_warning("A holy silence falls upon you..."))
 
-        if (!found)
-            return FALSE
+    if (!found)
+        return FALSE
 
         GLOB.apostasy_players += inputty
         priority_announce("[real_name] has placed apostasy's mark upon [inputty]!", title = "SHAME", sound = 'sound/misc/excomm.ogg')
 
 
 /mob/living/carbon/human/proc/completesermon()
-    set name = "Sermon"
-    set category = "Priest"
+	set name = "Sermon"
+	set category = "Priest"
 
-    if (!mind)
-        return
+	if (!mind)
+		return
 
-    if (!istype(get_area(src), /area/rogue/indoors/town/church/chapel))
-        to_chat(src, span_warning("I need to do this in the chapel."))
-        return FALSE
+	if (!istype(get_area(src), /area/rogue/indoors/town/church/chapel))
+		to_chat(src, span_warning("I need to do this in the chapel."))
+		return FALSE
 
-    src.visible_message(span_notice("[src] begins preaching a sermon..."))
+	src.visible_message(span_notice("[src] begins preaching a sermon..."))
 
-    if (!do_after(src, 1200, target = src)) // 120 seconds
-        src.visible_message(span_warning("[src] stops preaching."))
-        return
+	if (!do_after(src, 5, target = src)) // 5 seconds
+		src.visible_message(span_warning("[src] stops preaching."))
+		return
 
-    src.visible_message(span_notice("[src] finishes the sermon, inspiring those nearby!"))
+	src.visible_message(span_notice("[src] finishes the sermon, inspiring those nearby!"))
 
-    for (var/mob/living/carbon/human/H in view(7, src))
-        if (H.patron)
-            if (istype(H.patron, /datum/patron/divine))
-                H.add_stress(/datum/stressevent/heretic_on_sermon)
-                to_chat(H, span_notice("You feel a divine affirmation from your patron."))
-            else if (istype(H.patron, /datum/patron/inhumen))
-                H.add_stress(/datum/stressevent/heretic_on_sermon)
-                to_chat(H, span_warning("Your patron seethes with disapproval."))
-            else
-                continue
+	for (var/mob/living/carbon/human/H in view(7, src))
+		if (!H.patron)
+			continue
 
-    return TRUE
+		if (istype(H.patron, /datum/patron/divine))
+			H.apply_status_effect(/datum/status_effect/buff/sermon)
+			H.add_stress(/datum/stressevent/sermon)
+			to_chat(H, span_notice("You feel a divine affirmation from your patron."))
+
+		else if (istype(H.patron, /datum/patron/inhumen))
+			H.apply_status_effect(/datum/status_effect/debuff/hereticsermon)
+			H.add_stress(/datum/stressevent/heretic_on_sermon)
+			to_chat(H, span_warning("Your patron seethes with disapproval."))
+
+		else
+			// Other patrons - fluff only
+			to_chat(H, span_notice("Nothing seems to happen to you."))
+
+	return TRUE
 
 /mob/living/carbon/human/proc/churchpriestcurse()
-    set name = "Curse Someone"
+    set name = "Divine punishment"
     set category = "Priest"
 
     if (stat)
         return
 
-    if (world.time < last_curse_time + 12000) // 1200 seconds = 20 minutes
+    if (world.time < last_curse_time + 5) // 1200 seconds = 20 minutes
         to_chat(src, span_warning("You must wait before invoking divine punishment again."))
         return
 
@@ -300,11 +315,8 @@ GLOBAL_LIST_EMPTY(heretical_players)
         return
 
     var/list/curse_choices = list(
-        "Astrata's Curse" = /datum/curse/astrata,
-        "Noc's Curse" = /datum/curse/noc,
         "Ravox's Curse" = /datum/curse/ravox,
         "Necra's Curse" = /datum/curse/necra,
-        "Xylix's Curse" = /datum/curse/xylix,
         "Pestra's Curse" = /datum/curse/pestra,
         "Eora's Curse" = /datum/curse/eora,
         "Abyssor's Curse" = /datum/curse/abyssor,

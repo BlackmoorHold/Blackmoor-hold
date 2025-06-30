@@ -572,12 +572,6 @@
 			if(hud_used.cmode_button)
 				hud_used.cmode_button.update_icon()
 		return
-	
-	// === Ravox's Curse prevents combat mode ===
-	if(!cmode && HAS_TRAIT(src, TRAIT_RAVOX_CURSE))
-		to_chat(src, span_warning("You feel an overwhelming aversion to violence..."))
-		return
-
 	if(cmode)
 		playsound_local(src, 'sound/misc/comboff.ogg', 100)
 		SSdroning.play_area_sound(get_area(src), client)

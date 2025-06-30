@@ -117,20 +117,18 @@
 	if (!HAS_TRAIT(owner, TRAIT_ASTRATA_CURSE))
 		return
 
-	if (world.time % 5)
-		if (GLOB.tod != "night") // 
-			if (isturf(owner.loc))
-				var/turf/T = owner.loc
-				if (T.can_see_sky())
-					if (T.get_lumcount() > 0.15) // minecraft light meme
-						owner.adjust_fire_stacks(5)
-						owner.IgniteMob()
-						owner.visible_message(
-							span_warning("[owner] sizzles painfully under Astrata's holy light!"),
-							span_danger("The sun burns my cursed flesh!")
-						)
-						owner.freak_out()
-						owner.playsound_local(T, 'sound/magic/churn.ogg', 80, FALSE, pressure_affected = FALSE)
+	if (GLOB.tod != "night") // только днём
+		if (isturf(owner.loc))
+			var/turf/T = owner.loc
+			if (T.can_see_sky() && T.get_lumcount() > 0.15)
+				owner.adjust_fire_stacks(5)
+				owner.IgniteMob()
+				owner.visible_message(
+					span_warning("[owner] sizzles painfully under Astrata's holy light!"),
+					span_danger("The sun burns my cursed flesh!")
+				)
+				owner.freak_out()
+				owner.playsound_local(T, 'sound/magic/churn.ogg', 80, FALSE, pressure_affected = FALSE)
 
 
 
@@ -146,7 +144,7 @@
 
 	if (isturf(owner.loc))
 		var/turf/T = owner.loc
-		if (T.get_lumcount() < 0.2) // too dark
+		if (T.get_lumcount() < 0.2)
 			owner.adjustToxLoss(10, 0)
 			owner.visible_message(
 				span_warning("[owner] writhes in pain from Noc's shadowy curse!"),
@@ -162,16 +160,12 @@
 		if(world.time < owner.mob_timers["pestra_curse"] + rand(30,60)SECONDS)
 			return
 	owner.mob_timers["pestra_curse"] = world.time
-	var/effect = rand(1, 4)
+	var/effect = rand(1, 3)
 	switch(effect)
 		if(1)
 			owner.vomit()
 		if(2)
 			owner.Unconscious(20)
 		if(3)
-			owner.blur_eyes(10)
-		if(4)
-			var/obj/item/bodypart/BP = pick(owner.bodyparts)
-			BP.rotted = TRUE
-			owner.playsound_local(get_turf(owner), 'sound/foley/butcher.ogg', 80, FALSE, pressure_affected = FALSE)
-			owner.regenerate_icons()						
+			owner.blur_eyes(10)					
+з
