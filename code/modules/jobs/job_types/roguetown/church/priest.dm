@@ -211,55 +211,55 @@ GLOBAL_LIST_EMPTY(heretical_players)
 		priority_announce("[inputty]", title = "The Priest Speaks", sound = 'sound/misc/bell.ogg')
 
 /mob/living/carbon/human/proc/churcheapostasy()
-    set name = "Apostasy"
-    set category = "Priest"
+	set name = "Apostasy"
+	set category = "Priest"
 
-    if (stat)
-        return
+	if (stat)
+		return
 
-    var/inputty = input("Put an apostasy on someone, removing their ability to use miracles... (apostasy them again to remove it)", "Sinner Name") as text|null
+	var/inputty = input("Put an apostasy on someone, removing their ability to use miracles... (apostasy them again to remove it)", "Sinner Name") as text|null
 
-    if (!inputty)
-        return
+	if (!inputty)
+		return
 
-    if (!istype(get_area(src), /area/rogue/indoors/town/church/chapel))
-        to_chat(src, span_warning("I need to do this from the Church's chapel."))
-        return FALSE
+	if (!istype(get_area(src), /area/rogue/indoors/town/church/chapel))
+		to_chat(src, span_warning("I need to do this from the Church's chapel."))
+		return FALSE
 
-    if (inputty in GLOB.apostasy_players)
-        GLOB.apostasy_players -= inputty
-        priority_announce("[real_name] has forgiven [inputty]. Their patron hears their prayer once more!", title = "Hail the Ten!", sound = 'sound/misc/bell.ogg')
+	if (inputty in GLOB.apostasy_players)
+		GLOB.apostasy_players -= inputty
+		priority_announce("[real_name] has forgiven [inputty]. Their patron hears their prayer once more!", title = "Hail the Ten!", sound = 'sound/misc/bell.ogg')
 
-        for (var/mob/living/carbon/human/H in GLOB.player_list)
-            if (H.real_name == inputty)
-                if (istype(H.patron, /datum/patron/divine) && H.devotion)
-                    H.devotion.recommunicate()
-                    H.remove_status_effect(/datum/status_effect/debuff/apostasy)
-                    H.remove_stress(/datum/stressevent/apostasy)
+		for (var/mob/living/carbon/human/H in GLOB.player_list)
+			if (H.real_name == inputty)
+				if (istype(H.patron, /datum/patron/divine) && H.devotion)
+					H.devotion.recommunicate()
+					H.remove_status_effect(/datum/status_effect/debuff/apostasy)
+					H.remove_stress(/datum/stressevent/apostasy)
 
-        return
-    var/found = FALSE
+		return TRUE
 
-    for (var/mob/living/carbon/human/H in GLOB.player_list)
-        if (H.real_name == inputty)
-            found = TRUE
-            GLOB.apostasy_players += inputty
+	var/found = FALSE
 
-            if (istype(H.patron, /datum/patron/divine) && H.devotion)
-                H.devotion.excommunicate()
-                H.apply_status_effect(/datum/status_effect/debuff/apostasy)
-                H.add_stress(/datum/stressevent/apostasy)
-                to_chat(H, span_warning("A holy silence falls upon you. Your Patron cannot hear you anymore..."))
-            else
-                to_chat(H, span_warning("A holy silence falls upon you..."))
+	for (var/mob/living/carbon/human/H in GLOB.player_list)
+		if (H.real_name == inputty)
+			found = TRUE
+			GLOB.apostasy_players += inputty
 
-    if (!found)
-        return FALSE
+			if (istype(H.patron, /datum/patron/divine) && H.devotion)
+				H.devotion.excommunicate()
+				H.apply_status_effect(/datum/status_effect/debuff/apostasy)
+				H.add_stress(/datum/stressevent/apostasy)
+				to_chat(H, span_warning("A holy silence falls upon you. Your Patron cannot hear you anymore..."))
+			else
+				to_chat(H, span_warning("A holy silence falls upon you..."))
 
-        GLOB.apostasy_players += inputty
-        priority_announce("[real_name] has placed apostasy's mark upon [inputty]!", title = "SHAME", sound = 'sound/misc/excomm.ogg')
+			priority_announce("[real_name] has cast apostasy upon [inputty]. Their prayers fall on deaf ears.", title = "SHAME", sound = 'sound/misc/excomm.ogg')
+			return TRUE
 
-
+	if (!found)
+		return FALSE
+		
 /mob/living/carbon/human/proc/completesermon()
 	set name = "Sermon"
 	set category = "Priest"
