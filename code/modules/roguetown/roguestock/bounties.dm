@@ -5,8 +5,8 @@
 	Any item worth more than 30 mammons is accepted,\
 	and statues, cups, rings, platters, and candlesticks are always accepted\
 	regardless of value."
-	item_type = /obj/item
-	payout_price = 10
+	item_type = /obj
+	payout_price = 40
 	mint_item = TRUE
 	percent_bounty = TRUE
 
@@ -20,18 +20,24 @@
 	return bounty_percent
 
 /* Non-Ideal but a way to replicate old vault mechanics:
-	- Weapons, Ore and Clothing are always not accepted as a lot of them are
-	  key items. 
-	- Statue, cups, ring, platter and candlesticks will always be allowed
-	- Otherwise, anything above 30 value can get eaten. 
+	- Ore are not accepted
+	- Items that are important are not accepted.
+	- Statue, cups, ring, platter and candles  will always be allowed
+	- Otherwise, anything above 30 value can get eaten.
 */
-/datum/roguestock/bounty/treasure/check_item(obj/item/I)
+/datum/roguestock/bounty/treasure/check_item(obj/I)
 	if(!I)
 		return
-	if(istype(I, /obj/item/rogueweapon))
-		return FALSE
+	if(istype(I, /obj/item))
+		var/obj/item/W = I
+		if(W.is_important)
+			return FALSE
 	if(istype(I, /obj/item/rogueore))
 		return FALSE
+	if(istype(I, /obj/item/bodypart/head))
+		return FALSE // Thats the HEADEATER's job
+	if(istype(I, /obj/item/natural/head))
+		return FALSE  // Thats the HEADEATER's job
 	if(I.get_real_price() > 0)
 		if(istype(I, /obj/item/roguestatue))
 			return TRUE
@@ -39,14 +45,9 @@
 			return TRUE
 		if(istype(I, /obj/item/roguegem))
 			return TRUE
-		if(istype(I, /obj/item/clothing/ring))
-			return TRUE
 		if(istype(I, /obj/item/cooking/platter))
 			return TRUE
-		if(istype(I, /obj/item/candle/candlestick))
+		if(istype(I, /obj/item/candle))
 			return TRUE
-	// Gotta put it here so that ring go later lol
-	if(istype(I, /obj/item/clothing))
-		return FALSE
 	if(I.get_real_price() >= 30)
 		return TRUE

@@ -129,9 +129,14 @@
 	cost = 50
 	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/beer/kgunlager)
 
+/datum/supply_pack/rogue/alcohol/kgunplum
+	name = "Umeshu (Kazengun Plum Wine)"
+	cost = 40
+	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/beer/kgunplum)
+
 /datum/supply_pack/rogue/alcohol/kgunsake
 	name = "Junmai-ginjo"
-	cost = 250
+	cost = 150
 	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/beer/kgunsake)
 
 /datum/supply_pack/rogue/alcohol/kgunplum

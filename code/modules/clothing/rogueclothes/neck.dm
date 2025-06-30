@@ -514,17 +514,35 @@
 	//dropshrink = 0.75
 	resistance_flags = FIRE_PROOF
 	allowed_race = CLOTHED_RACES_TYPES
-	sellprice = 98
+	sellprice = 70
 	anvilrepair = /datum/skill/craft/armorsmithing
 
 /obj/item/clothing/neck/roguetown/horus
-	name = "eye of horuz"
-	desc = ""
+	name = "amulet of appraisal"
+	desc = "An amulet with a pristine eye embedded into it. Blind to everything, but to that which shines in gold."
 	icon_state = "horus"
 	//dropshrink = 0.75
 	resistance_flags = FIRE_PROOF
-	sellprice = 30
+	sellprice = 80
 	anvilrepair = /datum/skill/craft/armorsmithing
+
+/obj/item/clothing/neck/roguetown/horus/examine()
+	. = ..()
+	. += span_info("Click on a turf or an item to see how much it is worth. Avoid tables.")
+
+/obj/item/clothing/neck/roguetown/horus/afterattack(atom/A, mob/user, params)
+	. = ..()
+	var/total_sellprice = 0
+	if(isturf(A))
+		for(var/obj/item/I in A.contents)
+			total_sellprice += I.sellprice
+		to_chat(user, span_notice("Everything on the ground is worth [total_sellprice] mammons."))
+	else if(istype(A, /obj/item))
+		var/obj/item/I = A
+		total_sellprice += I.sellprice
+		for(var/obj/item/item in I.contents)
+			total_sellprice += item.sellprice
+		to_chat(user, span_notice("The item and its contents is worth [total_sellprice] mammons."))
 
 /obj/item/clothing/neck/roguetown/shalal
 	name = "desert rider medal"

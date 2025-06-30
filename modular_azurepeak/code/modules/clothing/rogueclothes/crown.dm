@@ -17,6 +17,7 @@
 	var/messagereceivedsound = 'sound/misc/scom.ogg'
 	var/hearrange = 0 // Only hearable by wearer
 	flags_1 = HEAR_1
+	is_important = TRUE
 
 /obj/item/clothing/head/roguetown/crown/serpcrown/Initialize()
 	. = ..()

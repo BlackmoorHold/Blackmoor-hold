@@ -4,6 +4,12 @@
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
+// DESIGN NOTE
+// Merchants need to be able to sell nearly all items that adventurers and combat roles need.
+// At a price designed to be undercuttable by economic roles
+// But also keep them honest so producer cannot charge a 2x margin and still be competitive
+// Merchant provides the primary source of money sinks in the economy, an alternative to producer roles
+
 #define UPGRADE_NOTAX		(1<<0)
 
 /obj/structure/roguemachine/goldface
@@ -25,20 +31,27 @@
 	var/list/categories = list(
 		"Alcohols",
 		"Apparel",
-		"Armor",
 		"Consumable",
-		"Foreign Weapons",
 		"Gems",
 		"Instruments",
 		"Luxury",
 		"Livestock",
 		"Perfumes",
-		"Potions",
 		"Raw Materials",
 		"Seeds",
 		"Tools",
 		"Wardrobe",
-		"Weapons"
+	)
+	var/list/categories_gamer = list(
+		"Adventuring Supplies",
+		"Armor (Light)",
+		"Armor (Iron)",
+		"Armor (Steel)",
+		"Potions",
+		"Weapons (Ranged)",
+		"Weapons (Iron and Shields)",
+		"Weapons (Steel)",
+		"Weapons (Foreign)",
 	)
 
 /obj/structure/roguemachine/goldface/Initialize()
@@ -166,10 +179,18 @@
 	contents += "</center><BR>"
 
 	if(current_cat == "1")
-		contents += "<center>"
-		for(var/X in categories)
-			contents += "<a href='?src=[REF(src)];changecat=[X]'>[X]</a><BR>"
-		contents += "</center>"
+		contents += "<table style='width: 100%' line-height: 20px;'>"
+		for(var/i = 1, i <= categories.len, i++)
+			contents += "<tr>"
+			contents += "<td style='width: 50%; text-align: center;'>\
+				<a href='?src=[REF(src)];changecat=[categories[i]]'>[categories[i]]</a>\
+				</td>"
+			if(i <= categories_gamer.len)
+				contents += "<td style='width: 50%; text-align: center;'>\
+					<a href='?src=[REF(src)];changecat=[categories_gamer[i]]'>[categories_gamer[i]]</a>\
+				</td>"
+			contents += "</tr>"
+		contents += "</table>"
 	else
 		contents += "<center>[current_cat]<BR></center>"
 		contents += "<center><a href='?src=[REF(src)];changecat=1'>\[RETURN\]</a><BR><BR></center>"
@@ -187,7 +208,7 @@
 	if(!canread)
 		contents = stars(contents)
 
-	var/datum/browser/popup = new(user, "VENDORTHING", "", 370, 600)
+	var/datum/browser/popup = new(user, "VENDORTHING", "", 500, 800)
 	popup.set_content(contents)
 	popup.open()
 
