@@ -10,7 +10,7 @@
 
 /mob/living/carbon/human/species/werewolf/female
 	gender = FEMALE
-	
+
 /datum/species/werewolf
 	name = "verewolf"
 	id = "werewolf"
@@ -59,7 +59,6 @@
 		//ORGAN_SLOT_BREASTS = /obj/item/organ/breasts,
 		//ORGAN_SLOT_VAGINA = /obj/item/organ/vagina,
 		)
-	var/wwbreastsize = 2
 	languages = list(
 		/datum/language/beast,
 		/datum/language/common,
@@ -71,47 +70,10 @@
 /datum/species/werewolf/regenerate_icons(mob/living/carbon/human/H)
 	H.icon = 'icons/roguetown/mob/monster/werewolf.dmi'
 	H.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
-
-	 //checks if the person has genitals, for sprites.
-	var/obj/item/organ/penis/penis = H.getorganslot(ORGAN_SLOT_PENIS)
-	var/obj/item/organ/breasts/breasts = H.getorganslot(ORGAN_SLOT_BREASTS)
-	var/obj/item/organ/vagina/vagina = H.getorganslot(ORGAN_SLOT_VAGINA)
-	if(breasts)
-		if(breasts.breast_size <= 2)
-			wwbreastsize = 1
-		else if(breasts.breast_size >= 4)
-			wwbreastsize = 3
-		else
-			wwbreastsize = 2
-	if(!H.sexcon)
-		H.sexcon = new /datum/sex_controller(src)
-
-	if(penis && !breasts && !vagina) //basic male
-		if(H.sexcon.arousal >= 20)
-			H.icon_state = "wwolf_m-e"
-		else if (H.sexcon.arousal >= 10)
-			H.icon_state = "wwolf_m-p"
-		else
-			H.icon_state = "wwolf_m"
-	else if(!penis && breasts && vagina) //basic female
-		H.icon_state = "wwolf_f-[wwbreastsize]"
-	else if (penis && breasts && !vagina) //dicked female without vagina
-		if(H.sexcon.arousal >= 20)
-			H.icon_state = "wwolf_g-e-[wwbreastsize]"
-		else if (H.sexcon.arousal >= 10)
-			H.icon_state = "wwolf_g-p-[wwbreastsize]"
-		else
-			H.icon_state = "wwolf_g-[wwbreastsize]"
-	else if(penis && vagina) //dicked female with vagina
-		if(H.sexcon.arousal >= 20)
-			H.icon_state = "wwolf_g-e-[wwbreastsize]"
-		else if (H.sexcon.arousal >= 10)
-			H.icon_state = "wwolf_g-p-[wwbreastsize]"
-		else
-			H.icon_state = "wwolf_g-[wwbreastsize]"
-	else //you got no tools, sorry, or you're andro.
-		H.icon_state = "wwolf_n"
-
+	if(H.gender == MALE)
+		H.icon_state = "wwolf_m"
+	else
+		H.icon_state = "wwolf_f"
 	H.update_damage_overlays()
 	return TRUE
 
