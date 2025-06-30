@@ -10,6 +10,11 @@
 	penfactor = 20
 	chargetime = 0
 	item_d_type = "slash"
+	clickcd = 12 // Was already 12, it's just here to make it clear the cooldown is 1.2 second.
+
+/datum/intent/axe/cut/onehanded
+	name = "one-handed cut"
+	clickcd = 14 // One-handed swings are logically slower.
 
 /datum/intent/axe/chop
 	name = "chop"
@@ -22,19 +27,33 @@
 	swingdelay = 10
 	clickcd = 14
 	item_d_type = "slash"
+	intdamage_factor = 1.05 // It's an axe.
+
+/datum/intent/axe/chop/onehanded
+	clickcd = 16 // One-handed chops are logically slower.
+	swingdelay = 12 // One-handed chops are logically slower.
+	penfactor = 32
 
 /datum/intent/axe/chop/scythe
 	reach = 2
 
 /datum/intent/axe/chop/stone
-	penfactor = 5
+	penfactor = 10
 
 /datum/intent/axe/chop/battle
-	damfactor = 1.2 //36 on battleaxe
+	damfactor = 1.2 // 36 on battleaxe
 	penfactor = 40
+
+/datum/intent/axe/chop/battle/onehanded
+	clickcd = 16 // One-handed chops are logically slower, especially for the battleaxe.
+	swingdelay = 12 // One-handed chops are logically slower, especially for the battleaxe.
 
 /datum/intent/axe/cut/battle
 	penfactor = 25
+
+/datum/intent/axe/cut/battle/onehanded
+	name = "one-handed cut"
+	clickcd = 16 // One-handed swings are logically slower, especially for the battleaxe.
 
 /datum/intent/axe/bash
 	name = "bash"
@@ -44,10 +63,11 @@
 	blade_class = BCLASS_BLUNT
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	chargetime = 0
-	penfactor = 10
+	penfactor = 20
 	swingdelay = 5
 	damfactor = 1.1
 	item_d_type = "blunt"
+	intdamage_factor = 1.1 // It's hitting it with a blunt side.
 
 //axe objs ฅ^•ﻌ•^ฅ
 
@@ -140,15 +160,15 @@
 /obj/item/rogueweapon/stoneaxe/battle
 	force = 25
 	force_wielded = 30
-	possible_item_intents = list(/datum/intent/axe/cut/battle, /datum/intent/axe/chop/battle, /datum/intent/axe/bash, /datum/intent/sword/peel)
-	wlength = WLENGTH_LONG		//It's a big battle-axe.
+	possible_item_intents = list(/datum/intent/axe/cut/battle/onehanded, /datum/intent/axe/chop/battle/onehanded, /datum/intent/axe/bash, /datum/intent/sword/peel)
+	gripped_intents = list(/datum/intent/axe/cut/battle ,/datum/intent/axe/chop/battle, /datum/intent/axe/bash, /datum/intent/sword/peel)
+	wlength = WLENGTH_NORMAL // WLENGTH_LONG is too much for this thing.
 	name = "battle axe"
 	desc = "A steel battleaxe of war. Has a wicked edge."
 	icon_state = "battleaxe"
 	max_blade_int = 300
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
-	gripped_intents = list(/datum/intent/axe/cut/battle ,/datum/intent/axe/chop/battle, /datum/intent/axe/bash, /datum/intent/sword/peel)
 	minstr = 9
 	wdefense = 4
 
@@ -167,7 +187,8 @@
 /obj/item/rogueweapon/stoneaxe/oath
 	force = 30
 	force_wielded = 40
-	possible_item_intents = list(/datum/intent/axe/cut/battle, /datum/intent/axe/chop/battle, /datum/intent/axe/bash)
+	possible_item_intents = list(/datum/intent/axe/cut/battle/onehanded, /datum/intent/axe/chop/battle/onehanded, /datum/intent/axe/bash)
+	gripped_intents = list(/datum/intent/axe/cut/battle, /datum/intent/axe/chop/battle, /datum/intent/axe/bash)
 	name = "oath"
 	desc = "A hefty, steel-forged axe marred by the touch of countless Wardens. Despite it's weathered etchings and worn grip, the blade has been honed to a razor's edge and you can see your reflection in the finely polished metal."
 	icon_state = "oath"
@@ -183,7 +204,6 @@
 	bigboy = TRUE
 	gripsprite = TRUE
 	smeltresult = /obj/item/ingot/steel
-	gripped_intents = list(/datum/intent/axe/cut/battle ,/datum/intent/axe/chop/battle, /datum/intent/axe/bash)
 	minstr = 12
 	wdefense = 5
 
@@ -198,19 +218,17 @@
 				return list("shrink" = 0.5,"sx" = 1,"sy" = -1,"nx" = 1,"ny" = -1,"wx" = 4,"wy" = -1,"ex" = -1,"ey" = -1,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 8,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0,)
 
 
-
 /obj/item/rogueweapon/stoneaxe/woodcut
 	name = "axe"
 	force = 20
 	force_wielded = 26
-	possible_item_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/sword/peel)
+	possible_item_intents = list(/datum/intent/axe/cut/onehanded, /datum/intent/axe/chop/onehanded, /datum/intent/sword/peel)
+	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/sword/peel)
 	desc = "A regular iron woodcutting axe."
 	icon_state = "axe"
 	max_blade_int = 400
 	smeltresult = /obj/item/ingot/iron
-	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/sword/peel)
 	wdefense = 2
-
 
 
 /obj/item/rogueweapon/stoneaxe/woodcut/aaxe
@@ -240,7 +258,7 @@
 	icon_state = "wardenpax"
 	force = 22
 	force_wielded = 28
-	possible_item_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/mace/warhammer/pick, /datum/intent/axe/bash)
+	possible_item_intents = list(/datum/intent/axe/cut/onehanded, /datum/intent/axe/chop/onehanded, /datum/intent/mace/warhammer/pick, /datum/intent/axe/bash)
 	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/mace/warhammer/pick, /datum/intent/axe/bash)
 	smeltresult = /obj/item/ingot/steel
 	wlength = WLENGTH_NORMAL
@@ -266,13 +284,13 @@
 /obj/item/rogueweapon/stoneaxe/handaxe
 	force = 19
 	possible_item_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/sword/peel)
+	gripped_intents = null
 	name = "hatchet"
 	desc = "An iron hand axe."
 	icon_state = "hatchet"
 	minstr = 1
 	max_blade_int = 400
 	smeltresult = /obj/item/ingot/iron
-	gripped_intents = null
 	wdefense = 2
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel
@@ -306,13 +324,13 @@
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
 	force = 18
 	force_wielded = 22
-	possible_item_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop)
+	possible_item_intents = list(/datum/intent/axe/cut/onehanded, /datum/intent/axe/chop/onehanded)
+	gripped_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop)
 	name = "bone axe"
 	desc = "A rough axe made of bones"
 	icon_state = "boneaxe"
 	lefthand_file = 'icons/mob/inhands/weapons/rogue_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/rogue_righthand.dmi'
-	//dropshrink = 0.75
 	parrysound = list('sound/combat/parry/wood/parrywood (1).ogg', 'sound/combat/parry/wood/parrywood (2).ogg', 'sound/combat/parry/wood/parrywood (3).ogg')
 	swingsound = BLADEWOOSH_MED
 	associated_skill = /datum/skill/combat/axes
@@ -322,7 +340,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	wlength = WLENGTH_SHORT
 	pickup_sound = 'sound/foley/equip/rummaging-03.ogg'
-	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop)
 	resistance_flags = FLAMMABLE
 
 /obj/item/rogueweapon/stoneaxe/boneaxe/getonmobprop(tag)
@@ -341,11 +358,11 @@
 	desc = "A one-handed war axe forged of silver."
 	icon_state = "silveraxe"
 	force = 24
-	possible_item_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/axe/bash)
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash)
+	gripped_intents = null
 	minstr = 6
 	max_blade_int = 400
 	smeltresult = /obj/item/ingot/silver
-	gripped_intents = null
 	wdefense = 4
 	is_silver = TRUE
 	blade_dulling = DULLING_SHAFT_METAL
@@ -375,8 +392,8 @@
 /obj/item/rogueweapon/greataxe
 	force = 15
 	force_wielded = 30
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, /datum/intent/sword/peel/big, SPEAR_BASH)
+	possible_item_intents = list(/datum/intent/axe/cut/onehanded, /datum/intent/axe/chop/onehanded, SPEAR_BASH) // Bash is for non-lethal takedowns, only target limbs for best results.
+	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, SPEAR_BASH, /datum/intent/sword/peel/big)
 	name = "greataxe"
 	desc = "A iron great axe, a long-handled axe with a single blade made for ruining someone's day beyond any measure.."
 	icon_state = "igreataxe"
@@ -417,8 +434,8 @@
 /obj/item/rogueweapon/greataxe/steel
 	force = 15
 	force_wielded = 30
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, /datum/intent/sword/peel/big, SPEAR_BASH)
+	possible_item_intents = list(/datum/intent/axe/cut/onehanded, /datum/intent/axe/chop/onehanded, SPEAR_BASH) // Bash is for non-lethal takedowns, only target limbs for best results.
+	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, SPEAR_BASH, /datum/intent/sword/peel/big)
 	name = "steel greataxe"
 	desc = "A steel great axe, a long-handled axe with a single blade made for ruining someone's day beyond any measure.."
 	icon_state = "sgreataxe"
@@ -430,8 +447,8 @@
 /obj/item/rogueweapon/greataxe/steel/doublehead
 	force = 15
 	force_wielded = 35
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, /datum/intent/sword/peel/big, SPEAR_BASH)
+	possible_item_intents = list(/datum/intent/axe/cut/onehanded, /datum/intent/axe/chop/onehanded, SPEAR_BASH) // Bash is for non-lethal takedowns, only target limbs for best results.
+	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, SPEAR_BASH, /datum/intent/sword/peel/big)
 	name = "double-headed steel greataxe"
 	desc = "A steel great axe with a wicked double-bladed head. Perfect for cutting either men or trees into stumps.."
 	icon_state = "doublegreataxe"

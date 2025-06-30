@@ -254,11 +254,10 @@
 	craftdiff = 0
 
 /datum/anvil_recipe/weapons/copper/cdagger
-	name = "x2 Copper Knives"
+	name = "Copper Knife"
 	appro_skill = /datum/skill/craft/weaponsmithing
 	req_bar = /obj/item/ingot/copper
 	created_item = /obj/item/rogueweapon/huntingknife/copper
-	createditem_num = 2
 	craftdiff = 0
 
 /datum/anvil_recipe/weapons/copper/cmesser

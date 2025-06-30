@@ -6,7 +6,6 @@
 	icon_state = "iflail"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	sharpness = IS_BLUNT
-	//dropshrink = 0.75
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
@@ -34,6 +33,7 @@
 	penfactor = 40
 	icon_state = "instrike"
 	item_d_type = "blunt"
+	intdamage_factor = 1.1
 
 /datum/intent/flail/strike/matthiosflail
 	reach = 2
@@ -44,7 +44,7 @@
 	attack_verb = list("strikes", "hits")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
-	recovery = 15
+	recovery = 15 // It isn't coded fully, does nothing as a result, can be found in intents.dm
 	penfactor = 20
 	reach = 2
 	icon_state = "instrike"
@@ -55,8 +55,8 @@
 	chargetime = 5
 	chargedrain = 2
 	no_early_release = TRUE
-	penfactor = 60
-	recovery = 10
+	penfactor = 55
+	recovery = 10 // It isn't coded fully, does nothing as a result, can be found in intents.dm
 	damfactor = 1.6
 	chargedloop = /datum/looping_sound/flailswing
 	keep_looping = TRUE
@@ -65,6 +65,7 @@
 	attack_verb = list("smashes")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	item_d_type = "blunt"
+	intdamage_factor = 1.1
 
 /datum/intent/flail/strike/smash/matthiosflail
 	reach = 2
@@ -80,7 +81,7 @@
 	chargetime = 10
 	chargedrain = 2
 	no_early_release = TRUE
-	recovery = 30
+	recovery = 30 // It isn't coded fully, does nothing as a result, can be found in intents.dm
 	damfactor = 1
 	penfactor = 60
 	reach = 2
@@ -145,35 +146,38 @@
 /datum/intent/whip/lash
 	name = "lash"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("lashes", "cracks")
+	attack_verb = list("lashes", "whips")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
-	recovery = 7
-	penfactor = 40
+	recovery = 7 // It isn't coded fully, does nothing as a result, can be found in intents.dm
+	penfactor = 10
 	damfactor = 1.1
 	reach = 2
 	icon_state = "inlash"
-	item_d_type = "slash"
+	item_d_type = "blunt"
 
 /datum/intent/whip/crack
 	name = "crack"
-	blade_class = BCLASS_CUT
-	attack_verb = list("cracks", "strikes") //something something dwarf fotresss
+	blade_class = BCLASS_STAB
+	attack_verb = list("cracks", "snap-lashes") // Something something, Dwarf Fotresss.
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
-	chargetime = 0
-	recovery = 10
-	penfactor = 40
+	chargetime = 1
+	no_early_release = TRUE
+	charging_slowdown = 1
+	recovery = 10 // It isn't coded fully, does nothing as a result, can be found in intents.dm
+	penfactor = 35
 	reach = 3
 	icon_state = "incrack"
-	item_d_type = "slash"
+	item_d_type = "stab"
 
 /datum/intent/whip/punish
 	name = "punish"
 	blade_class = BCLASS_BLUNT
-	attack_verb = list("lashes")
+	attack_verb = list("punish-lashes, punish-whips")
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	chargetime = 0
-	recovery = 10
+	recovery = 10 // It isn't coded fully, does nothing as a result, can be found in intents.dm
+	damfactor = 0.2 // This intent was originally designed for roleplay punishments in mind.
 	penfactor = 20
 	reach = 2
 	icon_state = "inpunish"
@@ -182,12 +186,11 @@
 /obj/item/rogueweapon/whip
 	force = 21
 	possible_item_intents = list(/datum/intent/whip/crack, /datum/intent/whip/lash, /datum/intent/whip/punish)
-	name = "whip"
+	name = "leather whip"
 	desc = "A leather whip. Built to last, with a sharp stone for a tip."
 	icon_state = "whip"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	sharpness = IS_BLUNT
-	//dropshrink = 0.75
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BELT
@@ -216,7 +219,7 @@
 /datum/intent/whip/crack/blunt
 	name = "bludgen"
 	blade_class = BCLASS_BLUNT
-	recovery = 6
+	recovery = 6 // It isn't coded fully, does nothing as a result, can be found in intents.dm
 	damfactor = 1.2 	//20% bonus because no pen, and it doesn't get smash crits.
 	reach = 2			//Less range than a normal whip by 1
 	icon_state = "instrike"
@@ -237,11 +240,15 @@
 	force = 24
 
 /obj/item/rogueweapon/whip/antique
-	force = 29
+	force = 28
 	name = "Repenta En"
+	possible_item_intents = list(/datum/intent/whip/crack, /datum/intent/whip/lash/antique, /datum/intent/whip/punish)
 	desc = "An extremely well maintained whip, with a polished steel tip and gilded handle"
 	minstr = 11
 	icon_state = "gwhip"
+
+/datum/intent/whip/lash/antique
+	penfactor = 15
 
 /obj/item/rogueweapon/whip/antique/psywhip
 	name = "Daybreak"

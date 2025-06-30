@@ -8,7 +8,6 @@
 	icon_state = "scepter"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	sharpness = IS_BLUNT
-	//dropshrink = 0.75
 	wlength = WLENGTH_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_HIP
@@ -648,7 +647,7 @@
 /obj/item/rogueweapon/sword/falchion/militia
 	name = "maciejowski"
 	desc = "Fittingly coined as a 'peasant's falchion', this hunting sword's blade has been retempered to hunt the most dangerous game. Those jagged edges are perfect for tearing into flesh-and-maille."
-	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike)
+	possible_item_intents = list(/datum/intent/sword/cut/militia, /datum/intent/sword/strike)
 	icon_state = "maciejowski"
 	gripped_intents = list(/datum/intent/rend, /datum/intent/sword/chop/militia, /datum/intent/sword/peel, /datum/intent/sword/strike)
 	force = 18
@@ -658,3 +657,14 @@
 	wdefense = 3
 	wbalance = WBALANCE_HEAVY
 	intdamage_factor = 0.6
+
+/datum/intent/sword/cut/militia
+	penfactor = 30
+	damfactor = 1.2
+	chargetime = 0.2
+
+/datum/intent/sword/chop/militia
+	penfactor = 50
+	chargetime = 0.5
+	swingdelay = 0
+	damfactor = 1.0

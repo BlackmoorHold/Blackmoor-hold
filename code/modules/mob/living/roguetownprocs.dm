@@ -21,7 +21,7 @@
 		chance2hit += 10
 
 	if(user.mind)
-		chance2hit += (user.mind.get_skill_level(associated_skill) * 8)
+		chance2hit += (user.mind.get_skill_level(associated_skill) * 7)
 
 	if(HAS_TRAIT(user, TRAIT_CIVILIZEDBARBARIAN) && (zone == BODY_ZONE_L_LEG || zone == BODY_ZONE_R_LEG) && used_intent.unarmed)
 		chance2hit += 20
@@ -33,15 +33,19 @@
 			chance2hit += 25
 		if(used_intent.blade_class == BCLASS_CUT)
 			chance2hit += 6
-		if((used_intent.blade_class == BCLASS_BLUNT || used_intent.blade_class == BCLASS_SMASH) && check_zone(zone) != zone)	//A mace can't hit the eyes very well
+		if((used_intent.blade_class == BCLASS_BLUNT || used_intent.blade_class == BCLASS_SMASH) && check_zone(zone) != zone)	// A mace can't hit the eyes very well
 			chance2hit -= 10
 
 	if(I)
 		if(I.wlength == WLENGTH_SHORT)
 			chance2hit += 10
+	
+	if(istype(I, /obj/item/rogueweapon/sword)) // Path type of the weapon one wishes to update.
+		var/obj/item/rogueweapon/sword/S = I   // Giving it a var, apply it on the weapon in question you wish for the path to start, look up arming sword for example.
+		chance2hit += S.accuracy_bonus_sword   // Custom naming to apply, for example, after the var/ is defined in the earliest weapon, just add the same without the var/
 
 	if(user.STAPER > 10)
-		chance2hit += (min((user.STAPER-10)*8, 40))
+		chance2hit += (min((user.STAPER-10)*6, 40))
 
 	if(user.STAPER < 10)
 		chance2hit -= ((10-user.STAPER)*10)
@@ -51,7 +55,7 @@
 	if(istype(user.rmb_intent, /datum/rmb_intent/swift))
 		chance2hit -= 20
 
-	chance2hit = CLAMP(chance2hit, 5, 93)
+	chance2hit = CLAMP(chance2hit, 5, 95)
 
 	if(prob(chance2hit))
 		return zone
