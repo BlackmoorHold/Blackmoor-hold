@@ -1,4 +1,3 @@
-
 # Learn AI
 
 In ye olde days, we designed mob AI, and we built it into simple animals as they were the "non player controlled" mobs. Made sense at the time. But by coding AI directly into the mob, there was so little ability to make unique or complicated AI, and even when it was pulled off the code was hacky and non-reusable. the datum AI system was made to rectify these problems, and expand AI beyond just mobs.
@@ -51,7 +50,7 @@ AI's work by planning specific behaviors, and subtrees are datums that bundle th
 ```dm
 /datum/ai_controller/basic/cow
 	ai_traits = null
-	ai_movement = /datum/ai_movement/basic_avoidance
+	ai_movement = /datum/ai_movement/astar
 	idle_behavior = null
 
 ```

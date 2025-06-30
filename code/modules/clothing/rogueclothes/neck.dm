@@ -7,6 +7,7 @@
 	experimental_inhand = FALSE
 	alternate_worn_layer = NECK_LAYER
 	var/overarmor
+	var/leashable = FALSE
 
 /obj/item/clothing/neck/roguetown/MiddleClick(mob/user, params)
 	. = ..()

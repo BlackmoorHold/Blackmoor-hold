@@ -1,4 +1,3 @@
-
 /obj/structure/roguewindow
 	name = "window"
 	desc = "A glass window."
@@ -8,7 +7,9 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE
-	max_integrity = 25 //lets you jump through em.
+
+	max_integrity = 200
+
 	integrity_failure = 0.5
 	var/base_state = "window-solid"
 	var/lockdir = 0
@@ -51,7 +52,9 @@
 	icon_state = null
 	base_state = null
 	opacity = TRUE
-	max_integrity = 25
+
+	max_integrity = 200 
+
 	integrity_failure = 0.5
 
 /obj/structure/roguewindow/stained/silver
@@ -70,7 +73,9 @@
 	icon_state = "woodwindowdir"
 	base_state = "woodwindow"
 	opacity = TRUE
-	max_integrity = 25
+
+	max_integrity = 200
+
 	integrity_failure = 0.5
 
 /obj/structure/roguewindow/openclose/OnCrafted(dirin)
@@ -86,7 +91,9 @@
 	desc = "A glass window. This one looks reinforced with a metal mesh."
 	icon_state = "reinforcedwindowdir"
 	base_state = "reinforcedwindow"
-	max_integrity = 400
+
+	max_integrity = 800
+
 	integrity_failure = 0.1
 
 /obj/structure/roguewindow/openclose/reinforced/OnCrafted(dirin)
@@ -102,7 +109,7 @@
 	desc = "A glass window. This one looks reinforced with a metal frame."
 	icon_state = "brickwindowdir"
 	base_state = "brickwindow"
-	max_integrity = 800	//Better than reinforced by a bit; metal frame.
+	max_integrity = 1000	//Better than reinforced by a bit; metal frame.
 
 /obj/structure/roguewindow/openclose/reinforced/brick/OnCrafted(dirin)
 	dir = turn(dirin, 180)
@@ -195,19 +202,41 @@
 	opacity = TRUE
 	update_icon()
 
+
+/obj/structure/roguewindow/CanAStarPass(ID, to_dir, caller)
+	. = ..()
+	var/atom/movable/mover = caller
+	if(!. && istype(mover) && (mover.pass_flags & PASSTABLE) && climbable)
+		return TRUE
+
 /obj/structure/roguewindow/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE) && climbable)
 		return 1
 	if(isliving(mover))
 		if(mover.throwing)
 			if(!climbable)
-				take_damage(10)
-			if(brokenstate)
+				if(!iscarbon(mover))
+					take_damage(10)
+				else
+					var/mob/living/carbon/dude = mover
+					var/base_damage = 20
+					take_damage(base_damage * (dude.STASTR / 10))
+			if(brokenstate || climbable)
+				if(ishuman(mover))
+					var/mob/living/carbon/human/dude = mover
+					if(prob(100 - clamp((dude.mind.get_skill_level(/datum/skill/misc/athletics) + dude.mind.get_skill_level(/datum/skill/misc/climbing)) * 10, 10, 100)))
+						var/obj/item/bodypart/head/head = dude.get_bodypart(BODY_ZONE_HEAD)
+						head.receive_damage(20)
+						dude.Stun(5 SECONDS)
+						dude.Knockdown(5 SECONDS)
+						dude.visible_message(
+							span_warning("[dude] hits their head as they fly through the window!"),
+							span_danger("I hit my head on the window frame!"))
 				return 1
 	else if(isitem(mover))
 		var/obj/item/I = mover
 		if(I.throwforce >= 10)
-			take_damage(10)
+			take_damage(I.throwforce)
 			if(brokenstate)
 				return 1
 		else

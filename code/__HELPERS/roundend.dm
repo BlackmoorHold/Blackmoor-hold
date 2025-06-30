@@ -113,7 +113,7 @@
 		H.LoseTarget()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		H.mode = AI_OFF
+		H.mode = NPC_AI_OFF
 
 /client/proc/show_game_over()
 	var/atom/movable/screen/splash/credits/S = new(src, FALSE)
@@ -131,7 +131,7 @@
 
 	log_game("The round has ended.")
 
-	to_chat(world, "<BR><BR><BR><span class='reallybig'>So ends this tale on Blackmoor.</span>")
+	to_chat(world, "<BR><BR><BR><span class='reallybig'>So ends this tale on Azure Peak.</span>")
 	get_end_reason()
 
 	var/list/key_list = list()
@@ -229,7 +229,7 @@
 	if(vampire_werewolf() == "vampire")
 		end_reason = "When the Vampires finished sucking the town dry, they moved on to the next one."
 	if(vampire_werewolf() == "werewolf")
-		end_reason = "The Werevolves formed an unholy clan, marauding Blackmoor until the end of its daes."
+		end_reason = "The Werevolves formed an unholy clan, marauding Azure Peak until the end of its daes."
 
 	if(SSmapping.retainer.head_rebel_decree)
 		end_reason = "The peasant rebels took control of the throne, hail the new community!"

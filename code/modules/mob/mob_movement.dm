@@ -163,16 +163,12 @@
 			if(L.m_intent == MOVE_INTENT_RUN)
 				L.toggle_rogmove_intent(MOVE_INTENT_WALK)
 	else
-		if(prefs.toggles & RUN_MODE)
-			if(L.dir != target_dir)
-				if(L.m_intent == MOVE_INTENT_RUN && L.sprinted_tiles > 0)
+		if(L.dir != target_dir)
+			if(abs(dir2angle(L.dir) - dir2angle(target_dir)) == 180)	//If we do a 180 turn, we cancel our run
+				if(L.m_intent == MOVE_INTENT_RUN)
 					L.toggle_rogmove_intent(MOVE_INTENT_WALK)
-					// Classic run-cancelling when turning
-		else if(abs(dir2angle(L.dir) - dir2angle(target_dir)) == 180)	//If we do a 180 turn, we cancel our run
-			if(L.m_intent == MOVE_INTENT_RUN)
-				L.toggle_rogmove_intent(MOVE_INTENT_WALK)
-				// Reset our sprint counter if we change direction
-				L.sprinted_tiles = 0
+			// Reset our sprint counter if we change direction
+			L.sprinted_tiles = 0
 
 	. = ..()
 
@@ -252,6 +248,28 @@
 		move_delay = world.time + 10
 		to_chat(src, span_warning("[L] still has footing! I need a stronger grip!"))
 		return TRUE    
+
+	if(isanimal(mob.pulling))
+		var/mob/living/simple_animal/bound = mob.pulling
+		if(bound.binded)
+			move_delay = world.time + 10
+			to_chat(src, span_warning("[bound] is bound in a summoning circle. I can't move them!"))
+			return TRUE
+
+// similar to the above, but for NPCs mostly
+/mob/proc/is_move_blocked_by_grab()
+	if(pulledby && pulledby != src)
+		return TRUE
+	if(isliving(pulling))
+		var/mob/living/L = pulling
+		if(L.cmode && !L.resting && !L.incapacitated() && grab_state < GRAB_AGGRESSIVE)
+			return TRUE
+		if(buckled)
+			return TRUE
+	if(isanimal(pulling))
+		var/mob/living/simple_animal/bound = pulling
+		if(bound.binded)
+			return TRUE
 
 /**
   * Allows mobs to ignore density and phase through objects
@@ -840,3 +858,8 @@
 /// Can this mob move between z levels
 /mob/proc/canZMove(direction, turf/target)
 	return FALSE
+
+// Ageneral-purpose proc used to centralize checks to skip turf, movement, step, etc. effects 
+// for mobs that are floating, flying, intangible, etc.
+/mob/proc/is_floor_hazard_immune()
+	return throwing || (movement_type & (FLYING|FLOATING))

@@ -95,7 +95,7 @@
 	damfactor = 0.8
 
 /datum/intent/rend/krieg
-	intdamage_factor = 0.6
+	intent_intdamage_factor = 0.6
 
 //sword objs ฅ^•ﻌ•^ฅ
 

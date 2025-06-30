@@ -119,6 +119,11 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += span_notice("Ctrl-Shift-click [src] to jump inside.")*/
 
+/obj/structure/closet/CanAStarPass(ID, dir, caller)
+	if(wall_mounted)
+		return TRUE
+	return ..()
+
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target)
 	if(wall_mounted)
 		return TRUE
@@ -572,14 +577,14 @@
 		if(!open(user))
 			to_chat(user, span_warning("It won't budge!"))
 			return
-	step_towards(user, T2)
-	T1 = get_turf(user)
-	if(T1 == T2)
-		user.resting = TRUE //so people can jump into crates without slamming the lid on their head
-		if(!close(user))
-			to_chat(user, span_warning("I can't get [src] to close!"))
+		step_towards(user, T2)
+		T1 = get_turf(user)
+		if(T1 == T2)
+			user.resting = TRUE //so people can jump into crates without slamming the lid on their head
+			if(!close(user))
+				to_chat(user, span_warning("I can't get [src] to close!"))
+				user.resting = FALSE
+				return
 			user.resting = FALSE
-			return
-		user.resting = FALSE
-		togglelock(user)
-		T1.visible_message(span_warning("[user] dives into [src]!"))
+			togglelock(user)
+			T1.visible_message(span_warning("[user] dives into [src]!"))

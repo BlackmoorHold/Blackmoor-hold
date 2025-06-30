@@ -1579,7 +1579,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/bladec = user.used_intent.blade_class
 	if(H == user && bladec == BCLASS_PEEL)
 		bladec = BCLASS_BLUNT
-	var/armor_block = H.run_armor_check(selzone, I.d_type, "", "",pen, damage = Iforce, blade_dulling=user.used_intent.blade_class, peeldivisor = user.used_intent.peel_divisor, intdamfactor = user.used_intent.masteritem?.intdamage_factor)
+	var/higher_intfactor = max(user.used_intent.masteritem?.intdamage_factor, user.used_intent.intent_intdamage_factor)
+	var/lowest_intfactor = min(user.used_intent.masteritem?.intdamage_factor, user.used_intent.intent_intdamage_factor)
+	var/used_intfactor = 1
+	if(lowest_intfactor < 1)	//Our intfactor multiplier can be either 0 to 1, or 1 to whatever.
+		used_intfactor = lowest_intfactor
+	if(higher_intfactor > 1)	//Make sure to keep your weapon and intent intfactors consistent to avoid problems here!
+		used_intfactor = higher_intfactor
+	
+	var/armor_block = H.run_armor_check(selzone, I.d_type, "", "",pen, damage = Iforce, blade_dulling=user.used_intent.blade_class, peeldivisor = user.used_intent.peel_divisor, intdamfactor = used_intfactor)
 
 	var/nodmg = FALSE
 
@@ -1845,9 +1853,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/burn_damage
 		var/firemodifier = H.fire_stacks / 50
 		if (H.on_fire)
-			burn_damage = 20
-			if(H.fire_stacks >= HUMAN_FIRE_STACK_ICON_NUM)
-				burn_damage = 200
+			burn_damage = min(5, H.fire_stacks * 2) // Minimum of 5 damage if you are on fire. Otherwise applies 2 per stack, up to 40.
 		else
 			firemodifier = min(firemodifier, 0)
 			burn_damage = max(log(2-firemodifier,(H.bodytemperature-BODYTEMP_NORMAL))-5,0) // this can go below 5 at log 2.5
@@ -1885,6 +1891,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.remove_movespeed_modifier(MOVESPEED_ID_COLD)
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "hot")
+
+// A general-purpose proc used to centralise checks to skip turf, movement, step, etc. 
+// For if a mob is floating, flying, intangible, etc.
+/datum/species/proc/is_floor_hazard_immune(mob/living/carbon/human/owner)
+	return FALSE
 
 //////////
 // FIRE //
@@ -1940,7 +1951,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		for(var/X in burning_items)
 			var/obj/item/I = X
-			I.fire_act((H.fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
+			I.fire_act(((H.fire_stacks + H.fire_stacks) * 50)) //damage taken is reduced to 2% of this value by fire_act()
 
 		var/thermal_protection = H.get_thermal_protection()
 
