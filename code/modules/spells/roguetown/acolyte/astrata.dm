@@ -66,8 +66,13 @@
 /obj/effect/proc_holder/spell/invoked/revive/cast(list/targets, mob/living/user)
 	. = ..()
 	if(isliving(targets[1]))
-		testing("revived1")
 		var/mob/living/target = targets[1]
+		// Block revival for inhumen or old god faith
+		if(istype(target.patron, /datum/patron/inhumen) || istype(target.patron, /datum/patron/old_god))
+			to_chat(user, span_warning("The divine light refuses to touch [target]. Their faith bars resurrection!"))
+			revert_cast()
+			return FALSE
+		testing("revived1")
 		if(!target.mind)
 			revert_cast()
 			return FALSE
