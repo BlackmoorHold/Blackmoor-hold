@@ -59,6 +59,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	screen_max_rows = 2
 	screen_max_columns = 2
+	storage_flags = NONE
 
 /datum/component/storage/concrete/roguetown/cloak/lord
 	max_w_class = WEIGHT_CLASS_BULKY
