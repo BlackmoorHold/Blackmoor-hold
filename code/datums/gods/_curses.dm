@@ -61,15 +61,6 @@
     qdel(src)
     return
 
-/datum/curse/astrata
-    name = "Astrata's Curse"
-    description = "I am forsaken by the Sun. Healing miracles have no effect on me."
-    trait = TRAIT_ASTRATA_CURSE
-
-/datum/curse/noc
-    name = "Noc's Curse"
-    description = "Magical knowledge is now beyond my grasp."
-    trait = TRAIT_NOC_CURSE
 
 /datum/curse/ravox
     name = "Ravox's Curse"
@@ -81,10 +72,6 @@
     description = "Necra has claimed my soul. No one will bring me back from the dead."
     trait = TRAIT_NECRA_CURSE
 
-/datum/curse/xylix
-    name = "Xylix's Curse"
-    description = "Fortune is no longer on my side."
-    trait = TRAIT_XYLIX_CURSE
 
 /datum/curse/pestra
     name = "Pestra's Curse"
@@ -105,51 +92,6 @@
     name = "Malum's Curse"
     description = "My thoughts race with endless designs I cannot build. The tools tremble in my hands."
     trait = TRAIT_MALUM_CURSE
-
-
-//ASStrata's Curse
-
-/datum/curse/astrata/on_life(mob/living/carbon/human/owner)
-	. = ..()
-	if (!owner || owner.stat == DEAD)
-		return
-
-	if (!HAS_TRAIT(owner, TRAIT_ASTRATA_CURSE))
-		return
-
-	if (GLOB.tod != "night") // только днём
-		if (isturf(owner.loc))
-			var/turf/T = owner.loc
-			if (T.can_see_sky() && T.get_lumcount() > 0.15)
-				owner.adjust_fire_stacks(5)
-				owner.IgniteMob()
-				owner.visible_message(
-					span_warning("[owner] sizzles painfully under Astrata's holy light!"),
-					span_danger("The sun burns my cursed flesh!")
-				)
-				owner.freak_out()
-				owner.playsound_local(T, 'sound/magic/churn.ogg', 80, FALSE, pressure_affected = FALSE)
-
-
-
-//NOC's Curse
-
-/datum/curse/noc/on_life(mob/living/carbon/human/owner)
-	. = ..()
-	if (!owner || owner.stat == DEAD)
-		return
-
-	if (!HAS_TRAIT(owner, TRAIT_NOC_CURSE))
-		return
-
-	if (isturf(owner.loc))
-		var/turf/T = owner.loc
-		if (T.get_lumcount() < 0.2)
-			owner.adjustToxLoss(10, 0)
-			owner.visible_message(
-				span_warning("[owner] writhes in pain from Noc's shadowy curse!"),
-				span_danger("The darkness... it's burning inside!")
-			)
 
 
 //Pestra's Curse
